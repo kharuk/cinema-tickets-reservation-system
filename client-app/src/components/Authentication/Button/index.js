@@ -5,7 +5,7 @@ class Button extends Component {
 
     render() {
       return (
-        <button className="form-login__button">{this.props.text}
+        <button className="authentication__form-button">{this.props.text}
           <i className=""></i>
         </button>
       )
