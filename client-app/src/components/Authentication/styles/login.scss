@@ -3,17 +3,15 @@
 @import './global.scss';
 
 .wrapper {
-  background: url('');
-  background-color: pink;
+  background-color: $form-login_background-color;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
- //margin-top: 5%;
   min-height: 100vh;
 }
 
-.inner {
+.authentication__inner {
 	padding: 2%;
 	background: $white-color;
   max-width: 850px;
@@ -22,16 +20,16 @@
 	display: flex;
 	.image-holder {
     width: 50%;
-    background-color: aquamarine;
-    background: url('../images/registration-form-1.jpg');
+		background: url("../images/registration-form-1.jpg") 60% 100% no-repeat;
+		background-size: cover;
 	}
-	.login-form {
+	.form-login {
 		width: 50%;
 		padding-top: 2%;
 		padding-left: 4%;
 		padding-right: 4%;
 	}
-	h3 {
+	.authentication__header {
 		text-transform: uppercase;
 		font-size: 1.5rem;
 		font-family: "Poppins-SemiBold";
@@ -40,5 +38,103 @@
 	}
 }
 
+.form-login__form-group {
+	display: flex;
+	margin-bottom: 0;
+	.form-login__input-half {
+		width: 50%;
+		&:first-child {
+			margin-right: 25px;
+		}
+	}
+}
 
+.form-wrapper {
+	position: relative;
+	i{
+		position: absolute;
+
+	}
+}
+
+.form-login__control {
+	border: 1px solid $black-color;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	margin-bottom: 5%;
+	border-radius: 0;
+	padding: 0;
+	font-size: 0.9rem;
+	&::placeholder {
+		color: $black-color;
+		font-family: "Poppins-Regular";
+	}
+
+	&:focus {
+		outline: none;
+		outline-offset: 0;
+		box-shadow: none;
+		border-color: $focus-color;
+	}
+}
+
+.form-login__select {
+	appearance: none;
+	cursor: pointer;
+	option[value=""][disabled] {
+		display: none;
+	}
+}
+
+.form-login__button {
+	border: none;
+	width: 35%;
+//	height: 10%;
+	margin: auto;
+	margin-top: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4%;
+	background: $black-color;
+	font-size: 1rem;
+	color: $white-color;
+	vertical-align: middle;
+}
+
+
+
+@media (max-width: 991px) {
+	.authentication__inner {
+		display: block;
+		margin-top: 15%;
+		margin-bottom: 5%;
+		.image-holder {
+			width: 100%;
+			height: 56vh;
+		}
+
+		.authentication__header {
+			margin-bottom: 10%;
+		}
+		.form-login {
+			width: 100%;
+			padding: 2%;
+		}
+	}
+	.form-login__button {
+		margin-top: 10%;
+	}
+}
+
+@media (max-width: 767px) {
+	.authentication__inner {
+		width: 90%;
+		margin-top: 20%;
+		.image-holder {
+			height: 45vh;
+		}
+	}
+}
 
