@@ -7,7 +7,14 @@ class Input extends Component {
       return (
         <div className="form-group authentication__form-group">
          {/*} <label for={""} ><i></i></label>*/}
-          <input type={this.props.text} name={""} id={""} placeholder={this.props.placeholder} className="form-control authentication__form-control"/>
+          <input 
+            type={this.props.text} 
+            name={""} 
+            id={""} 
+            placeholder={this.props.placeholder} 
+            className={`form-control authentication__form-control ${this.props.input_half_size}`}
+            
+          />
           <i className=""></i>
         </div>
       )

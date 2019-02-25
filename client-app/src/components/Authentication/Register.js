@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import SignUpForm from './SignInForm';
+import SignUpForm from './SignUpForm';
 import './styles/login.scss';
-
+import Logo from './Logo';
 
 class Register extends Component {
 
@@ -10,13 +10,11 @@ class Register extends Component {
         <section className="authentication__form">
           <div class='container'>
             <div className="authentication__content">
-              <div className="authentication__image">
-                <img src="static/media/registration-form-1.ba0bc626.jpg" alt="sing up image" />
-              </div>
-              <div className="authentication__form-wrapper">
-                <Header header={'Sign Up Form'}/>
-                <SignUpForm />
-              </div>   
+              <Logo 
+                src={"./images/registration-form-2.jpg"} 
+                alt={"sing in image"}
+              />
+              <SignUpForm />  
             </div>
           </div>
         </section>

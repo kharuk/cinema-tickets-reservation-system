@@ -3,11 +3,10 @@
 @import './global.scss';
 
 .authentication__form {
-	background-color: $form-login_background-color;
   display: flex;
 	align-items: center;
-  min-height: 100vh;
- padding: 15% 0;
+	padding-top: 5%;
+	min-height: 100vh;
 }
 
 .authentication__content {
@@ -21,6 +20,9 @@
 	overflow: hidden;
 	margin: 0 5%;	
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .authentication__form-wrapper {
@@ -47,9 +49,10 @@
 	margin-bottom: 25px;
 }
 
-.authentication__form-group {
+.authentication__input_group {
 	display: flex;
-	.form-login__input-half {
+	margin: 0;
+	.authentication__form-group {
 		width: 50%;
 		&:first-child {
 			margin-right: 25px;
@@ -99,9 +102,9 @@
 }
 
 @media (max-width: 991px){
-	.authentication__form-group {
+	.authentication__input_group {
 		flex-direction: column;
-		.form-login__input-half {
+		.authentication__form-group {
 			
 			width: auto;
 			&:first-child {

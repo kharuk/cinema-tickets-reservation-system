@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Route, Link} from 'react-router-dom';
-import './nav-menu.css';
+import {Route, NavLink} from 'react-router-dom';
+import './nav-menu.scss';
 
 class NavPanel extends Component{
   constructor(props){
@@ -12,44 +12,25 @@ class NavPanel extends Component{
       <nav className="navbar navbar-expand-lg bg-dark fixed-top text-uppercase">
         <Route>
           <React.Fragment>              
-                <div className="container">  
-                  <Link className="navbar-brand header__link_yellow" to="/">Home</Link>
-                  <div className="collapse navbar-collapse" id="navbarResponsive">
-                    <ul className="navbar-nav ml-auto">
-                      <li className="nav-item mx-0 mx-lg-1">
-                        <Link to="/cinema" className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Cinema</Link>
-                      </li>
-                      <li className="nav-item mx-0 mx-lg-1">
-                        <Link to="/film" className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Film</Link>
-                      </li>
-                      <li className="nav-item mx-0 mx-lg-1">
-                        <Link to="/session" className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Session</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>                    
+            <div className="container">  
+              <NavLink className="navbar-brand header__link_yellow" to="/">Home</NavLink>
+              <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-dark navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarResponsive">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item mx-0 mx-lg-1">
+                    <NavLink to="/sign-in" className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sign In</NavLink>
+                  </li>
+                  <li className="nav-item mx-0 mx-lg-1">
+                    <NavLink to="/sign-up" className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sing Up</NavLink>
+                  </li>
+                </ul>
+              </div>
+            </div>                    
           </React.Fragment>
         </Route>
         </nav>
-
-
-/*<nav className="navbar navbar-expand-lg bg-dark fixed-top text-uppercase" id="mainNav">
-      <div className="container">
-        <div className="collapse navbar-collapse" id="navbarResponsive">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item mx-0 mx-lg-1">
-              <a className="nav-link" style="color: #ffc107c9; font-weight: 700;" href="/api/students/">Students</a>
-            </li>
-            <li className="nav-item mx-0 mx-lg-1">
-              <a className="nav-link" style="color: #ffc107c9; font-weight: 700;"  href="/api/teachers/">Teachers</a>
-            </li>
-            <li className="nav-item mx-0 mx-lg-1">
-              <a className="nav-link" style="color: #ffc107c9; font-weight: 700;"  href="/api/className/">classNamees</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>*/
     )
   }
 
