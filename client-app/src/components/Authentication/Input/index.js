@@ -8,7 +8,7 @@ class Input extends Component {
         <div className="form-group authentication__form-group">
          {/*} <label for={""} ><i></i></label>*/}
           <input 
-            type={this.props.text} 
+            type={this.props.type} 
             name={""} 
             id={""} 
             placeholder={this.props.placeholder} 

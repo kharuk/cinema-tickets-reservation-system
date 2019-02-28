@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
-import Header from './components/Header/Header';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter} from 'react-router-dom';
+import Main from './containers/Main';
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <React.Fragment>
-           <Route path="/" component={Header}/>  
-      {/*
-      <Route path="/" component={Body}/>
-      <Route path="/" component={Footer}/>*/ }   
-        </React.Fragment>
+        <Fragment>
+          <Main /> 
+        </Fragment>
       </BrowserRouter>
     );
   }

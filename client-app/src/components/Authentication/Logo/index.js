@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-import Input from '../Input';
-import Select from '../Select';
-import Button from '../Button';
-import '../styles/login.scss';
-import options from '../Option/optionData.json';
 
 class Logo extends Component {
 

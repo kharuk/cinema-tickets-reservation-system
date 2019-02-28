@@ -3,10 +3,6 @@ import '../styles/login.scss';
 import Option from '../Option';
 
 class Select extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="form-group authentication__form-group">

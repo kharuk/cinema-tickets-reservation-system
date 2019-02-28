@@ -7,11 +7,11 @@ class Register extends Component {
 
     render() {
       return (
-        <section className="authentication__form">
+        <section className="page-content authentication__form">
           <div class='container'>
             <div className="authentication__content">
               <Logo 
-                src={"./images/registration-form-2.jpg"} 
+                src={"../images/registration-form-2.jpg"} 
                 alt={"sing in image"}
               />
               <SignUpForm />  

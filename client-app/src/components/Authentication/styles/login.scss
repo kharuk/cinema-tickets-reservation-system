@@ -2,17 +2,23 @@
 @import './variables.scss';
 @import './global.scss';
 
-.authentication__form {
+.page-content{
   display: flex;
 	align-items: center;
 	padding-top: 5%;
 	min-height: 100vh;
+	background-color: $form-login_background-color;
+}
+.authentication__form {
+	background-color: $form-login_background-color;
 }
 
 .authentication__content {
 	padding: 7% 0;
 	background: $white-color;
 	display: flex;
+	max-width: 80%;
+	margin: auto;
 }
 
 .authentication__image {
