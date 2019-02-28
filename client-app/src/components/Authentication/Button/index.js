@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom'
 import '../styles/login.scss';
+import { links } from '../../../config/links';
 
 class Button extends Component {
 
@@ -14,7 +15,7 @@ class Button extends Component {
   }
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/target' />
+      return <Redirect to={links.FILM_SEARCH_PAGE} />
     }
   }
 

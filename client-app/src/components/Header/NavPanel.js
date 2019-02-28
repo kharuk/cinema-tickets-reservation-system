@@ -12,7 +12,7 @@ class NavPanel extends Component{
         <div className="container">  
           <NavLink className="navbar-brand header__link_yellow" to="/">Home</NavLink>
           <BurgerButton />
-          <NavBar/>  
+          <NavBar loggedIn={this.props.loggedIn}/>  
         </div>              
       </nav>
     )
