@@ -19,6 +19,8 @@
 	display: flex;
 	max-width: 80%;
 	margin: auto;
+
+//	padding: 3% 0;
 }
 
 .authentication__image {
@@ -43,6 +45,7 @@
 	font-family: "Poppins-SemiBold";
 	text-align: center;
 	margin-bottom: 10%;
+	//margin-bottom: 2%;
 }
 
 .authentication__form-content {
@@ -53,6 +56,7 @@
 
 .authentication__form-group{
 	margin-bottom: 25px;
+	//margin-bottom: 15px;
 }
 
 .authentication__input_group {
