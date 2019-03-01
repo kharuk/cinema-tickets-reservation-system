@@ -1,0 +1,16 @@
+$film-info-background-color: #f2af00;
+
+.film-info__container{
+  height: 300px;
+  background-color: $film-info-background-color;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.film-info__caption {
+  overflow: hidden;
+  max-height: 100%;
+}
