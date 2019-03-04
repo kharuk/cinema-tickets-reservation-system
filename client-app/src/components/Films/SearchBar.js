@@ -1,16 +1,16 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import moment from 'moment';
+import DateTimePicker from './DateTimePicker';
 
 const styles = theme => ({
   container: {
     display: "flex",
     justifyContent: "center",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    marginBottom: 10
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -26,14 +26,12 @@ const styles = theme => ({
 
 const sites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-class OutlinedTextFields extends React.Component {
+class SearchBar extends Component {
   state = {
     film: "",
     cinema: "",
     city: "",
-    count_of_sites: "",
-    chosenStartDate: moment(),
-    chosenEndDate: moment().add(1, 'day')
+    count_of_sites: ""
   };
 
   handleChange = name => event => {
@@ -41,15 +39,6 @@ class OutlinedTextFields extends React.Component {
       [name]: event.target.value
     });
   };
-
-  handleChangeDate = (time) =>{
-    const nextDay = moment(time);
-    nextDay.add(1, 'day');
-    this.setState({
-        chosenStartDate: time,
-        chosenEndDate: nextDay
-    });
-}
 
   render() {
     const { classes } = this.props;
@@ -112,15 +101,15 @@ class OutlinedTextFields extends React.Component {
           ))}
         </TextField>
 
-
-
+        <DateTimePicker/>
+        <DateTimePicker/>
       </form>
     );
   }
 }
 
-OutlinedTextFields.propTypes = {
+SearchBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(OutlinedTextFields);
+export default withStyles(styles)(SearchBar);
