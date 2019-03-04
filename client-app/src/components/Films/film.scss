@@ -1,0 +1,24 @@
+$film-info-background-color: #f2af00;
+
+.film-info__container{
+  height: 300px;
+  background-color: $film-info-background-color;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.film-info__caption {
+  overflow: hidden;
+  max-height: 100%;
+}
+
+.date-timer-picker_margin {
+  margin-right: 8px;
+  margin-left: 8px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  padding: 18.5px 14px;
+}
