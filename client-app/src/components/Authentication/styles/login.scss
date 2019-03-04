@@ -109,6 +109,10 @@
 	font-size: 1rem;
 	color: $white-color;
 	vertical-align: middle;
+
+	&:hover {
+		color: $white-color;
+	}
 }
 
 @media (max-width: 991px){
