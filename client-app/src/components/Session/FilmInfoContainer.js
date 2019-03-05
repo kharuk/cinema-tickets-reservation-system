@@ -12,10 +12,8 @@ class FilmInfoContainer extends Component {
       <section>
         <div className="cinema-info">
           <div className="heading">
-              {/*props.sessions[0].cinema.name*/}
           </div>
           <div className="location">
-              {/*props.sessions[0].cinema.city*/}
           </div>
         </div>
       </section>
