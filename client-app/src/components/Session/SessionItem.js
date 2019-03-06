@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import { links } from '../../config/links';
 import {Link} from 'react-router-dom';
-import Header from '../Authentication/Header';
-
 
 class SessionItem extends Component {
 
@@ -19,7 +17,7 @@ class SessionItem extends Component {
           <span>Минск</span>
         </div>
         <Link 
-          to={links.FILM_SEARCH_PAGE} 
+          to={links.SITES_SELECTION_PAGE} 
           className="session__item__button" 
           role="button"
         >

@@ -16,15 +16,25 @@ class FilmPage extends Component {
       <section className="page-content">
         <div className="container">
           <Header header="Sessions"/>
-          <div className="row">
-            <div className="col-md-6 ">
-              <FilmInfoContainer />
+          <div className="row film-page__info">
+            <div className="col-md-6 film-page__film-info">
+              <FilmInfoContainer 
+                title="green book" 
+                image={"../images/film1.jpg"} 
+                description="Cool film" 
+              />
             </div>
             <div className="col-md-6 ">
               <SessionContainer />
             </div>
           </div>
-          <Link to={links.FILM_SEARCH_PAGE}>Back</Link>
+          <Link 
+            to={links.FILM_SEARCH_PAGE}
+            role="button"
+            className="film-page__button"
+          >
+            Back
+          </Link>
         </div>
       </section>
     )

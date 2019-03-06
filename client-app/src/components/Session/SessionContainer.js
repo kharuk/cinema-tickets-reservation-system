@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import { links } from '../../config/links';
-import {Link} from 'react-router-dom';
 import SessionItem from './SessionItem';
 import SessionTitle from './SessionTitle';
 
@@ -21,7 +19,6 @@ class SessionContainer extends Component {
               <SessionItem />
 						</div>
           </div>
-          <Link to={links.SITES_SELECTION_PAGE}><li>Сеанс 1</li></Link>
       </section>
     )
   }
