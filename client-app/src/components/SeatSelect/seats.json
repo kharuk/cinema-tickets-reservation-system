@@ -1,0 +1,74 @@
+[
+  [
+    {
+      "row": 0,
+      "column": 0,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 0,
+      "column": 4,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    },
+    {
+      "row": 1,
+      "column": 4,
+      "chosen": false,
+      "booked": false,
+      "type": "default"
+    }
+  ]
+]
