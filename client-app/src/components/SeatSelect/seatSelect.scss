@@ -25,7 +25,7 @@
   justify-content: center;
 }
 
-.seat-default{
+.seat-default, .seat-vip, .seat-vip-chosen, .seat-default-chosen, .seat-booked{
   width: 30px;
   height: 30px;
   border: solid black;
@@ -35,4 +35,16 @@
 
 .seat-default-chosen{
   background-color:  #e94584;
+}
+
+.seat-vip-chosen{
+  background-color:  #e9e645;
+}
+
+.seat-vip{
+  background-color:  #e98145;
+}
+
+.seat-booked{
+  background-color: #adadad;
 }

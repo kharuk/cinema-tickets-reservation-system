@@ -6,7 +6,6 @@ const SeatsScheme = (props) =>{
     const generateKey = (row, column) =>{
         return row * props.seatsArray[0].length + column;
     }
-    console.log(props.seatsArray);
 
     return(
       

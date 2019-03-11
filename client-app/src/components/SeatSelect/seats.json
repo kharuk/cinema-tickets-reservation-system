@@ -4,14 +4,14 @@
       "row": 0,
       "column": 0,
       "chosen": false,
-      "booked": false,
-      "type": "default"
+      "booked": true,
+      "type": "vip"
     },
     {
       "row": 1,
       "column": 1,
       "chosen": false,
-      "booked": false,
+      "booked": true,
       "type": "default"
     },
     {
@@ -33,18 +33,11 @@
       "column": 2,
       "chosen": false,
       "booked": false,
-      "type": "default"
+      "type": "vip"
     },
     {
       "row": 0,
       "column": 3,
-      "chosen": false,
-      "booked": false,
-      "type": "default"
-    },
-    {
-      "row": 0,
-      "column": 4,
       "chosen": false,
       "booked": false,
       "type": "default"
@@ -68,7 +61,7 @@
       "column": 4,
       "chosen": false,
       "booked": false,
-      "type": "default"
+      "type": "vip"
     }
   ]
 ]
