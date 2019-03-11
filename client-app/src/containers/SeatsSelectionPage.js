@@ -15,7 +15,21 @@ class SeatsSelectionPage extends Component {
     seatsChosen: false,
     seats: [], 
     chosenSeats: [],
-    session: {}
+    session: {
+      info: {
+        sessionSeatTypes: 
+          [
+            {
+              typeName: 'default',
+              price: 5
+            },
+            {
+              typeName: 'vip',
+              price: 10
+            }
+          ]
+      }
+    }
   }
 
   componentDidMount() {
@@ -38,7 +52,6 @@ class SeatsSelectionPage extends Component {
   handleSeatClick = (seatInfo) =>{
     let localSeats = [...this.state.seats];
     if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
-
       if(this.state.chosenSeats.length < 5) {
         localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
         this.setState({
@@ -53,8 +66,6 @@ class SeatsSelectionPage extends Component {
         });
       }
     }
-    console.log('state');
-    console.log(this.state.seats);
   }
 
   render() {
@@ -67,6 +78,7 @@ class SeatsSelectionPage extends Component {
             seats={this.state.seats}
             chosenSeats={this.state.chosenSeats}
             callBackHandleSeatClick={this.handleSeatClick}
+            sessionSeatTypes={this.state.session.info.sessionSeatTypes}
           />
           <Header header="Choose something"/>
           {/*<OptionSelect />*/}

@@ -1,6 +1,5 @@
 import React from 'react';
 import SeatsScheme from './SeatsScheme';
-//import DisplaySeatTypes from './DisplaySeatTypes';
 
 const DisplaySeatsScheme = (props) =>{
   return(
@@ -11,7 +10,7 @@ const DisplaySeatsScheme = (props) =>{
       />
       {  
         props.chosenSeats.length === 5
-        ? <div className="font-large font-bold">
+        ? <div className="">
             You have chosen maximum count of seats.
         </div>
         : ''
