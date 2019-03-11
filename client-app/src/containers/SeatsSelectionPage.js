@@ -26,15 +26,35 @@ class SeatsSelectionPage extends Component {
     })
   }
 
-  handleSeatClick = (seatInfo) =>{
-    let seats = this.state.seats;
-    if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
-      seats[seatInfo.row][seatInfo.column].chosen = !seats[seatInfo.row][seatInfo.column].chosen;
-      this.setState({
-        seats: seats
-      });
+  updateChosenSeats = (seatInfo, chosenSeats) => {
+    if(seatInfo.chosen){
+      chosenSeats.push(seatInfo);
+    } else {
+      chosenSeats.splice(chosenSeats.findIndex( el => el.row === seatInfo.row && el.column === seatInfo.column),1);
     }
+    return chosenSeats;
+  }
 
+  handleSeatClick = (seatInfo) =>{
+    let localSeats = [...this.state.seats];
+    if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
+
+      if(this.state.chosenSeats.length < 5) {
+        localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
+        this.setState({
+          seats: localSeats,
+          chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
+        });
+      } else if (seatInfo.chosen) {
+        localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
+        this.setState({
+          seats: localSeats,
+          chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
+        });
+      }
+    }
+    console.log('state');
+    console.log(this.state.seats);
   }
 
   render() {
@@ -45,7 +65,7 @@ class SeatsSelectionPage extends Component {
           <Header header="Select Sites"/>
           <SeatSelect
             seats={this.state.seats}
-            // chosenSeats={this.state.chosenSeats}
+            chosenSeats={this.state.chosenSeats}
             callBackHandleSeatClick={this.handleSeatClick}
           />
           <Header header="Choose something"/>

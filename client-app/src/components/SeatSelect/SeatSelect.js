@@ -8,7 +8,7 @@ const SeatSelect = (props) =>{
             <DisplaySeatsScheme
                 seats={props.seats}
                 callBackHandleSeatClick={props.callBackHandleSeatClick}
-                //chosenSeats={props.chosenSeats}
+                chosenSeats={props.chosenSeats}
             />
         </div>
     );
