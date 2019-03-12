@@ -64,3 +64,14 @@
     margin-right: 0;
   }
 }
+
+.seat-types-info__panel{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  vertical-align: middle;
+}
+
+.seat-type-info__block{
+  padding: 10px;
+}
