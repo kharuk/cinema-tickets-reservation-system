@@ -10,7 +10,7 @@ const SeatSelect = (props) =>{
         seats={props.seats}
         callBackHandleSeatClick={props.callBackHandleSeatClick}
         chosenSeats={props.chosenSeats}
-        sessionSeatTypes={props.sessionSeatTypes}
+       // sessionSeatTypes={props.sessionSeatTypes}
       />
       <div className="chosen-seats__container">
         <DisplayChosenSeats

@@ -3,7 +3,7 @@ import SessionItem from './SessionItem';
 import SessionTitle from './SessionTitle';
 
 
-class SessionContainer extends Component {
+class SessionInfo extends Component {
 
   render() {
 
@@ -24,4 +24,4 @@ class SessionContainer extends Component {
   }
 }
 
-export default SessionContainer;
+export default SessionInfo;

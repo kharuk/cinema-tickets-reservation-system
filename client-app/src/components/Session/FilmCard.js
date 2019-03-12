@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
@@ -44,7 +44,7 @@ const styles = theme => ({
   }
 });
 
-class FilmInfoContainer extends React.Component {
+class FilmCard extends Component {
   state = { expanded: false };
 
   handleExpandClick = () => {
@@ -92,8 +92,8 @@ class FilmInfoContainer extends React.Component {
   }
 }
 
-FilmInfoContainer.propTypes = {
+FilmCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FilmInfoContainer);
+export default withStyles(styles)(FilmCard);

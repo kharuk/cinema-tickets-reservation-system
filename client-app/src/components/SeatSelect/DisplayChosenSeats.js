@@ -14,9 +14,7 @@ const DisplayChosenSeats = (props) =>{
           <SeatInfoBox
             key={generateKey(item.row, item.column)}
             seatInfo={item}
-            price={props.sessionSeatTypes.find((typePrice) => 
-                typePrice.typeName === item.type
-            ).price}
+            price={props.sessionSeatTypes[item.type]}
           />
         )
       }

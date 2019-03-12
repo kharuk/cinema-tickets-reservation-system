@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { links } from '../config/links';
 import {Link} from 'react-router-dom';
-import FilmInfoContainer from '../components/Session/FilmInfoContainer';
-import SessionContainer from '../components/Session/SessionContainer';
+import FilmCard from '../components/Session/FilmCard';
+import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 
 import '../components/Session/session.scss';
@@ -18,14 +18,14 @@ class FilmPage extends Component {
           <Header header="Sessions"/>
           <div className="row film-page__info">
             <div className="col-md-6 film-page__film-info">
-              <FilmInfoContainer 
+              <FilmCard
                 title="green book" 
                 image={"../images/film1.jpg"} 
                 description="Cool film" 
               />
             </div>
             <div className="col-md-6 ">
-              <SessionContainer />
+              <SessionInfo />
             </div>
           </div>
           <Link 

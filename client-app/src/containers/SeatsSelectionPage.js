@@ -4,9 +4,10 @@ import {Link} from 'react-router-dom';
 import FilmList from '../components/Films/FilmList';
 import SeatSelect from '../components/SeatSelect/SeatSelect';
 import Header from '../components/Authentication/Header';
-import seatHelper from "../Helper/SeatHelper";
+import seatHelper from "../helper/SeatHelper";
 import '../components/SeatSelect/seatSelect.scss';
 import seatsFromFile from '../components/SeatSelect/seats.json';
+import sessionInfo from '../components/SeatSelect/sessionInfo.json';
 
 
 class SeatsSelectionPage extends Component {
@@ -16,19 +17,7 @@ class SeatsSelectionPage extends Component {
     seats: [], 
     chosenSeats: [],
     session: {
-      info: {
-        sessionSeatTypes: 
-          [
-            {
-              typeName: 'default',
-              price: 5
-            },
-            {
-              typeName: 'vip',
-              price: 10
-            }
-          ]
-      }
+      info: sessionInfo
     }
   }
 
@@ -78,7 +67,7 @@ class SeatsSelectionPage extends Component {
             seats={this.state.seats}
             chosenSeats={this.state.chosenSeats}
             callBackHandleSeatClick={this.handleSeatClick}
-            sessionSeatTypes={this.state.session.info.sessionSeatTypes}
+            sessionSeatTypes={this.state.session.info.SEAT_TYPE}
           />
           <Header header="Choose something"/>
           {/*<OptionSelect />*/}
