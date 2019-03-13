@@ -75,3 +75,11 @@
 .seat-type-info__block{
   padding: 10px;
 }
+
+.link-disabled {
+  color: currentColor;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}

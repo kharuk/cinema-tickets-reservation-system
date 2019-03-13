@@ -1,40 +1,24 @@
 import React from 'react';
-import DisplaySeatsScheme from './DisplaySeatsScheme';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';
 import RoutingButton from './RoutingButton';
 
-const SeatSelect = (props) =>{
+const ConfirmOrder = (props) =>{
 
   function countTotalPrice (chosenSeats, sessionSeatTypes){
     return chosenSeats.reduce((sum, current) => 
     sum + sessionSeatTypes[current.type], 0);
   }
-     
+      
   return(
     <div className="choose-seat__container">
-      <DisplaySeatsScheme
-        seats={props.seats}
-        callBackHandleSeatClick={props.callBackHandleSeatClick}
-        chosenSeats={props.chosenSeats}
-        sessionSeatTypes={props.sessionSeatTypes}
-      />
       <div className="chosen-seats__container">
-        {
-          props.chosenSeats.length !== 0
-          ?
-          <Header header="Chosen seats"/>
-          :
-          ''
-        }
+        <Header header="Chosen seats"/>
         <DisplayChosenSeats
           chosenSeats={props.chosenSeats}
           sessionSeatTypes={props.sessionSeatTypes}
         />
       </div>
-        <Header header="Choose something"/>
-        {/*<OptionSelect />*/
-        }
       <div>
         <span>Total : </span>
         {
@@ -42,11 +26,12 @@ const SeatSelect = (props) =>{
         }
       </div>
       <RoutingButton 
+        isSeatsChosen={props.isSeatsChosen}
         chosenSeats={props.chosenSeats}
-        callBackHandleConfirmation={props.callBackHandleSeatsSelect}
+        callBackHandleCancel={props.callBackCancelConfirm}
       />
     </div>
   );
 }
 
-export default SeatSelect;
+export default ConfirmOrder;

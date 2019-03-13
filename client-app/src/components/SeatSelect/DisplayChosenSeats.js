@@ -10,9 +10,9 @@ const DisplayChosenSeats = (props) =>{
   return(
     <div className="seat-info-list__container">
       {
-        props.chosenSeats.map((item)=>
+        props.chosenSeats.map((item, index)=>
           <SeatInfoBox
-            key={generateKey(item.row, item.column)}
+            key={index}
             seatInfo={item}
             price={props.sessionSeatTypes[item.type]}
           />
