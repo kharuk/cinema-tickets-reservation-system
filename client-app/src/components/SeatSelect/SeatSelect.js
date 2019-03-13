@@ -3,6 +3,7 @@ import DisplaySeatsScheme from './DisplaySeatsScheme';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';
 import RoutingButton from './RoutingButton';
+import OptionSelect from './OptionSelect';
 
 const SeatSelect = (props) =>{
 
@@ -32,9 +33,8 @@ const SeatSelect = (props) =>{
           sessionSeatTypes={props.sessionSeatTypes}
         />
       </div>
-        <Header header="Choose something"/>
-        {/*<OptionSelect />*/
-        }
+        <Header header="complementary services"/>
+        <OptionSelect />     
       <div>
         <span>Total : </span>
         {

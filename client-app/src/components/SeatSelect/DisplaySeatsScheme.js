@@ -14,7 +14,7 @@ const DisplaySeatsScheme = (props) =>{
       />
       {  
         props.chosenSeats.length === 5
-        ? <div className="">
+        ? <div>
             You have chosen maximum count of seats.
         </div>
         : ''
