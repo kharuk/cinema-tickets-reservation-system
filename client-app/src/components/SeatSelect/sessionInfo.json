@@ -4,8 +4,10 @@
     "default": 5
   },
   "EXTRA": {
-    "popcorn": 5,
-    "cola": 5,
-    "juce": 5
+    "popcorn": 1,
+    "cola": 1,
+    "juce": 2,
+    "marshmallow": 2,
+    "coffee": 2
   }
 }

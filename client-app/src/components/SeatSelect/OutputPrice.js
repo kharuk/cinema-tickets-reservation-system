@@ -9,8 +9,8 @@ const outputPrice = (props) => {
   let extraServicesPrice = price.priceOfExtraServices;
   let totalPrice = ticketsPrice + extraServicesPrice;
   return (
-    <div className="col-12 col-md-5">
-      <div className="output-price__container ">
+    <div className="col-12 col-md-5 output-price__container">
+      <div className="output-price__wrapper">
         <h5>Cart Total</h5>
         <ul className="output-price__list">
             <li><span>Tickets price :</span> <span>{ticketsPrice}</span></li>
