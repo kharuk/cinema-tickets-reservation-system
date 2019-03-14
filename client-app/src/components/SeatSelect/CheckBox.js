@@ -18,12 +18,8 @@ const styles = {
 
 class CheckboxLabels extends Component {
   state = {
-    checkedG: true,
-  };
-
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
+    isSelect: false,
+  }
 
   render() {
     const { classes } = this.props;
@@ -33,16 +29,16 @@ class CheckboxLabels extends Component {
         <FormControlLabel
           control={
             <Checkbox
-              checked={this.state.checkedG}
-              onChange={this.handleChange('checkedG')}
-              value="checkedG"
+             // checked={this.state.checked}
+              onChange={() => this.props.callBackHandleCheckBoxClick()}
+              value="checked"
               classes={{
                 root: classes.root,
                 checked: classes.checked,
               }}
             />
           }
-          label={this.props.label}
+          label={`${this.props.label} (${this.props.price}$)`}
         />
       </FormGroup>
     );

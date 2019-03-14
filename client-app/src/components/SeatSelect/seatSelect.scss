@@ -83,3 +83,21 @@
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.extra-service__container {
+  padding: 20px;
+  display: flex;
+}
+
+.output-price__container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.output-price__item {
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  } 
+}

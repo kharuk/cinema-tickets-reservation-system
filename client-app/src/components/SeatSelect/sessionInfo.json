@@ -2,5 +2,10 @@
   "SEAT_TYPE": {
     "vip": 10,
     "default": 5
+  },
+  "EXTRA": {
+    "popcorn": 5,
+    "cola": 5,
+    "juce": 5
   }
 }

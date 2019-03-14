@@ -13,6 +13,7 @@ class SeatsSelectionPage extends Component {
     isSeatsChosen: false,
     seats: [], 
     chosenSeats: [],
+    chosenExtraServices: {},
     session: {
       info: sessionInfo
     }
@@ -69,7 +70,32 @@ class SeatsSelectionPage extends Component {
     this.setState({
         isSeatsChosen: true
     })
-}
+  }
+
+  updateChosenExtraServices = (chosenExtraServices, extra, count, isSelect) => {
+    if (isSelect) {
+      chosenExtraServices[extra] = count;
+    } else {
+      delete this.state.chosenExtraServices[extra]
+    }
+    return chosenExtraServices;
+  }
+
+  handleExtraServicesSelect = extra => event => {
+    let count = event.target.value
+    this.setState({
+      chosenExtraServices: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, count, true)
+    }) 
+    console.log(this.state.chosenExtraServices);
+  }
+
+  callBackCheckBoxChanged = (extra, isSelect) => {
+    this.setState({
+      chosenExtraService: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, 1, isSelect)
+    });
+    console.log(this.state.chosenExtraServices);  
+  }
+
 
   handleConfirmReservation = () =>{
 
@@ -91,9 +117,13 @@ class SeatsSelectionPage extends Component {
           <SeatSelect
             seats={this.state.seats}
             chosenSeats={this.state.chosenSeats}
+            chosenExtraServices={this.state.chosenExtraServices}
             callBackHandleSeatClick={this.handleSeatClick}
             callBackHandleSeatsSelect={this.handleSeatsSelect}
             sessionSeatTypes={this.state.session.info.SEAT_TYPE}
+            extraServices={this.state.session.info.EXTRA}
+            callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
+            callBackCheckBoxChanged={this.callBackCheckBoxChanged}
           />
       </Fragment>
     )
@@ -105,7 +135,9 @@ class SeatsSelectionPage extends Component {
         <Header header="Info about order"/>
           <ConfirmOrder
             chosenSeats={this.state.chosenSeats}
+            chosenExtraServices={this.state.chosenExtraServices}
             sessionSeatTypes={this.state.session.info.SEAT_TYPE}
+            extraServices={this.state.session.info.EXTRA}
             callBackCancelConfirm={this.handleCancelConfirm}
             isSeatsChosen={this.state.isSeatsChosen}
           />

@@ -8,25 +8,20 @@ const styles = theme => ({
   container: {
     display: "flex",
     justifyContent: "center",
-    flexWrap: "wrap",
-    marginBottom: 10
+    flexWrap: "wrap"
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
-  },
-  dense: {
-    marginTop: 16
-  },
-  menu: {
-    width: 200
+    margin: 0,
+    marginLeft: 5,
+    marginRight: 5,
+    width: '10%'
   }
 });
 
 const count = [1, 2, 3, 4, 5];
 
 class CountSelect extends Component {
-  state = {
+ /*  state = {
     count: ""
   };
 
@@ -34,25 +29,24 @@ class CountSelect extends Component {
     this.setState({
       [name]: event.target.value
     });
-  };
+  }; */
 
   render() {
     const { classes } = this.props;
 
     return (
       <TextField
-        id="outlined-cout-of-sites"
+        id="outlined-cout-of-addition"
         select
         label="Count"
         className={classes.textField}
-        value={this.state.count_of_sites}
-        onChange={this.handleChange("count_of_sites")}
+        value={this.props.value||1}
+        onChange={this.props.callBackHandleClick}
         SelectProps={{
           MenuProps: {
             className: classes.menu
           }
         }}
-        helperText="Please select count of sites"
         margin="normal"
         variant="outlined"
       >

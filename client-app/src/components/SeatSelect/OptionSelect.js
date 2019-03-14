@@ -1,6 +1,5 @@
 import React from 'react';
 import ExtraItem from './ExtraItem';
-import extra from './complementaryServices.json';
 
 const OptionSelect = (props) =>{
 
@@ -8,8 +7,18 @@ const OptionSelect = (props) =>{
   return(
     <div className="seats-scheme__container">
       {
-        Object.keys(extra).map(function(key) {
-          return <ExtraItem key={key} label={key}/>
+        Object.keys(props.extraServices).map(function(key) {
+          return <ExtraItem 
+                    //isSelect={false} 
+                    key={key} 
+                    label={key} 
+                    price={props.extraServices[key]}
+                   // count={props.count}
+                   // isExtraServicesChosen={props.isExtraServicesChosen}
+                    chosenExtraServices={props.chosenExtraServices}
+                    callBackHandleClick={props.callBackHandleClick}
+                    callBackCheckBoxChanged={props.callBackCheckBoxChanged}
+                  />
         }) 
       }
     </div>

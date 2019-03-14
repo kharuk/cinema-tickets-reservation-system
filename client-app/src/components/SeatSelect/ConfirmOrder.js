@@ -1,14 +1,11 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';
 import RoutingButton from './RoutingButton';
+import OutputPrice from './OutputPrice';
 
 const ConfirmOrder = (props) =>{
 
-  function countTotalPrice (chosenSeats, sessionSeatTypes){
-    return chosenSeats.reduce((sum, current) => 
-    sum + sessionSeatTypes[current.type], 0);
-  }
       
   return(
     <div className="choose-seat__container">
@@ -19,12 +16,12 @@ const ConfirmOrder = (props) =>{
           sessionSeatTypes={props.sessionSeatTypes}
         />
       </div>
-      <div>
-        <span>Total : </span>
-        {
-            countTotalPrice(props.chosenSeats, props.sessionSeatTypes)
-        }
-      </div>
+      <OutputPrice 
+       chosenSeats={props.chosenSeats}
+       chosenExtraServices={props.chosenExtraServices}
+       sessionSeatTypes={props.sessionSeatTypes}
+       extraServices={props.extraServices}
+      />
       <RoutingButton 
         isSeatsChosen={props.isSeatsChosen}
         chosenSeats={props.chosenSeats}
