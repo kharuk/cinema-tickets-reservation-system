@@ -30,7 +30,7 @@ const RoutingButton = (props) =>{
   }
      
   return(
-    <div className="sites-select__button-container">
+    <div className="sites-select__button-container ">
       <Link 
         to={getPathForLink(props.isSeatsChosen, 'back')} 
         onClick={props.callBackHandleCancel}

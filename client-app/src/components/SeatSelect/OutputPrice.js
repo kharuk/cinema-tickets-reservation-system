@@ -1,5 +1,6 @@
 import React from 'react';
 import reservationServise from '../../services/ReservationServices';
+import Header from '../Authentication/Header';
 
 
 const outputPrice = (props) => {
@@ -8,8 +9,16 @@ const outputPrice = (props) => {
   let extraServicesPrice = price.priceOfExtraServices;
   let totalPrice = ticketsPrice + extraServicesPrice;
   return (
-    <div className="output-price__container">
-      <span className="output-price__item">
+    <div className="col-12 col-md-5">
+      <div className="output-price__container ">
+        <h5>Cart Total</h5>
+        <ul className="output-price__list">
+            <li><span>Tickets price :</span> <span>{ticketsPrice}</span></li>
+            <li><span>Extra services price :</span> <span>{extraServicesPrice}</span></li>
+            <li><span>Total price : </span> <span>{totalPrice}</span></li>
+          </ul>  
+      </div>
+     {/*        <span className="output-price__item">
         {`Tickets price : ${ticketsPrice}`}
       </span> 
       <span className="output-price__item">
@@ -17,7 +26,7 @@ const outputPrice = (props) => {
       </span>
       <span className="output-price__item">
         {`Total price :  ${totalPrice}`}
-      </span>
+      </span> */}
     </div>
   );
 }
