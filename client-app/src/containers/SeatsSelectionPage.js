@@ -25,7 +25,6 @@ class SeatsSelectionPage extends Component {
       item.chosen =  false;
     });
     seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
-    console.log(seats);
     this.setState({
       seats: seats
     })
@@ -86,14 +85,12 @@ class SeatsSelectionPage extends Component {
     this.setState({
       chosenExtraServices: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, count, true)
     }) 
-    console.log(this.state.chosenExtraServices);
   }
 
-  callBackCheckBoxChanged = (extra, isSelect) => {
+  handleCheckBoxChanged = (extra, isSelect) => {
     this.setState({
       chosenExtraService: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, 1, isSelect)
     });
-    console.log(this.state.chosenExtraServices);  
   }
 
 
@@ -118,12 +115,12 @@ class SeatsSelectionPage extends Component {
             seats={this.state.seats}
             chosenSeats={this.state.chosenSeats}
             chosenExtraServices={this.state.chosenExtraServices}
-            callBackHandleSeatClick={this.handleSeatClick}
-            callBackHandleSeatsSelect={this.handleSeatsSelect}
             sessionSeatTypes={this.state.session.info.SEAT_TYPE}
             extraServices={this.state.session.info.EXTRA}
+            callBackHandleSeatClick={this.handleSeatClick}
+            callBackHandleSeatsSelect={this.handleSeatsSelect}
             callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
-            callBackCheckBoxChanged={this.callBackCheckBoxChanged}
+            callBackCheckBoxChanged={this.handleCheckBoxChanged}
           />
       </Fragment>
     )
@@ -133,14 +130,14 @@ class SeatsSelectionPage extends Component {
     return (
       <Fragment>
         <Header header="Info about order"/>
-          <ConfirmOrder
-            chosenSeats={this.state.chosenSeats}
-            chosenExtraServices={this.state.chosenExtraServices}
-            sessionSeatTypes={this.state.session.info.SEAT_TYPE}
-            extraServices={this.state.session.info.EXTRA}
-            callBackCancelConfirm={this.handleCancelConfirm}
-            isSeatsChosen={this.state.isSeatsChosen}
-          />
+        <ConfirmOrder
+          isSeatsChosen={this.state.isSeatsChosen}
+          chosenSeats={this.state.chosenSeats}
+          chosenExtraServices={this.state.chosenExtraServices}
+          callBackCancelConfirm={this.handleCancelConfirm}
+          sessionSeatTypes={this.state.session.info.SEAT_TYPE}
+          extraServices={this.state.session.info.EXTRA}        
+        />
       </Fragment>
     )
   }

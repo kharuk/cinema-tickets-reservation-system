@@ -5,15 +5,16 @@ import CountSelect from './CountSelect';
 class ExtraItem extends Component{
 
   state = {
-    isSelect: false,
-    //count: 1
+    isSelect: this.props.chosenExtraServices[this.props.label] ? true : false,
   }
+  componentDidMount() {
+    console.log(this.state.isSelect)
+  }
+  
 
   ChangeSelect = (isSelect) => {
     isSelect =  !isSelect;
-   // if (!isSelect){
-      this.props.callBackCheckBoxChanged(this.props.label, isSelect);
-  //  }
+    this.props.callBackCheckBoxChanged(this.props.label, isSelect);
     return isSelect;
   }
 
@@ -25,12 +26,13 @@ class ExtraItem extends Component{
 
   render(){ 
     return(
-      <div className="extra-service__container">
+      <div className="extra-service__item">
   
         <CheckBox 
           callBackHandleCheckBoxClick={this.CheckBoxClick} 
           label={this.props.label} 
           price={this.props.price}
+          isSelect={this.state.isSelect}
         />        
         {         
           this.state.isSelect

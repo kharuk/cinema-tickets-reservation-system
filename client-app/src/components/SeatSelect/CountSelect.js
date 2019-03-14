@@ -14,22 +14,15 @@ const styles = theme => ({
     margin: 0,
     marginLeft: 5,
     marginRight: 5,
-    width: '10%'
+    width: '60px',
+    height: '30px',
+    marginTop: 10
   }
 });
 
 const count = [1, 2, 3, 4, 5];
 
 class CountSelect extends Component {
- /*  state = {
-    count: ""
-  };
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  }; */
 
   render() {
     const { classes } = this.props;

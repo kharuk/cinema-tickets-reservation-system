@@ -84,9 +84,17 @@
   cursor: not-allowed;
 }
 
-.extra-service__container {
-  padding: 20px;
+.extra-services__container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.extra-service__item {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
 }
 
 .output-price__container {

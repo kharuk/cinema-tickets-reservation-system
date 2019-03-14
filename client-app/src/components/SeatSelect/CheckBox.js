@@ -17,10 +17,6 @@ const styles = {
 };
 
 class CheckboxLabels extends Component {
-  state = {
-    isSelect: false,
-  }
-
   render() {
     const { classes } = this.props;
 
@@ -32,6 +28,7 @@ class CheckboxLabels extends Component {
              // checked={this.state.checked}
               onChange={() => this.props.callBackHandleCheckBoxClick()}
               value="checked"
+              checked={this.props.isSelect}
               classes={{
                 root: classes.root,
                 checked: classes.checked,

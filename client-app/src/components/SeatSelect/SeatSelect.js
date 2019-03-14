@@ -8,35 +8,6 @@ import OutputPrice from './OutputPrice';
 
 const SeatSelect = (props) =>{
 
-  function countTotalPrice (chosenSeats, chosenExtraServices, sessionSeatTypes, extraServices){
-    let priceOfTickets = chosenSeats.reduce((sum, current) => 
-    sum + sessionSeatTypes[current.type], 0);
-
-    let priceOfExtraServices = Object.keys(chosenExtraServices).reduce((sum, current) =>
-    sum + chosenExtraServices[current]*extraServices[current], 0);
-    return {priceOfTickets, priceOfExtraServices};
-  }
-
-  const outputPrice = () => {
-    let price = countTotalPrice(props.chosenSeats, props.chosenExtraServices, props.sessionSeatTypes, props.extraServices);
-    let ticketsPrice = price.priceOfTickets;
-    let extraServicesPrice = price.priceOfExtraServices;
-    let totalPrice = ticketsPrice + extraServicesPrice;
-    return (
-      <Fragment>
-        <span className="output-price__item">
-          {`Tickets price : ${ticketsPrice}`}
-        </span> 
-        <span className="output-price__item">
-          {`Extra services price : ${extraServicesPrice}`}
-        </span>
-        <span className="output-price__item">
-          {`Total price :  ${totalPrice}`}
-        </span>
-      </Fragment>
-    )
-  }
-     
   return(
     <div className="choose-seat__container">
       <DisplaySeatsScheme
@@ -60,9 +31,6 @@ const SeatSelect = (props) =>{
       </div>
         <Header header="complementary services"/>
         <OptionSelect 
-          //count={props.count}
-        //  isSelect={props.isSelect}
-          //isExtraServicesChosen={props.isExtraServicesChosen}
           callBackCheckBoxChanged={props.callBackCheckBoxChanged}
           extraServices={props.extraServices} 
           chosenExtraServices={props.chosenExtraServices}
