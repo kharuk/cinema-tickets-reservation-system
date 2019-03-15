@@ -6,7 +6,7 @@ $profile-page_link-background-color: #93a3b5;
 $profile-page_link-hover-background-color: #fafcfd;
 $profile-page_link-hover-color: #5b9bd1;
 $profile-page_link-active-background-color: #f6f9fb;
-$profile-page_content-background-color: #f5cca9;
+$profile-page_content-background-color: #f9ebdf;
 
 .profile-page__container {
   margin: 20px 0;
@@ -15,6 +15,7 @@ $profile-page_content-background-color: #f5cca9;
 .profile-page__sidebar {
   padding: 20px 0 10px 0;
   background: $profile-page_background-color;
+  box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
 }
 
 .profile-page__usertitle {
@@ -83,7 +84,7 @@ $profile-page_content-background-color: #f5cca9;
 }
 
 .profile-page__content {
-  padding: 20px;
+  padding: 0 20px;
   background: $profile-page_content-background-color;
   min-height: 460px;
 }
@@ -106,6 +107,9 @@ $profile-page_content-background-color: #f5cca9;
   .profile-page__usertitle {
     margin-top: 0;
   }
+
+
+
 }
 
 @media screen and (max-width: 772px) {
@@ -114,10 +118,11 @@ $profile-page_content-background-color: #f5cca9;
       font-size: 1rem;
     }
   }
-}
-
-@media screen and (max-width: 576px) {
   .profile-page__content {
     padding: 20px 0;
-  }  
+  }
+  
+  .profile-page__sidebar {
+    margin-right: 20px;
+  }
 }

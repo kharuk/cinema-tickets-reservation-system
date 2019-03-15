@@ -11,13 +11,12 @@ import OrderTable from '../components/ProfilePage/OrdersTable';
 class ProfilePage extends Component {
 
   render() {
-
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Profile page"/>
           <div className="row profile-page__container">
-            <ProfilePageNavBar />
+            <ProfilePageNavBar path={this.props.match}/>
             <ProfilePageContent>
               <Switch>
                 <Route exact path={ links.ORDERS_PAGE} component={ OrderTable }/> 

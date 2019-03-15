@@ -2,11 +2,13 @@ $order-table_background-color: #ffffff;
 $order-table_header-text-color: #ffffff;
 $order-table_header-background-color: #343a40;
 $order-table_row-background-color: #f5f5f5;
+$order-table_row-even-background-color: #ffffff;
 $order-table_row-hover-background-color: #f5f5f5;
 $order-table_text-color: #808080;
 $order-table_text-hover-color: #555555;
 $order-table_border-color: #808080;
 $order-table_row-border-color: #343a40;
+$order-table_without-background-color: #f9ebdf;
 
 .order__container {
   width: 100%;
@@ -16,7 +18,7 @@ $order-table_row-border-color: #343a40;
   flex-wrap: wrap;
 }
 
-.order__table {
+.order-table {
   border-collapse: collapse;
   background: $order-table_background-color;
   border-radius: 10px;
@@ -24,6 +26,8 @@ $order-table_row-border-color: #343a40;
   width: 100%;
   margin: 0 auto;
   position: relative;
+  box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
+
 }
 
 
@@ -33,13 +37,25 @@ $order-table_row-border-color: #343a40;
 } */
 
 
- .order__table-row td {
-  font-size: 0.75;
-  border-top: 1px solid $order-table_border-color;
-  line-height: 1.2;
-  font-weight: unset;
-  
-}
+ .order__table-row{
+
+  background-color: $order-table_row-background-color;
+
+  td {
+    font-size: 0.75;
+    border-top: 1px solid $order-table_border-color;
+    line-height: 1.2;
+    font-weight: unset;
+    
+  }
+
+  &:nth-child(even) {
+    background-color: $order-table_row-even-background-color;
+  }
+
+
+
+ } 
 
 .order-table__cell-filmName {
   word-wrap: break-word;
@@ -58,6 +74,8 @@ $order-table_row-border-color: #343a40;
 @media screen and (max-width: 992px) {
   .order-table {
     display: block;
+    box-shadow: none;
+    background: $order-table_without-background-color;
   }
 
   .order-table > *, .order-table tr, .order-table td, .order-table th {
@@ -72,7 +90,9 @@ $order-table_row-border-color: #343a40;
     height: auto;
     background-color: $order-table_row-background-color;
     border: 1px solid $order-table_row-border-color;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
 
     td {
       padding-left: 60%;

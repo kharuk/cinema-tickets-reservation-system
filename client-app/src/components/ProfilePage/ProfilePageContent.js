@@ -15,6 +15,6 @@ const ProfilePageContent = (props) =>{
       </div>
     </div>
   );
-}
+} 
 
 export default ProfilePageContent;
