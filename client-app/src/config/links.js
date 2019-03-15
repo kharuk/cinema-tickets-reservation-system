@@ -5,7 +5,8 @@ export const links = {
   FILM_SEARCH_PAGE: '/films',
   FILM_PAGE: '/films/:id',
   SITES_SELECTION_PAGE: '/sites-selection',
-  BOOKING_PAGE: '/booking',
-  ORDERS_PAGE: '/orders',
-  PROFILE_PAGE: '/profile'
+  ORDERS_PAGE: '/profile',
+  CURRENT_ORDERS_PAGE: '/profile/current-orders',
+  PREVIOUS_ORDERS_PAGE: '/profile/previous-orders',
+  PROFILE_PAGE: '/profile/account-settings'
 }

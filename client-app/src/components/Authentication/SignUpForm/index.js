@@ -16,7 +16,7 @@ class SignUpForm extends Component {
           <form action="" className='authentication__form-content'>
             <InputGroup />
             <Input type={'text'} placeholder={'User Name'}/>
-            <Input type={'password'} placeholder={'Password'}/>
+            <Input type={'text'} placeholder={'City'}/>
             <Select options={options}/>
             <Input type={'password'} placeholder={'Password'}/>
             <Input type={'password'} placeholder={'Confirm Password'}/>

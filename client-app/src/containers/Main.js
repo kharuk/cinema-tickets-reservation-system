@@ -7,8 +7,6 @@ import RegisterPage from '../components/Authentication/Register';
 import FilmSearchPage from './FilmSearchPage';
 import FilmPage from './FilmPage';
 import SeatsSelectionPage from './SeatsSelectionPage';
-import BookingPage from './BookingPage';
-import OrdersPage from './OrdersPage';
 import ProfilePage from './ProfilePage';
 
 import { links } from '../config/links';
@@ -25,9 +23,7 @@ class Main extends Component {
           <Route exact path={ links.FILM_SEARCH_PAGE } component={ FilmSearchPage }/>
           <Route exact path={ links.FILM_PAGE } component={ FilmPage }/>
           <Route exact path={ links.SITES_SELECTION_PAGE } component={ SeatsSelectionPage }/>
-          <Route exact path={ links.BOOKING_PAGE } component={ BookingPage }/>
-          <Route exact path={ links.PROFILE_PAGE } component={ ProfilePage }/>    
-          <Route exact path={ links.ORDERS } component={ OrdersPage }/>     
+          <Route path={ links.ORDERS_PAGE } component={ ProfilePage }/>            
         </Switch>
       </Layout>
     );
