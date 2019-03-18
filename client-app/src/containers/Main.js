@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Switch, Route} from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import Layout from '../components/Layout';
 import LoginPage from '../components/Authentication/Login';
 import RegisterPage from '../components/Authentication/Register';
@@ -10,6 +10,7 @@ import SeatsSelectionPage from './SeatsSelectionPage';
 import ProfilePage from './ProfilePage';
 
 import { links } from '../config/links';
+import {history} from '../store/';
 
 class Main extends Component {
 
@@ -30,5 +31,15 @@ class Main extends Component {
   }
 
 }
+
+const mapSateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = {
+
+};
 
 export default Main;
