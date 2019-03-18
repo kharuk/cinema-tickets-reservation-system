@@ -16,7 +16,7 @@ class ProfilePage extends Component {
         <div className="container">
           <Header header="Profile page"/>
           <div className="row profile-page__container">
-            <ProfilePageNavBar path={this.props.match}/>
+            <ProfilePageNavBar/>
             <ProfilePageContent>
               <Switch>
                 <Route exact path={ links.ORDERS_PAGE} component={ OrderTable }/> 
