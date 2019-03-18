@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import {seatTypesConstants} from '../../constants/seatTypesConstants';
 
 const DisplaySeatsType = (props) =>{
   return(
@@ -7,7 +8,7 @@ const DisplaySeatsType = (props) =>{
         <div className="seat-booked"/>
         <p>Booked seat</p>
       </div>
-      {props.sessionSeatTypes['default']
+      {props.sessionSeatTypes[seatTypesConstants.DEFAULT_SEAT]
         ? <Fragment>
                 <div className="seat-type-info__block">
                     <div className="seat-default"/>
@@ -20,7 +21,7 @@ const DisplaySeatsType = (props) =>{
         </Fragment>
         : ''
       }
-      {props.sessionSeatTypes['vip']
+      {props.sessionSeatTypes[seatTypesConstants.VIP_SEAT]
         ? <Fragment>
                 <div className="seat-type-info__block">
                     <div className="seat-vip"/>

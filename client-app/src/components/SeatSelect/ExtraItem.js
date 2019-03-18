@@ -12,15 +12,15 @@ class ExtraItem extends Component{
   }
   
 
-  ChangeSelect = (isSelect) => {
+  changeSelect = (isSelect) => {
     isSelect =  !isSelect;
     this.props.callBackCheckBoxChanged(this.props.label, isSelect);
     return isSelect;
   }
 
-  CheckBoxClick = () => {
+  checkBoxClick = () => {
     this.setState({
-      isSelect: this.ChangeSelect(this.state.isSelect)
+      isSelect: this.changeSelect(this.state.isSelect)
     });
   }
 
@@ -29,7 +29,7 @@ class ExtraItem extends Component{
       <div className="extra-service__item">
   
         <CheckBox 
-          callBackHandleCheckBoxClick={this.CheckBoxClick} 
+          callBackHandleCheckBoxClick={this.checkBoxClick} 
           label={this.props.label} 
           price={this.props.price}
           isSelect={this.state.isSelect}

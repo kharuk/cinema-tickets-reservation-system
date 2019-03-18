@@ -3,7 +3,7 @@ import reservationServise from '../../services/ReservationServices';
 import Header from '../Authentication/Header';
 
 
-const outputPrice = (props) => {
+const OutputPrice = (props) => {
   let price = reservationServise.countTotalPrice(props.chosenSeats, props.chosenExtraServices, props.sessionSeatTypes, props.extraServices);
   let ticketsPrice = price.priceOfTickets;
   let extraServicesPrice = price.priceOfExtraServices;
@@ -31,4 +31,4 @@ const outputPrice = (props) => {
   );
 }
 
-export default outputPrice;
+export default OutputPrice;

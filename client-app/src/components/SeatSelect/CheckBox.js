@@ -25,8 +25,7 @@ class CheckboxLabels extends Component {
         <FormControlLabel
           control={
             <Checkbox
-             // checked={this.state.checked}
-              onChange={() => this.props.callBackHandleCheckBoxClick()}
+              onChange={this.props.callBackHandleCheckBoxClick}
               value="checked"
               checked={this.props.isSelect}
               classes={{
