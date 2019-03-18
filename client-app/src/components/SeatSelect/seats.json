@@ -1,6 +1,7 @@
 [
   [
     {
+      "id": 1,
       "row": 0,
       "column": 0,
       "chosen": false,
@@ -8,6 +9,7 @@
       "type": "vip"
     },
     {
+      "id": 2,
       "row": 1,
       "column": 1,
       "chosen": false,
@@ -15,6 +17,7 @@
       "type": "default"
     },
     {
+      "id": 3,
       "row": 0,
       "column": 1,
       "chosen": false,
@@ -22,6 +25,7 @@
       "type": "default"
     },
     {
+      "id": 4,
       "row": 1,
       "column": 0,
       "chosen": false,
@@ -29,6 +33,7 @@
       "type": "default"
     },
     {
+      "id": 5,
       "row": 0,
       "column": 2,
       "chosen": false,
@@ -36,6 +41,7 @@
       "type": "vip"
     },
     {
+      "id": 6,
       "row": 0,
       "column": 3,
       "chosen": false,
@@ -43,6 +49,7 @@
       "type": "default"
     },
     {
+      "id": 7,
       "row": 1,
       "column": 2,
       "chosen": false,
@@ -50,6 +57,7 @@
       "type": "default"
     },
     {
+      "id": 8,
       "row": 1,
       "column": 3,
       "chosen": false,
@@ -57,6 +65,7 @@
       "type": "default"
     },
     {
+      "id": 9,
       "row": 1,
       "column": 4,
       "chosen": false,

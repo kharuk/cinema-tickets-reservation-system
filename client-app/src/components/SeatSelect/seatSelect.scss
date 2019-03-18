@@ -1,6 +1,20 @@
+$seat-select-background-color:  #007bff80;
+$seat-select-title-color:  #343a40;
+$seat-select-seat-border-color:  #000000;
+$seat-select-info-box-border-color:  #777777;
+$seat-select-default-seat: #007bff80;
+$seat-select-vip-seat: #e98145;
+$seat-select-default-seat-chosen: #e94584;
+$seat-select-vip-seat-chosen: #e9e645;
+$seat-select-booked-seat: #adadad;
+$seat-select-output-price-background-color: #dee2e6;
+
+
 .sites-select__button-container {
   display: flex;
   justify-content: space-between;
+  margin: 0 15px;
+  margin-top: 10px;
 }
 
 .choose-seat__container {
@@ -14,7 +28,7 @@
 }
 
 .scheme__container {
-  background-color: #007bff80;
+  background-color: $seat-select-background-color;
 }
 
 .row{
@@ -28,25 +42,29 @@
 .seat-default, .seat-vip, .seat-vip-chosen, .seat-default-chosen, .seat-booked{
   width: 30px;
   height: 30px;
-  border: solid black;
+  border: solid $seat-select-seat-border-color;
   margin: 5px;
   display: inline-block;
 }
 
+.seat-default {
+  background-color: $seat-select-default-seat;
+}
+
 .seat-default-chosen{
-  background-color:  #e94584;
+  background-color:  $seat-select-default-seat-chosen;
 }
 
 .seat-vip-chosen{
-  background-color:  #e9e645;
+  background-color:  $seat-select-vip-seat-chosen;
 }
 
 .seat-vip{
-  background-color:  #e98145;
+  background-color:  $seat-select-vip-seat;
 }
 
 .seat-booked{
-  background-color: #adadad;
+  background-color: $seat-select-booked-seat;
 }
 
 .seat-info-list__container {
@@ -56,11 +74,94 @@
   justify-content: center;
 }
 
-.seat-info__box{
+.seat-info__box, .extra-service__box{
   margin-right: 20px;
+  margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid rgb(119, 119, 119);
+  border: 1px solid $seat-select-info-box-border-color;
   &:last-child{
     margin-right: 0;
+  }
+}
+
+.seat-types-info__panel{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.seat-type-info__block{
+  padding: 10px;
+}
+
+.link-disabled {
+  color: currentColor;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.extra-services__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.extra-service__item {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
+}
+
+.output-price__container {
+ /*  display: flex;
+  justify-content: flex-start; */
+}
+
+.output-price__item {
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  } 
+}
+
+.extra-item__name {
+  font-size: 1.5rem;
+}
+
+.confirm-order__header{
+  font-size: 1.5rem;
+  color: $seat-select-title-color;
+}
+
+.output-price__container {
+  margin-left: auto;
+}
+
+.output-price__wrapper {
+  background-color: $seat-select-output-price-background-color;
+  position: relative;
+  padding: 15px 20px;
+  h5 {
+      font-size: 1rem;
+      margin-bottom: 0;
+  }
+  .output-price__list {
+      margin-top: 5px;
+      li {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 5px;
+          text-transform: capitalize;
+          text-decoration: none;
+          span {
+              font-size: 0.75rem;
+          }
+      }
   }
 }

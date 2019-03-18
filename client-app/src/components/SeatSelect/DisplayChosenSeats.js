@@ -12,7 +12,7 @@ const DisplayChosenSeats = (props) =>{
       {
         props.chosenSeats.map((item)=>
           <SeatInfoBox
-            key={generateKey(item.row, item.column)}
+            key={item.id}
             seatInfo={item}
             price={props.sessionSeatTypes[item.type]}
           />
