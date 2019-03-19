@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
 
+
 const styles = theme => ({
   container: {
     display: "flex",
@@ -24,14 +25,13 @@ const styles = theme => ({
   }
 });
 
-const sites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
   state = {
     film: "",
     cinema: "",
-    city: "",
-    count_of_sites: ""
+    city: this.props.userLocation
   };
 
   handleChange = name => event => {
@@ -69,6 +69,7 @@ class SearchBar extends Component {
 
         <TextField
           id="outlined-city"
+          select
           label="City"
           className={classes.textField}
           type="search"
@@ -76,7 +77,19 @@ class SearchBar extends Component {
           onChange={this.handleChange("city")}
           margin="normal"
           variant="outlined"
-        />
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu
+            }
+          }}
+        >
+          {this.props.cities.map(option => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
+
 {/* 
         <TextField
           id="outlined-cout-of-sites"

@@ -1,0 +1,1 @@
+export const cities = ["Minsk", "Volkowysk", "Vitebsk", "Grodno", "Brest"];

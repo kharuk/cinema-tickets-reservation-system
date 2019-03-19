@@ -3,6 +3,7 @@ import '../components/Films/film.scss';
 import FilmList from '../components/Films/FilmList';
 import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
+import {cities} from '../components/Films/cities';
 
 
 class FilmSearchPage extends Component {
@@ -12,7 +13,7 @@ class FilmSearchPage extends Component {
       <section className="page-content">
         <div className="container">
           <Header header="Film Search"/>
-          <SearchBar />
+          <SearchBar cities={cities} userLocation={'Minsk'}/>
           <FilmList />
         </div>
       </section>
