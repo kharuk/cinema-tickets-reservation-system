@@ -29,7 +29,6 @@ class Picker extends Component {
             <DatePicker 
               value={this.state.selectedDate} 
               onChange={this.handleChangeDate} 
-              ampm={false}
               disablePast
               maxDate={this.setMaxDate(this.state.selectedDate)}
             />

@@ -13,6 +13,12 @@ export const searchReducer = (state = initialState, action) => {
         selectedCity: data.selectedCity
       }
     }
+    case searchTypes.FETCH_FILMS: {
+      return {
+        ...state,
+        films: data.films
+      }
+    }
     default:
       return state;
   }
