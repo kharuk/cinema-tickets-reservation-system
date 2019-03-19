@@ -1,7 +1,7 @@
 import React, {Component } from "react";
 import moment from 'moment';
 import MomentUtils from "@date-io/moment";
-import { MuiPickersUtilsProvider, DateTimePicker } from "material-ui-pickers";
+import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
 
 class Picker extends Component {
 
@@ -26,7 +26,7 @@ class Picker extends Component {
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <div className="pickers date-timer-picker_margin">
-            <DateTimePicker 
+            <DatePicker 
               value={this.state.selectedDate} 
               onChange={this.handleChangeDate} 
               ampm={false}

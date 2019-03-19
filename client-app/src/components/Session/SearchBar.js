@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import DatePicker from './DatePicker';
 
 const styles = theme => ({
   container: {
@@ -28,9 +27,6 @@ const sites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 class SearchBar extends Component {
   state = {
-    film: "",
-    cinema: "",
-    city: "",
     count_of_sites: ""
   };
 
@@ -45,39 +41,7 @@ class SearchBar extends Component {
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="outlined-film"
-          label="Film"
-          type="search"
-          className={classes.textField}
-          value={this.state.film}
-          onChange={this.handleChange("film")}
-          margin="normal"
-          variant="outlined"
-        />
 
-        <TextField
-          id="outlined-cinema"
-          label="Cinema"
-          className={classes.textField}
-          type="search"
-          value={this.state.cinema}
-          onChange={this.handleChange("cinema")}
-          margin="normal"
-          variant="outlined"
-        />
-
-        <TextField
-          id="outlined-city"
-          label="City"
-          className={classes.textField}
-          type="search"
-          value={this.state.city}
-          onChange={this.handleChange("city")}
-          margin="normal"
-          variant="outlined"
-        />
-{/* 
         <TextField
           id="outlined-cout-of-sites"
           select
@@ -99,10 +63,7 @@ class SearchBar extends Component {
               {option}
             </MenuItem>
           ))}
-        </TextField> */}
-
-        <DatePicker/>
-{/*         <DateTimePicker/> */}
+        </TextField>
       </form>
     );
   }
