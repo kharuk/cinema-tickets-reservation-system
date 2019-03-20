@@ -1,4 +1,7 @@
-import * as firebase from "firebase";
+import firebase from 'firebase/app';
+//import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/firestore'
 
 const config = {
   apiKey: "AIzaSyCl2MLz0HbSOBCRpXeh9g8aggU4xGyVJJ8",
@@ -10,10 +13,12 @@ const config = {
 };
 
 firebase.initializeApp(config);
+firebase.firestore();
+//firebase.firestore().settings();
+export default firebase;
+//export const databaseRef = firebase.database();
 
-export const databaseRef = firebase.database().ref();
-
-export const filmsRef = databaseRef.child("films");
+//export const filmsRef = databaseRef.child("films/");
 //export const todosRef = databaseRef.child("todos");
 /* export const authRef = firebase.auth();
 export const provider = new firebase.auth.GoogleAuthProvider(); */

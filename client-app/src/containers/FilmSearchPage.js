@@ -8,15 +8,25 @@ import { connect } from "react-redux";
 
 import {fetchFilms} from '../store/actions/searchFilmAction';
 
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+
 
 class FilmSearchPage extends Component {
 
+  state = {
+    tempfilms: null
+  }
+
   componentDidMount() {
+   // debugger;
     this.props.fetchFilms();
+
   }
 
   render() {
-    console.log(this.props.films);
+    const { films } = this.props;
+    console.log(films);
     return (
       <section className="page-content">
         <div className="container">
@@ -30,8 +40,10 @@ class FilmSearchPage extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state ', state);
   return {
-      films: state.films
+    films: state.search.films ,
+  //  filmsFromFirestore: state.firestore.ordered.films
   }
 }
 
@@ -39,7 +51,9 @@ const mapDispatchToProps = {
   fetchFilms: fetchFilms
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilmSearchPage);;
+export default compose(
+  connect( mapStateToProps, mapDispatchToProps)
+/*   firestoreConnect([
+    {collection: 'films'}
+  ])  */
+)(FilmSearchPage);

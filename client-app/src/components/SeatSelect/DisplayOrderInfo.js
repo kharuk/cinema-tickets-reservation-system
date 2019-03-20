@@ -1,9 +1,4 @@
 import React, {Fragment} from 'react';
-import DisplayChosenSeats from './DisplayChosenSeats';
-import Header from '../Authentication/Header';
-import RoutingButton from './RoutingButton';
-import OutputPrice from './OutputPrice';
-import DisplayChosenExtraServices from './DisplayChosenExtraServices';
 
 const DisplayOrderInfo = (props) =>{
 
