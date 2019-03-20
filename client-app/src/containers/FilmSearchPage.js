@@ -32,7 +32,7 @@ class FilmSearchPage extends Component {
         <div className="container">
           <Header header="Film Search"/>
           <SearchBar cities={cities} userLocation={'Minsk'}/>
-          <FilmList />
+          <FilmList filmList={films} />
         </div>
       </section>
     )

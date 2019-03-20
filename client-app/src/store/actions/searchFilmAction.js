@@ -42,22 +42,22 @@ export const fetchFilms = () => (dispatch, getState, {getFirestore}) => {
   }); */
   
   const firestore = getFirestore();
-    firestore.collection('films').get()
-    .then(function(querySnapshot) {
-      let filmArray = [];
-        querySnapshot.forEach(function(doc) {
-            filmArray.push(doc.data());
-        });
-        dispatch({
-          type: searchTypes.FETCH_FILMS,
-          payload: {
-            films: filmArray
-          }
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+  firestore.collection('films').get()
+  .then( querySnapshot => {
+    let filmArray = [];
+      querySnapshot.forEach(function(doc) {
+          filmArray.push(doc.data());
+      });
+      dispatch({
+        type: searchTypes.FETCH_FILMS,
+        payload: {
+          films: filmArray
+        }
+      });
+  })
+  .catch( error => {
+      console.log("Error getting documents: ", error);
+  });
   /* .then(() => {
       dispatch({ type: 'CREATE_PROJECT_SUCCESS' });
     }).catch(err => {
