@@ -48,6 +48,7 @@ class FilmSearchPage extends Component {
 
   onButtonClick = (filmName, cinema, city, date) => {
     console.log('clicked');
+    console.log(filmName, cinema, city, date)
     this.props.getFiltredFilmList(filmName, cinema, city, date)
   }
 
