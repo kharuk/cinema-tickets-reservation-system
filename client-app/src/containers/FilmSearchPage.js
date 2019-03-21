@@ -26,7 +26,7 @@ class FilmSearchPage extends Component {
 
   componentDidMount() {
    // debugger;
-    this.props.fetchFilms();
+    this.props.fetchFilms(this.props.selectedCity);
 
   }
 
@@ -52,12 +52,13 @@ class FilmSearchPage extends Component {
     this.props.getFiltredFilmList(filmName, cinema, city, date)
   }
 
-/*   searchBarHandler = (cinema, city) => {
-    console.log('onSubmit');
+  getFiltredFilmList = (filmName, cinema, city, date) => {
+    console.log('submit', filmName, cinema, city, date);
+    this.props.setCurrentFilmName(filmName);
+    this.props.setCurrentCity(city);
     this.props.setCurrentCinema(cinema);
-    this.props.setCurrentCity(city)
-
-  } */
+    this.props.setSessionDate(date);
+  }
 
   render() {
     const { films, selectedCity, filmName, cinema, sessionDate } = this.props;
@@ -78,8 +79,6 @@ class FilmSearchPage extends Component {
             onCinemaChange={this.setCurrentCinema}
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
-
-           // onSubmit={this.searchBarHandler}
           />
           <FilmList filmList={films} />
         </div>
@@ -96,7 +95,6 @@ const mapStateToProps = (state) => {
     filmName: state.search.filmName ,
     cinema: state.search.cinema,
     sessionDate: state.search.sessionDate 
-  //  filmsFromFirestore: state.firestore.ordered.films
   }
 }
 

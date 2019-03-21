@@ -63,32 +63,31 @@ export const setSessionDate = (date) => {
 }
 
 
-const getFilteredRestaurants = (filters, filmListRef) => {
-  let queryFilmName = filmListRef;
-  let queryCinema = filmListRef;
-  let queryCity = filmListRef;
+const getFilteredDate = (filters, filmListRef) => {
 
   if (filters.filmName) {
     filters.filmName = filters.filmName.toLowerCase();
-    let nextLetterInFilm = searchFilmActionHelpers.getNextLetter(filters.filmName);
-    queryFilmName = queryFilmName.where('name', '>=', filters.filmName).where('name', '<=', nextLetterInFilm); 
+    /* let nextLetterInFilm = searchFilmActionHelpers.getNextLetter(filters.filmName);
+    queryFilmName = queryFilmName.where('name', '>=', filters.filmName).where('name', '<=', nextLetterInFilm); */ 
+    filmListRef = filmListRef.where("name", "==", filters.filmName);
   }
 
   if (filters.cinema) {
     filters.cinema = filters.cinema.toLowerCase();
-    let nextLetterInCinema = searchFilmActionHelpers.getNextLetter(filters.cinema);
-    queryCinema = queryCinema.where('cinema', '>=', filters.cinema).where('cinema', '<=', nextLetterInCinema); 
+    /* let nextLetterInCinema = searchFilmActionHelpers.getNextLetter(filters.cinema);
+    queryCinema = queryCinema.where('cinema', '>=', filters.cinema).where('cinema', '<=', nextLetterInCinema);  */
+    filmListRef = filmListRef.where("cinema", "==", filters.cinema);
   }
 
 
   if (filters.city) {
     filters.city = filters.city.toLowerCase();
-    let nextLetterInCity = searchFilmActionHelpers.getNextLetter(filters.city);
-    queryCity = queryCity.where('city', '>=', filters.city).where('city', '<=', nextLetterInCity); 
+    /* let nextLetterInCity = searchFilmActionHelpers.getNextLetter(filters.city);
+    queryCity = queryCity.where('city', '>=', filters.city).where('city', '<=', nextLetterInCity); */ 
+    filmListRef = filmListRef.where("city", "==", filters.city);
   }
-  //console.log('query ', query);
   // add  filter for date
-  return {queryFilmName, queryCinema, queryCity };
+  return filmListRef;
 };
 
 export const getFiltredFilmList = (filmName, cinema, city, date) => {
@@ -102,21 +101,12 @@ export const getFiltredFilmList = (filmName, cinema, city, date) => {
   };
 
   return (dispatch, getState, {getFirestore}) => {
-
-/*     const filters = {
+    const filters = {
       filmName, cinema, city, date
-    } */
-
-   // let nextLetter = searchFilmActionHelpers.getNextLetter(filmName);
-
+    }
     const firestore = getFirestore();
     const filmListRef = firestore.collection('films');
-
-    const changedCity = city.toLowerCase();
-    const query = filmListRef.where('city', '==', changedCity);
-
-  //  const queryByFilmName = filmName ? filmList.where('name', '>=', filmName).where('name', '<=', nextLetter) : filmList;
- //   const query = filmName ? filmList.where("name", "==", filmName) : filmList;  
+    const query = searchFilmActionHelpers.getFilteredDate(filters, filmListRef);
 
     query.get()
     .then( querySnapshot => {
@@ -125,8 +115,6 @@ export const getFiltredFilmList = (filmName, cinema, city, date) => {
       querySnapshot.forEach( doc => {
         filtredFilmList[doc.id] = doc.data();
       });
-
-
       dispatch(setRequest(filtredFilmList));
     })
     .catch( error => {
@@ -137,11 +125,10 @@ export const getFiltredFilmList = (filmName, cinema, city, date) => {
 
 
 
-export const fetchFilms = () => (dispatch, getState, {getFirestore}) => {
+export const fetchFilms = (city) => (dispatch, getState, {getFirestore}) => {
 
-  
   const firestore = getFirestore();
-  firestore.collection('films').get()
+  firestore.collection('films').where("city", "==", city.toLowerCase()).get()
   .then( querySnapshot => {
     let filmList = {};
     querySnapshot.forEach( doc => {

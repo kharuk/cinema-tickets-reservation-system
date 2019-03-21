@@ -23,13 +23,19 @@ const styles = theme => ({
   },
   menu: {
     width: 200
-  }
+  },
+  button: {
+    margin: 20,
+  },
+  input: {
+    display: 'none',
+  },
 });
 
 const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
-  state = {
+/*   state = {
     film: "",
     cinema: "",
     city: this.props.userLocation
@@ -41,14 +47,20 @@ class SearchBar extends Component {
       [name]: event.target.value
     });
   };
-
+ */
+handleSubmit = (event) => {
+  const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
+  event.preventDefault();
+  console.log('try to submit');
+  onButtonClick(filmName, cinema, selectedCity, sessionDate);
+}
 
   render() {
     const { classes } = this.props;
     const { selectedCity, filmName, cinema, sessionDate, onFilmNameChange, onCityChange, onCinemaChange,
     setSessionDate, onButtonClick} = this.props;
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
         <TextField
           id="outlined-film"
           label="Film"
@@ -94,36 +106,17 @@ class SearchBar extends Component {
           ))}
         </TextField>
 
-{/* 
-        <TextField
-          id="outlined-cout-of-sites"
-          select
-          label="Count of sites"
-          className={classes.textField}
-          value={this.state.count_of_sites}
-          onChange={this.handleChange("count_of_sites")}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu
-            }
-          }}
-          helperText="Please select count of sites"
-          margin="normal"
-          variant="outlined"
-        >
-          {sites.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField> */}
-
         <DatePicker 
           setSessionDate={setSessionDate}
           sessionDate={sessionDate}
         />
-{/*         <DateTimePicker/> */}
-        <Button onClick={()=>onButtonClick(filmName, cinema, selectedCity, sessionDate)}>Search</Button>
+        <Button
+         onClick={()=>onButtonClick(filmName, cinema, selectedCity, sessionDate)}
+         variant="outlined" 
+         className={classes.button}
+         >
+         Search
+         </Button>
       </form>
     );
   }

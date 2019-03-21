@@ -5,22 +5,21 @@ import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
 
 class Picker extends Component {
 
-    state = {
+/*     state = {
       selectedDate: new Date(),
-
       handleDateChange: new Date(),
-    }
+    } */
 
     setMaxDate = (time) => {
       const nextDay = moment(time);
       return nextDay.add(1, 'month');
     }
 
-    handleChangeDate = (time) =>{
+/*     handleChangeDate = (time) =>{
       this.setState({
         selectedDate: time
       });
-  }
+  } */
 
 
     render(){
