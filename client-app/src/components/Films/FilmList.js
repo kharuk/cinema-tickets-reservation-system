@@ -6,9 +6,9 @@ const FilmInfoContainer = (props) => (
     <div className="col-md-12 ">
       <div className="row">
         {
-          props.filmList &&
-          props.filmList.map((item) => 
-            <FilmInfo film={item}/>
+          props.filmList && 
+          Object.entries( props.filmList ).map((item) => 
+            <FilmInfo film={item[1]} key={item[0]}/>
           )
         }
       </div>

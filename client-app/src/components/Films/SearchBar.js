@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
+import { Button } from "@material-ui/core";
 
 
 const styles = theme => ({
@@ -34,15 +35,18 @@ class SearchBar extends Component {
     city: this.props.userLocation
   };
 
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
     });
   };
 
+
   render() {
     const { classes } = this.props;
-
+    const { selectedCity, filmName, cinema, sessionDate, onFilmNameChange, onCityChange, onCinemaChange,
+    setSessionDate, onButtonClick} = this.props;
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -50,8 +54,8 @@ class SearchBar extends Component {
           label="Film"
           type="search"
           className={classes.textField}
-          value={this.state.film}
-          onChange={this.handleChange("film")}
+          value={filmName}
+          onChange={e => onFilmNameChange(e.target.value)}
           margin="normal"
           variant="outlined"
         />
@@ -61,8 +65,8 @@ class SearchBar extends Component {
           label="Cinema"
           className={classes.textField}
           type="search"
-          value={this.state.cinema}
-          onChange={this.handleChange("cinema")}
+          value={cinema}
+          onChange={e => onCinemaChange(e.target.value)}
           margin="normal"
           variant="outlined"
         />
@@ -73,8 +77,8 @@ class SearchBar extends Component {
           label="City"
           className={classes.textField}
           type="search"
-          value={this.state.city}
-          onChange={this.handleChange("city")}
+          value={selectedCity}
+          onChange={e => onCityChange(e.target.value)}
           margin="normal"
           variant="outlined"
           SelectProps={{
@@ -114,8 +118,12 @@ class SearchBar extends Component {
           ))}
         </TextField> */}
 
-        <DatePicker/>
+        <DatePicker 
+          setSessionDate={setSessionDate}
+          sessionDate={sessionDate}
+        />
 {/*         <DateTimePicker/> */}
+        <Button onClick={()=>onButtonClick(filmName, cinema, selectedCity, sessionDate)}>Search</Button>
       </form>
     );
   }

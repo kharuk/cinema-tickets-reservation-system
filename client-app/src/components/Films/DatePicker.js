@@ -7,6 +7,7 @@ class Picker extends Component {
 
     state = {
       selectedDate: new Date(),
+
       handleDateChange: new Date(),
     }
 
@@ -23,14 +24,15 @@ class Picker extends Component {
 
 
     render(){
+      const {setSessionDate, sessionDate} = this.props
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <div className="pickers date-timer-picker_margin">
             <DatePicker 
-              value={this.state.selectedDate} 
-              onChange={this.handleChangeDate} 
+              value={sessionDate} 
+              onChange={date => setSessionDate(date)} 
               disablePast
-              maxDate={this.setMaxDate(this.state.selectedDate)}
+              maxDate={this.setMaxDate(sessionDate)}
             />
           </div>
         </MuiPickersUtilsProvider>

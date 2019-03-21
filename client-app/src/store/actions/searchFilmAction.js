@@ -1,7 +1,7 @@
 import { searchTypes } from './types';
 //import { databaseRef } from "../../services/firebase/initFirebase";
 
-function setCurrentCity(city) {
+export const setCurrentCity = (city) => {
   const setRequest = (city) => {
     return {
       type: searchTypes.SET_CURRENT_CITY,
@@ -14,46 +14,98 @@ function setCurrentCity(city) {
   return dispatch => {
     dispatch(setRequest(city));
   }
-
 }
 
-export const fetchFilms = () => (dispatch, getState, {getFirestore}) => {
-//  debugger;
-/*   dispatch({
-    type: searchTypes.FETCH_FILMS,
-    payload: {
-      films: {name: "qwerty"}
-    }
-  }); */
-  /* debugger;
-  databaseRef.ref('/films').set({
-    description: "bad film",
-    name: "green book2",
-    poster_file: "qwerty.jpg"
-
-  }); */
-  /* databaseRef.ref('/films/Kw5XCmusStrAMIkgwPN9').on("value", snapshot => {
-    dispatch({
-      type: searchTypes.FETCH_FILMS,
+export const setCurrentFilmName = (filmName) => {
+  const setRequest = (filmName) => {
+    return {
+      type: searchTypes.SET_CURRENT_FILM_NAME,
       payload: {
-        films: snapshot.val()
+        filmName: filmName
       }
+    }
+  };
+
+  return dispatch => {
+    dispatch(setRequest(filmName));
+  }
+}
+
+export const setCurrentCinema = (cinema) => {
+  const setRequest = (cinema) => {
+    return {
+      type: searchTypes.SET_CURRENT_CINEMA,
+      payload: {
+        cinema: cinema
+      }
+    }
+  };
+
+  return dispatch => {
+    dispatch(setRequest(cinema));
+  }
+}
+
+export const setSessionDate = (date) => {
+  const setRequest = (date) => {
+    return {
+      type: searchTypes.SET_SESSION_DATE,
+      payload: {
+        sesionDate: date
+      }
+    }
+  };
+
+  return dispatch => {
+    dispatch(setRequest(date));
+  }
+}
+
+export const getFiltredFilmList = (filmName, cinema, city, date) => {
+  const setRequest = (filtredFilmList) => {
+    return {
+      type: searchTypes.GET_FILTRED_FILM_LIST,
+      payload: {
+        films: filtredFilmList
+      }
+    }
+  };
+
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    firestore.collection('films').where("name", "==", "qwerty")
+    .get()
+    .then( querySnapshot => {
+      let filtredFilmList = {};
+      querySnapshot.forEach( doc => {
+        filtredFilmList[doc.id] = doc.data();
+      });
+      dispatch(setRequest(filtredFilmList));
+    })
+    .catch( error => {
+        console.log("Error getting documents: ", error);
     });
-  }); */
+  }
+}
+
+
+
+export const fetchFilms = () => (dispatch, getState, {getFirestore}) => {
+
   
   const firestore = getFirestore();
   firestore.collection('films').get()
   .then( querySnapshot => {
-    let filmArray = [];
-      querySnapshot.forEach(function(doc) {
-          filmArray.push(doc.data());
-      });
-      dispatch({
-        type: searchTypes.FETCH_FILMS,
-        payload: {
-          films: filmArray
-        }
-      });
+    let filmList = {};
+    querySnapshot.forEach( doc => {
+        filmList[doc.id] = doc.data();
+    });
+    dispatch({
+      type: searchTypes.FETCH_FILMS,
+      payload: {
+        films: filmList
+      }
+    });
   })
   .catch( error => {
       console.log("Error getting documents: ", error);
@@ -65,6 +117,8 @@ export const fetchFilms = () => (dispatch, getState, {getFirestore}) => {
     }); */
   
 };
+
+
 
 
 
