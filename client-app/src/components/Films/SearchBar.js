@@ -66,7 +66,7 @@ handleSubmit = (event) => {
           label="Film"
           type="search"
           className={classes.textField}
-          value={filmName}
+          value={filmName || ''}
           onChange={e => onFilmNameChange(e.target.value)}
           margin="normal"
           variant="outlined"
@@ -77,7 +77,7 @@ handleSubmit = (event) => {
           label="Cinema"
           className={classes.textField}
           type="search"
-          value={cinema}
+          value={cinema || ''}
           onChange={e => onCinemaChange(e.target.value)}
           margin="normal"
           variant="outlined"
@@ -89,7 +89,7 @@ handleSubmit = (event) => {
           label="City"
           className={classes.textField}
           type="search"
-          value={selectedCity}
+          value={selectedCity || ''}
           onChange={e => onCityChange(e.target.value)}
           margin="normal"
           variant="outlined"

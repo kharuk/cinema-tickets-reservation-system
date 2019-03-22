@@ -5,7 +5,7 @@ class SearchFilmAction {
     return String.fromCharCode(word.charCodeAt(word.slice(0,1)) + 1);
   }
 
-  getFilteredDate = (filters, filmListRef) => {
+  getFilteredData = (filters, filmListRef) => {
   
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();
@@ -28,18 +28,27 @@ class SearchFilmAction {
       queryCity = queryCity.where('city', '>=', filters.city).where('city', '<=', nextLetterInCity); */ 
       filmListRef = filmListRef.where("city", "==", filters.city);
     }
-
-    if (filters.date) {
-
-      let date = moment(filters.date).format("X");
-    //  let date1 = moment(filters.date).format("YYYY:MM:DD");
-    //  console.log(date1);
-      let date2 = moment(filters.date).add(1, "day");
-      date2 = moment(date2).format("X");
-    //  filmListRef = filmListRef.where("date", ">=", date)/* .where("date", "<", date2) */;
-    }
+    
     return filmListRef;
   };
+
+  filterData = (films, date) => {
+    // I tried to filter by date :)
+    if (date.isAfter(moment(), 'day')){
+    date.set({hour:0,minute:0,second:0,millisecond:0})
+    date.format()
+    }
+    let statrDate = moment(date).unix();
+    let endDate = moment(moment(date).endOf("day")).unix();
+    let filteredFilms = Object.entries(films).filter((item) => {
+      return item[1].date.seconds >= statrDate && item[1].date.seconds <= endDate ;
+    })
+    filteredFilms = filteredFilms.reduce((obj, item )=>{
+      obj[item[0]] = item[1]
+      return obj;
+    }, {})
+    return filteredFilms; 
+  } 
 
 }
 

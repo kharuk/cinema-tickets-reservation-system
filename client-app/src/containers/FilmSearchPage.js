@@ -108,6 +108,10 @@ const mapDispatchToProps = {
 
  
 }
+/* 
+mapDispatchToProps = (dispatch) => ({
+  fetchFilms: dispatch(fetchFilms),
+}) */
 
 export default compose(
   connect( mapStateToProps, mapDispatchToProps)

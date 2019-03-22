@@ -63,33 +63,6 @@ export const setSessionDate = (date) => {
 }
 
 
-const getFilteredDate = (filters, filmListRef) => {
-
-  if (filters.filmName) {
-    filters.filmName = filters.filmName.toLowerCase();
-    /* let nextLetterInFilm = searchFilmActionHelpers.getNextLetter(filters.filmName);
-    queryFilmName = queryFilmName.where('name', '>=', filters.filmName).where('name', '<=', nextLetterInFilm); */ 
-    filmListRef = filmListRef.where("name", "==", filters.filmName);
-  }
-
-  if (filters.cinema) {
-    filters.cinema = filters.cinema.toLowerCase();
-    /* let nextLetterInCinema = searchFilmActionHelpers.getNextLetter(filters.cinema);
-    queryCinema = queryCinema.where('cinema', '>=', filters.cinema).where('cinema', '<=', nextLetterInCinema);  */
-    filmListRef = filmListRef.where("cinema", "==", filters.cinema);
-  }
-
-
-  if (filters.city) {
-    filters.city = filters.city.toLowerCase();
-    /* let nextLetterInCity = searchFilmActionHelpers.getNextLetter(filters.city);
-    queryCity = queryCity.where('city', '>=', filters.city).where('city', '<=', nextLetterInCity); */ 
-    filmListRef = filmListRef.where("city", "==", filters.city);
-  }
-  // add  filter for date
-  return filmListRef;
-};
-
 export const getFiltredFilmList = (filmName, cinema, city, date) => {
   const setRequest = (filtredFilmList) => {
     return {
@@ -106,7 +79,7 @@ export const getFiltredFilmList = (filmName, cinema, city, date) => {
     }
     const firestore = getFirestore();
     const filmListRef = firestore.collection('films');
-    const query = searchFilmActionHelpers.getFilteredDate(filters, filmListRef);
+    const query = searchFilmActionHelpers.getFilteredData(filters, filmListRef);
 
     query.get()
     .then( querySnapshot => {
@@ -115,6 +88,7 @@ export const getFiltredFilmList = (filmName, cinema, city, date) => {
       querySnapshot.forEach( doc => {
         filtredFilmList[doc.id] = doc.data();
       });
+      filtredFilmList = searchFilmActionHelpers.filterData(filtredFilmList, filters.date);
       dispatch(setRequest(filtredFilmList));
     })
     .catch( error => {

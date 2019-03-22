@@ -1,10 +1,11 @@
 import { searchTypes } from '../actions/types';
+import moment from 'moment';
 
 const initialState = {
   selectedCity:'Minsk',
   filmName: undefined,
   cinema: undefined,
-  sessionDate: new Date(),
+  sessionDate: moment(),
   films: undefined
 
 };
