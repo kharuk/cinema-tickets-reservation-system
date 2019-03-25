@@ -6,7 +6,8 @@ import Header from '../components/Authentication/Header';
 import {cities} from '../components/Films/cities';
 import { connect } from "react-redux";
 
-import {fetchFilms, 
+import {
+  fetchFilms, 
   setCurrentCity,
   setCurrentFilmName,
   setCurrentCinema,
@@ -14,7 +15,6 @@ import {fetchFilms,
   getFiltredFilmList
 } from '../store/actions/searchFilmAction';
 
-import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 
@@ -25,9 +25,7 @@ class FilmSearchPage extends Component {
   }
 
   componentDidMount() {
-   // debugger;
-    this.props.fetchFilms(this.props.selectedCity);
-
+    this.props.fetchFilms(this.props.selectedCity, this.props.sessionDate);
   }
 
   setCurrentFilmName = (filmName) => {
@@ -98,20 +96,17 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = {
-  fetchFilms: fetchFilms,
-  setCurrentFilmName: setCurrentFilmName,
-  setCurrentCity: setCurrentCity,
-  setCurrentCinema: setCurrentCinema,
-  setSessionDate: setSessionDate,
-  getFiltredFilmList: getFiltredFilmList
+const mapDispatchToProps = dispatch => ({
+  fetchFilms: (city, date) => dispatch(fetchFilms(city, date)),
+  setCurrentFilmName: (filmName) => dispatch(setCurrentFilmName(filmName)),
+  setCurrentCity: (city) => dispatch(setCurrentCity(city)),
+  setCurrentCinema: (cinema) => dispatch(setCurrentCinema(cinema)),
+  setSessionDate: (date) => dispatch(setSessionDate(date)),
+  getFiltredFilmList: (filmName, cinema, city, date) => dispatch(getFiltredFilmList(filmName, cinema, city, date))
 
  
-}
-/* 
-mapDispatchToProps = (dispatch) => ({
-  fetchFilms: dispatch(fetchFilms),
-}) */
+})
+
 
 export default compose(
   connect( mapStateToProps, mapDispatchToProps)

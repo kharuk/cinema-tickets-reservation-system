@@ -11,9 +11,7 @@ const initialState = {
 };
 
 export const searchReducer = (state = initialState, action) => {
- // 
   let data = action.payload;
-  //console.log(data);
   switch (action.type) {
     case searchTypes.SET_CURRENT_CITY: {
       return {

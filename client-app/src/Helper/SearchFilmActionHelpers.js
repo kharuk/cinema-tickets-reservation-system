@@ -5,8 +5,7 @@ class SearchFilmAction {
     return String.fromCharCode(word.charCodeAt(word.slice(0,1)) + 1);
   }
 
-  getFilteredData = (filters, filmListRef) => {
-  
+  getFilteredData = (filters, filmListRef) => { 
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();
       /* let nextLetterInFilm = searchFilmActionHelpers.getNextLetter(filters.filmName);
@@ -20,8 +19,7 @@ class SearchFilmAction {
       queryCinema = queryCinema.where('cinema', '>=', filters.cinema).where('cinema', '<=', nextLetterInCinema);  */
       filmListRef = filmListRef.where("cinema", "==", filters.cinema);
     }
-  
-  
+
     if (filters.city) {
       filters.city = filters.city.toLowerCase();
       /* let nextLetterInCity = searchFilmActionHelpers.getNextLetter(filters.city);
@@ -32,7 +30,7 @@ class SearchFilmAction {
     return filmListRef;
   };
 
-  filterData = (films, date) => {
+  filterByDate = (films, date) => {
     // I tried to filter by date :)
     if (date.isAfter(moment(), 'day')){
     date.set({hour:0,minute:0,second:0,millisecond:0})
