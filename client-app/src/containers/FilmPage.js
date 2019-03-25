@@ -59,11 +59,7 @@ class FilmPage extends Component {
 const mapStateToProps = (state) => {
   console.log('state ', state);
   return {
-    film: state.search.choosenFilm ,
-/*     selectedCity: state.search.selectedCity ,
-    filmName: state.search.filmName ,
-    cinema: state.search.cinema,
-    sessionDate: state.search.sessionDate  */
+    film: state.search.choosenFilm 
   }
 }
 

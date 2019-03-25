@@ -35,19 +35,7 @@ const styles = theme => ({
 const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
-/*   state = {
-    film: "",
-    cinema: "",
-    city: this.props.userLocation
-  };
 
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
- */
 handleSubmit = (event) => {
   const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
   event.preventDefault();
