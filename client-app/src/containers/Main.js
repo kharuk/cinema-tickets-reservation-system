@@ -12,6 +12,7 @@ import ProfilePage from './ProfilePage';
 import { links } from '../config/links';
 import {history} from '../store/';
 
+
 class Main extends Component {
 
   render() {
@@ -31,15 +32,5 @@ class Main extends Component {
   }
 
 }
-
-const mapSateToProps = (state) => {
-  return {
-
-  }
-}
-
-const mapDispatchToProps = {
-
-};
 
 export default Main;

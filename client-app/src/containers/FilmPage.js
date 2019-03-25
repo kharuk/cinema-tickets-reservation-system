@@ -5,15 +5,27 @@ import FilmCard from '../components/Session/FilmCard';
 import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 import SearchBar from '../components/Session/SearchBar';
+import { connect } from "react-redux";
+
+import {
+  getFilmById
+} from '../store/actions/searchFilmAction';
 
 
 import '../components/Session/session.scss';
+import defaultImage from '../images/default-movie-poster.gif'
 
 
 class FilmPage extends Component {
 
-  render() {
+  componentDidMount() {
+    this.props.getFilmById(this.props.match.params.id);
+    console.log(this.props.film);
+  }
 
+  render() {
+    let {film} = this.props;
+    console.log(film);
     return (
       <section className="page-content">
         <div className="container">
@@ -22,9 +34,9 @@ class FilmPage extends Component {
           <div className="row film-page__info">
             <div className="col-md-6 film-page__film-info">
               <FilmCard
-                title="green book" 
-                image={"../images/film1.jpg"} 
-                description="Cool film" 
+                title={film && film.name}
+                image={film && film.image || defaultImage} 
+                description={film && film.description} 
               />
             </div>
             <div className="col-md-6 ">
@@ -44,4 +56,22 @@ class FilmPage extends Component {
   }
 }
 
-export default FilmPage;
+const mapStateToProps = (state) => {
+  console.log('state ', state);
+  return {
+    film: state.search.choosenFilm ,
+/*     selectedCity: state.search.selectedCity ,
+    filmName: state.search.filmName ,
+    cinema: state.search.cinema,
+    sessionDate: state.search.sessionDate  */
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  getFilmById: (id) => dispatch(getFilmById(id))
+
+ 
+})
+
+
+export default connect( mapStateToProps, mapDispatchToProps)(FilmPage);

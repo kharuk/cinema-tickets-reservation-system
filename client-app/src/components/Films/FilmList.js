@@ -8,7 +8,7 @@ const FilmInfoContainer = (props) => (
         {
           props.filmList && 
           Object.entries( props.filmList ).map((item) => 
-            <FilmInfo film={item[1]} key={item[0]}/>
+            <FilmInfo film={item[1]} key={item[0]} id={item[0]}/>
           )
         }
       </div>

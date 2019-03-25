@@ -109,6 +109,35 @@ export const fetchFilms = (city, date) => (dispatch, getState, {getFirestore}) =
   });
 };
 
+export const getFilmById = (id) => (dispatch, getState, {getFirestore}) => {
+
+/*   const firestore = getFirestore();
+  firestore.collection('films').doc(id).get()
+  .then(doc => {
+    dispatch({
+      type: searchTypes.GET_FILM_BY_ID,
+      payload: {
+        film: doc.data()
+      }
+    })
+  }) */
+
+  const firestore = getFirestore();
+  firestore.collection('films').doc(id).collection('film').get()
+  .then(querySnapshot => {
+    let filmList = {};
+    querySnapshot.forEach( doc => {
+        filmList = doc.data();
+    });
+    dispatch({
+      type: searchTypes.GET_FILM_BY_ID,
+      payload: {
+        film: filmList
+      }
+    });
+  });
+}
+
 
 
 

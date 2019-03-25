@@ -6,7 +6,8 @@ const initialState = {
   filmName: undefined,
   cinema: undefined,
   sessionDate: moment(),
-  films: undefined
+  films: undefined,
+  choosenFilm: undefined
 
 };
 
@@ -47,6 +48,12 @@ export const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         films: data.films
+      }
+    }
+    case searchTypes.GET_FILM_BY_ID: {
+      return {
+        ...state,
+        choosenFilm: data.film
       }
     }
     default:
