@@ -8,7 +8,6 @@ const initialState = {
   sessionDate: moment(),
   films: undefined,
   choosenFilm: undefined
-
 };
 
 export const searchReducer = (state = initialState, action) => {

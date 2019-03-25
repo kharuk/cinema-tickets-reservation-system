@@ -1,22 +1,5 @@
 import { searchTypes } from './types';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
-//import { databaseRef } from "../../services/firebase/initFirebase";
-
-/* export const setCurrentCity = (city) => {
-  const setRequest = (city) => {
-    return {
-      type: searchTypes.SET_CURRENT_CITY,
-      payload: {
-        selectedCity: city
-      }
-    }
-  };
-
-  return dispatch => {
-    dispatch(setRequest(city));
-  }
-}
- */
 
 export const setCurrentCity = (city) => {
   return {
@@ -54,7 +37,6 @@ export const setSessionDate = (date) => {
   }
 }
 
-
 export const getFiltredFilmList = (filmName, cinema, city, date) => {
   return (dispatch, getState, {getFirestore}) => {
     const filters = {
@@ -85,8 +67,6 @@ export const getFiltredFilmList = (filmName, cinema, city, date) => {
   }
 }
 
-
-
 export const fetchFilms = (city, date) => (dispatch, getState, {getFirestore}) => {
 
   const firestore = getFirestore();
@@ -111,18 +91,7 @@ export const fetchFilms = (city, date) => (dispatch, getState, {getFirestore}) =
 
 export const getFilmById = (id) => (dispatch, getState, {getFirestore}) => {
 
-/*   const firestore = getFirestore();
-  firestore.collection('films').doc(id).get()
-  .then(doc => {
-    dispatch({
-      type: searchTypes.GET_FILM_BY_ID,
-      payload: {
-        film: doc.data()
-      }
-    })
-  }) */
-
-  const firestore = getFirestore();
+const firestore = getFirestore();
   firestore.collection('films').doc(id).collection('film').get()
   .then(querySnapshot => {
     let filmList = {};
@@ -137,10 +106,6 @@ export const getFilmById = (id) => (dispatch, getState, {getFirestore}) => {
     });
   });
 }
-
-
-
-
 
 export const searchFilmActions = {
   setCurrentCity
