@@ -34,9 +34,9 @@ class FilmPage extends Component {
           <div className="row film-page__info">
             <div className="col-md-6 film-page__film-info">
               <FilmCard
-                title={film && film.name}
-                image={film && film.image || defaultImage} 
-                description={film && film.description} 
+                title={film.name}
+                image={film.image || defaultImage} 
+                description={film.description} 
               />
             </div>
             <div className="col-md-6 ">
@@ -55,6 +55,15 @@ class FilmPage extends Component {
     )
   }
 }
+
+
+FilmPage.defaultProps = {
+  film: {
+    image: defaultImage,
+    name: "",
+    description: ""
+  }
+};
 
 const mapStateToProps = (state) => {
   console.log('state ', state);
