@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import DateTimePicker from './DateTimePicker';
+import DatePicker from './DatePicker';
+import { Button } from "@material-ui/core";
+
 
 const styles = theme => ({
   container: {
@@ -21,37 +23,39 @@ const styles = theme => ({
   },
   menu: {
     width: 200
-  }
+  },
+  button: {
+    margin: 20,
+  },
+  input: {
+    display: 'none',
+  },
 });
 
-const sites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
-  state = {
-    film: "",
-    cinema: "",
-    city: "",
-    count_of_sites: ""
-  };
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
+handleSubmit = (event) => {
+  const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
+  event.preventDefault();
+  console.log('try to submit');
+  onButtonClick(filmName, cinema, selectedCity, sessionDate);
+}
 
   render() {
     const { classes } = this.props;
-
+    const { selectedCity, filmName, cinema, sessionDate, onFilmNameChange, onCityChange, onCinemaChange,
+    setSessionDate, onButtonClick} = this.props;
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
         <TextField
           id="outlined-film"
           label="Film"
           type="search"
           className={classes.textField}
-          value={this.state.film}
-          onChange={this.handleChange("film")}
+          value={filmName || ''}
+          onChange={e => onFilmNameChange(e.target.value)}
           margin="normal"
           variant="outlined"
         />
@@ -61,48 +65,46 @@ class SearchBar extends Component {
           label="Cinema"
           className={classes.textField}
           type="search"
-          value={this.state.cinema}
-          onChange={this.handleChange("cinema")}
+          value={cinema || ''}
+          onChange={e => onCinemaChange(e.target.value)}
           margin="normal"
           variant="outlined"
         />
 
         <TextField
           id="outlined-city"
+          select
           label="City"
           className={classes.textField}
           type="search"
-          value={this.state.city}
-          onChange={this.handleChange("city")}
+          value={selectedCity || ''}
+          onChange={e => onCityChange(e.target.value)}
           margin="normal"
           variant="outlined"
-        />
-
-        <TextField
-          id="outlined-cout-of-sites"
-          select
-          label="Count of sites"
-          className={classes.textField}
-          value={this.state.count_of_sites}
-          onChange={this.handleChange("count_of_sites")}
           SelectProps={{
             MenuProps: {
               className: classes.menu
             }
           }}
-          helperText="Please select count of sites"
-          margin="normal"
-          variant="outlined"
         >
-          {sites.map(option => (
+          {this.props.cities.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
           ))}
         </TextField>
 
-        <DateTimePicker/>
-        <DateTimePicker/>
+        <DatePicker 
+          setSessionDate={setSessionDate}
+          sessionDate={sessionDate}
+        />
+        <Button
+         onClick={()=>onButtonClick(filmName, cinema, selectedCity, sessionDate)}
+         variant="outlined" 
+         className={classes.button}
+         >
+         Search
+         </Button>
       </form>
     );
   }

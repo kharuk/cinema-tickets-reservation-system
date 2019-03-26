@@ -1,8 +1,11 @@
-$film-info-background-color: #f2af00;
+$film-info-background-color: #343a40;
+$film-info-text-color: #ffffff;
+
 
 .film-info__container{
   height: 300px;
   background-color: $film-info-background-color;
+  background-size: cover;
   display: flex;
   align-items: center;
   align-content: center;
@@ -11,8 +14,13 @@ $film-info-background-color: #f2af00;
 }
 
 .film-info__caption {
+  width: 100%;
+  text-align: center;
   overflow: hidden;
   max-height: 100%;
+  background-color: $film-info-background-color;
+  color: $film-info-text-color;
+/*   opacity: 0.5; */
 }
 
 .date-timer-picker_margin {
