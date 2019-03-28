@@ -1,0 +1,13 @@
+{
+  "_id" : 1,
+  "state" : "canceled",
+  "total" : 30,
+  "reservations" : [ {
+      "sessionId" : 1,
+      "seats" : [ [ 1, 5 ], [ 1, 6 ], [ 1, 7 ] ],
+      "price" : 10,
+      "total" : 30
+  } ],
+  "modifiedOn" : "2015-03-11T15:45:49.105Z",
+  "createdOn" : "2015-03-11T15:45:49.104Z"
+}

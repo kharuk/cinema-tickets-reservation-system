@@ -3,17 +3,89 @@ import Input from '../Input';
 import Button from '../Button';
 import '../styles/login.scss';
 import Header from '../Header';
+import {userActions}  from '../../../store/actions/userAction';
+import {emailValidator, passwordValidator} from '../../../services/Validator';
+import { connect } from "react-redux";
 
 class SignInForm extends Component {
 
+  constructor(props) {
+    super(props);
+    this.props.logout();
+  }
+
+
+
+  validate = () => {
+    const errors = {};
+    let emailError = emailValidator(this.state.email);
+    let passwordError = passwordValidator(this.state.password);
+    if (emailError) {
+        errors.email = emailError
+    }
+    if (passwordError) {
+        errors.password = passwordError
+    }
+    this.setState(
+      {
+        errors: errors
+      }
+    );
+  }
+
+  state = {
+    email: '',
+    password: '',
+    submitted: false,
+    errors: {}
+  };
+
+  handleChange = async(e) => { 
+    const { name, value } = e.target;
+    await this.setState({ [name]: value }) 
+    this.validate();
+  }
+
+  isEmpty = (obj) => {
+    for (var key in obj) {
+      return false;
+    }
+    return true;
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.setState({ submitted: true });
+    const { email, password } = this.state;
+    if (this.isEmpty(this.state.errors)) {
+      this.props.login({email, password});
+    }
+  }
+
     render() {
+      const { loggingIn } = this.props;
+      const { email, password, submitted, errors } = this.state;
       return (
         <div className="authentication__form-wrapper">
           <Header header={'Sign In Form'}/>
-          <form action="" className='authentication__form-content'>
-            <Input type={'text'} placeholder={'User Name'}/>
-            <Input type={'password'} placeholder={'Password'}/>
-            <Button text={"Sign In"}/>
+          <form onSubmit={this.handleSubmit} className='authentication__form-content'>
+            <p className="help__block">{this.props.errorMessage}</p>
+            <Input 
+              name="email" 
+              type={'email'} 
+              placeholder={'Email'}
+              onChange={this.handleChange}
+              caption={errors.email}
+            />
+            <Input 
+              type={'password'} 
+              placeholder={'Password'}
+              name="password" 
+              onChange={this.handleChange}
+              caption={errors.password}
+            />
+            <button className="authentication__form-button">Sign In</button>
+          {/*   <Button text={"Sign In"}/> */}
           </form>
         </div> 
         
@@ -21,4 +93,16 @@ class SignInForm extends Component {
     }
 }
 
-export default SignInForm;
+function mapStateToProps(state) {
+  return {
+      loggingIn: state.user.loggingIn,
+      errorMessage: state.user.errorMessage
+ };
+}
+
+const mapDispatchToProps = dispatch => ({
+  login: (data) => dispatch(userActions.login(data)),
+  logout: () => dispatch(userActions.logout())
+})
+
+export default connect( mapStateToProps, mapDispatchToProps)(SignInForm);
