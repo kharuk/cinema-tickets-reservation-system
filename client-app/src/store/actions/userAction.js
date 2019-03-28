@@ -13,20 +13,34 @@ function setUserLocation(city) {
   }
 }
 
-function signup(data) {
+function signup(userInfo) {
+  console.log(userInfo);
   return async (dispatch) => {
     try {
-      await userServices.signup(data);
-      //history.push(links.SIGN_IN_PAGE);
+      const {data} = await userServices.signup(userInfo);
+      if (data.isSuccessfully){
+        dispatch(login({
+          email: userInfo.email,
+          password: userInfo.password
+        }));
+      } else {
+        dispatch({ 
+          type: userTypes.SIGN_UP_FAILD, 
+          paylaod: {
+            message: data.message
+          }
+        });
+      }
     } catch (err) {
-      toastr.error(err);
+      console.log(err);
+      //toastr.error(err);
     }
     
   }
 } 
 
 function login(values) {
-  //console.log(data);
+  console.log(values);
   return async (dispatch) => {
       try {
           const {data} = await userServices.login(values);
@@ -48,12 +62,9 @@ function login(values) {
                 message: data.message
               }
             });
-            //console.log(data.message);
           }
       } catch (err) {
         console.log(err);
-       // console.log(data.message);
-      //  toastr.error('ggg');
       }
   };
 }

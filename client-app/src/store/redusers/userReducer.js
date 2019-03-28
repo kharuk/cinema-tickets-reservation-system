@@ -29,7 +29,13 @@ export const userReducer = (state = initialState, action) => {
       }
     }
     case userTypes.SIGN_IN_FAILD: {
-      console.log('qwerty',data.message);
+      return {
+        ...state,
+        loggingIn: false,
+        errorMessage: data.message
+      }
+    }
+    case userTypes.SIGN_UP_FAILD: {
       return {
         ...state,
         loggingIn: false,
