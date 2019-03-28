@@ -1,7 +1,8 @@
 import { toastr } from 'react-redux-toastr';
 import { userTypes } from './types';
 import userServices from '../../services/authServices';
-import links from '../../config/links';
+import {links} from '../../config/links';
+import {history} from '../index';
 
 function setUserLocation(city) {
   return {
@@ -36,8 +37,10 @@ function login(values) {
               type: userTypes.SIGN_IN_SUCCESS, 
               paylaod: {
                 user: data.user,
+                token: data.token
               }
             });
+            history.push(links.FILM_SEARCH_PAGE);
           } else {
             dispatch({ 
               type: userTypes.SIGN_IN_FAILD, 
