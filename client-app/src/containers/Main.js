@@ -18,13 +18,12 @@ import {userActions}  from '../store/actions/userAction';
 class Main extends Component {
 
   render() {
-    const {loggedIn, isAdmin, logout } = this.props;
+    const {loggedIn, role } = this.props;
     return (
       <Router history={history}>
         <Layout
           loggedIn={loggedIn}
-          isAdmin={isAdmin}
-          onLogout={this.props.logout}
+          role={role}
         >
           <ReduxToastr
             timeOut={4000}
@@ -41,9 +40,9 @@ class Main extends Component {
             <Route exact path={ links.SIGN_IN_PAGE  } component={ LoginPage }/>
             <Route exact path={ links.SIGN_UP_PAGE } component={ RegisterPage }/>
             <PrivateRoute requiredRoles={['User', 'Admin']} exact path={ links.FILM_SEARCH_PAGE } component={ FilmSearchPage }/>
-            <Route exact path={ links.FILM_PAGE } component={ FilmPage }/>
-            <Route exact path={ links.SITES_SELECTION_PAGE } component={ SeatsSelectionPage }/>
-            <Route path={ links.ORDERS_PAGE } component={ ProfilePage }/>            
+            <PrivateRoute requiredRoles={['User', 'Admin']} exact path={ links.FILM_PAGE } component={ FilmPage }/>
+            <PrivateRoute requiredRoles={['User', 'Admin']} exact path={ links.SITES_SELECTION_PAGE } component={ SeatsSelectionPage }/>
+            <PrivateRoute requiredRoles={['User', 'Admin']} path={ links.ORDERS_PAGE } component={ ProfilePage }/>         
           </Switch>
         </Layout>
       </Router>
@@ -55,11 +54,8 @@ class Main extends Component {
 function mapStateToProps(state) {
   return {
       loggedIn: state.user.loggedIn,
+      role: state.user.user ? state.user.user.role : '',
  };
 }
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(userActions.logout())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, null)(Main);
