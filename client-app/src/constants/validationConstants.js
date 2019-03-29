@@ -9,7 +9,11 @@ const ERRORS = {
     },
     password: {
         empty: 'Empty field',
-        symbols: 'Password should consist of 6 or more symbols'
+        symbols: 'Password should consist of 6 or more symbols',
+        mismatch: 'Confirm password don\'t match'
+    },
+    item: {
+        empty: 'Empty field',
     }
 }
 

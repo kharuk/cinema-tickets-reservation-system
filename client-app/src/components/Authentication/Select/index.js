@@ -6,13 +6,21 @@ class Select extends Component {
   render() {
     return (
       <div className="form-group authentication__form-group">
-        <select name={this.props.name} id="" className="form-control form-login__select authentication__form-control" onChange={this.props.onChange}>
+        <select 
+          name={this.props.name} 
+          id="" 
+          className="form-control form-login__select authentication__form-control" 
+          onChange={this.props.onChange}
+        >
         {
           this.props.options.map( 
           (item) => <Option key={item.id} item={item.name} value={item.value} />)
         }
         </select>
         <i className=""></i>
+        {this.props.caption &&
+            <div className="help__block">{this.props.caption}</div>
+        }
       </div>
     )
   }

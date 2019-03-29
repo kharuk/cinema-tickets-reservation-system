@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Input from '../Input';
-import Button from '../Button';
 import '../styles/login.scss';
 import Header from '../Header';
 import {userActions}  from '../../../store/actions/userAction';
@@ -13,8 +12,12 @@ class SignInForm extends Component {
     super(props);
     this.props.logout();
   }
-
-
+ 
+  state = {
+    email: '',
+    password: '',
+    errors: {}
+  };
 
   validate = () => {
     const errors = {};
@@ -33,13 +36,6 @@ class SignInForm extends Component {
     );
   }
 
-  state = {
-    email: '',
-    password: '',
-    submitted: false,
-    errors: {}
-  };
-
   handleChange = async(e) => { 
     const { name, value } = e.target;
     await this.setState({ [name]: value }) 
@@ -53,44 +49,43 @@ class SignInForm extends Component {
     return true;
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async(e) => {
     e.preventDefault();
-    this.setState({ submitted: true });
+    await this.validate();
     const { email, password } = this.state;
     if (this.isEmpty(this.state.errors)) {
       this.props.login({email, password});
     }
   }
 
-    render() {
-      const { loggingIn } = this.props;
-      const { email, password, submitted, errors } = this.state;
-      return (
-        <div className="authentication__form-wrapper">
-          <Header header={'Sign In Form'}/>
-          <form onSubmit={this.handleSubmit} className='authentication__form-content'>
-            <p className="help__block">{this.props.errorMessage}</p>
-            <Input 
-              name="email" 
-              type={'email'} 
-              placeholder={'Email'}
-              onChange={this.handleChange}
-              caption={errors.email}
-            />
-            <Input 
-              type={'password'} 
-              placeholder={'Password'}
-              name="password" 
-              onChange={this.handleChange}
-              caption={errors.password}
-            />
-            <button className="authentication__form-button">Sign In</button>
-          {/*   <Button text={"Sign In"}/> */}
-          </form>
-        </div> 
-        
-      )
-    }
+  render() {
+    const { loggingIn } = this.props;
+    const { errors } = this.state;
+    return (
+      <div className="authentication__form-wrapper">
+        <Header header={'Sign In Form'}/>
+        <form onSubmit={this.handleSubmit} className='authentication__form-content'>
+          <p className="help__block">{this.props.errorMessage}</p>
+          <Input 
+            name="email" 
+            type={'email'} 
+            placeholder={'Email'}
+            onChange={this.handleChange}
+            caption={errors.email}
+          />
+          <Input 
+            type={'password'} 
+            placeholder={'Password'}
+            name="password" 
+            onChange={this.handleChange}
+            caption={errors.password}
+          />
+          <button className="authentication__form-button">Sign In</button>
+        </form>
+      </div> 
+      
+    )
+  }
 }
 
 function mapStateToProps(state) {

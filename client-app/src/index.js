@@ -6,6 +6,7 @@ import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import {store} from './store/';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 const rootElement = document.getElementById('root');
 

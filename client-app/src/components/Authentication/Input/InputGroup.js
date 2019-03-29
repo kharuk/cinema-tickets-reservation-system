@@ -11,6 +11,7 @@ class InputGroup extends Component {
             input_half_size={"form-login__input-half"}
             name="firstName" 
             onChange={this.props.onChange}
+            caption={this.props.captionFirstName}
           />
           <Input 
             type={'text'} 
@@ -18,6 +19,7 @@ class InputGroup extends Component {
             name="lastName" 
             input_half_size={"form-login__input-half"}
             onChange={this.props.onChange}
+            caption={this.props.captionLastName}
           />
         </div>
       )

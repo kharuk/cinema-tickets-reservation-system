@@ -9,6 +9,7 @@ import FilmPage from './FilmPage';
 import SeatsSelectionPage from './SeatsSelectionPage';
 import ProfilePage from './ProfilePage';
 import PrivateRoute from '../shared/PrivateRouter';
+import ReduxToastr from 'react-redux-toastr'
 
 import { links } from '../config/links';
 import {history} from '../store/';
@@ -20,6 +21,16 @@ class Main extends Component {
     return (
       <Router history={history}>
         <Layout>
+          <ReduxToastr
+            timeOut={4000}
+            newestOnTop={false}
+            preventDuplicates
+            position="top-left"
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            progressBar
+            closeOnToastrClick
+          />
           <Switch>
             <Route exact path={ links.MAIN_PAGE_PATH }/>
             <Route exact path={ links.SIGN_IN_PAGE  } component={ LoginPage }/>

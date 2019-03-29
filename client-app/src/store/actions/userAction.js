@@ -4,6 +4,11 @@ import userServices from '../../services/authServices';
 import {links} from '../../config/links';
 import {history} from '../index';
 
+const showErrorToast = (err) => {
+  const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
+  toastr.error(message);
+};
+
 function setUserLocation(city) {
   return {
     type: userTypes.SET_LOCATION,
@@ -33,7 +38,7 @@ function signup(userInfo) {
       }
     } catch (err) {
       console.log(err);
-      //toastr.error(err);
+      showErrorToast(err);
     }
     
   }
@@ -64,7 +69,8 @@ function login(values) {
             });
           }
       } catch (err) {
-        console.log(err);
+        showErrorToast(err);
+        
       }
   };
 }
@@ -75,7 +81,7 @@ function logout() {
           await userServices.logout();
           dispatch({ type: userTypes.LOGOUT_USER });
       } catch (err) {
-        toastr.error(err);
+        showErrorToast(err);
       }
   };
 }

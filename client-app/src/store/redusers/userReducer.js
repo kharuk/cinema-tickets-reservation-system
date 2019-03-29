@@ -19,13 +19,13 @@ export const userReducer = (state = initialState, action) => {
     case userTypes.SIGN_IN_SUCCESS: {
       console.log('qwerty',data);
       localStorage.setItem('user', JSON.stringify(data.user));
-      axios.defaults.headers.common['Authorization'] = data.token;
+      //axios.defaults.headers.common['Authorization'] = data.token;
       return {
         ...state,
         user: data.user,
         loggingIn: true,
         errorMessage: undefined,
-        token: data.token
+        //token: data.token
       }
     }
     case userTypes.SIGN_IN_FAILD: {
@@ -43,7 +43,7 @@ export const userReducer = (state = initialState, action) => {
       }
     }
     case userTypes.LOGOUT_USER: {
-      delete axios.defaults.headers.common['Authorization'];
+     // delete axios.defaults.headers.common['Authorization'];
       console.log('remove');
       localStorage.removeItem('user');
       return {
