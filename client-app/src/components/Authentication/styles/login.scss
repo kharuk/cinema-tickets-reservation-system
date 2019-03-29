@@ -115,6 +115,9 @@
 	}
 }
 
+.help__block {
+	color: $error-color;
+}
 @media (max-width: 991px){
 	.authentication__input_group {
 		flex-direction: column;

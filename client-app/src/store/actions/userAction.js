@@ -1,4 +1,14 @@
+import { toastr } from 'react-redux-toastr';
 import { userTypes } from './types';
+import userServices from '../../services/authServices';
+import {links} from '../../config/links';
+import {history} from '../index';
+import axios from 'axios';
+
+const showErrorToast = (err) => {
+  const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
+  toastr.error(message);
+};
 
 function setUserLocation(city) {
   return {
@@ -9,6 +19,78 @@ function setUserLocation(city) {
   }
 }
 
-export const searchFilmActions = {
-  setUserLocation
+function signup(userInfo) {
+  console.log(userInfo);
+  return async (dispatch) => {
+    try {
+      const {data} = await userServices.signup(userInfo);
+      if (data.isSuccessfully){
+        dispatch(login({
+          email: userInfo.email,
+          password: userInfo.password
+        }));
+      } else {
+        dispatch({ 
+          type: userTypes.SIGN_UP_FAILD, 
+          paylaod: {
+            message: data.message
+          }
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      showErrorToast(err);
+    }
+    
+  }
+} 
+
+function login(values) {
+  console.log(values);
+  return async (dispatch) => {
+      try {
+          const {data} = await userServices.login(values);
+          if (data.isSuccessfully){
+            dispatch({ 
+              type: userTypes.SIGN_IN_SUCCESS, 
+              paylaod: {
+                user: data.user,
+                token: data.token
+              }
+            });
+            axios.defaults.headers.common['Authorization'] = data.token;
+            history.push(links.FILM_SEARCH_PAGE);
+          } else {
+            dispatch({ 
+              type: userTypes.SIGN_IN_FAILD, 
+              paylaod: {
+                message: data.message
+              }
+            });
+          }
+      } catch (err) {
+        showErrorToast(err);
+        
+      }
+  };
+}
+
+function logout() {
+  return async (dispatch) => {
+      try {
+          await userServices.logout();
+          delete axios.defaults.headers.common['Authorization'];
+          dispatch({ type: userTypes.LOGOUT_USER });
+      } catch (err) {
+        showErrorToast(err);
+      }
+  };
+}
+
+
+export const userActions = {
+  setUserLocation,
+  login,
+  logout,
+  signup
 };

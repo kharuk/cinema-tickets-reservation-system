@@ -4,24 +4,13 @@ import { links } from '../../config/links';
 
 class NavBar extends Component {
 
-  state = {
-    loggedIn: this.props.LoggedIn
-  }
-
-  tick = () => {
-    console.log('clicked');
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    })
-  }
-
   render(){
+    const { loggedIn, role, logout } = this.props;
     return (
       <div className="collapse navbar-collapse" id="navbarResponsive">
-        <button onClick={this.tick}>Click here!</button>
         <ul className="navbar-nav ml-auto">
           { 
-            !this.state.loggedIn ?
+            !loggedIn ?
               (<Fragment>
                 <li className="nav-item mx-0 mx-lg-1">
                   <NavLink to={links.SIGN_IN_PAGE} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sign In</NavLink>
@@ -36,7 +25,7 @@ class NavBar extends Component {
                   <NavLink to={links.SIGN_IN_PAGE} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sign Out</NavLink>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <NavLink to={links.FILM_SEARCH_PAGE}  className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Find Film</NavLink>
+                  <NavLink to={links.PROFILE_PAGE}  className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Profile</NavLink>
                 </li>
               </Fragment>)
           }
@@ -46,5 +35,6 @@ class NavBar extends Component {
   }
 
 }
+
 
 export default NavBar;

@@ -5,11 +5,12 @@ import Footer from './Footer';
 
 class Layout extends Component {
     render() {
-        const { loggedIn } = this.props;
+        const { loggedIn, role} = this.props;
         return (
           <Fragment>
             <Header
-                loggedIn={false}
+                loggedIn={loggedIn}
+                role={role}
             />
             <div className="content">
                 {this.props.children}

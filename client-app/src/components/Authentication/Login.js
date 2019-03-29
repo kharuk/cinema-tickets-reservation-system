@@ -9,7 +9,7 @@ class Login extends Component {
   render() {
     return (
       <section className="page-content authentication__form">
-        <div class='container'>
+        <div className='container'>
           <div className="authentication__content">
             <Logo 
               src={"../images/registration-form-2.jpg"} 
