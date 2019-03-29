@@ -1,5 +1,4 @@
 import { userTypes } from '../actions/types';
-import axios from 'axios';
 
 const initialState = {
   userLocation: "Minsk",
@@ -18,13 +17,11 @@ export const userReducer = (state = initialState, action) => {
     }
     case userTypes.SIGN_IN_SUCCESS: {
       localStorage.setItem('user', JSON.stringify(data.user));
-      axios.defaults.headers.common['Authorization'] = data.token;
       return {
         ...state,
         user: data.user,
         loggedIn: true,
         errorMessage: undefined,
-        //token: data.token
       }
     }
     case userTypes.SIGN_IN_FAILD: {
@@ -42,8 +39,6 @@ export const userReducer = (state = initialState, action) => {
       }
     }
     case userTypes.LOGOUT_USER: {
-      delete axios.defaults.headers.common['Authorization'];
-      console.log('remove');
       localStorage.removeItem('user');
       return {
         ...state,

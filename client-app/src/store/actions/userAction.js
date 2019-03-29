@@ -3,6 +3,7 @@ import { userTypes } from './types';
 import userServices from '../../services/authServices';
 import {links} from '../../config/links';
 import {history} from '../index';
+import axios from 'axios';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -49,9 +50,7 @@ function login(values) {
   return async (dispatch) => {
       try {
           const {data} = await userServices.login(values);
-          console.log('data', data);
           if (data.isSuccessfully){
-            console.log('user', data.user);
             dispatch({ 
               type: userTypes.SIGN_IN_SUCCESS, 
               paylaod: {
@@ -59,6 +58,7 @@ function login(values) {
                 token: data.token
               }
             });
+            axios.defaults.headers.common['Authorization'] = data.token;
             history.push(links.FILM_SEARCH_PAGE);
           } else {
             dispatch({ 
@@ -79,6 +79,7 @@ function logout() {
   return async (dispatch) => {
       try {
           await userServices.logout();
+          delete axios.defaults.headers.common['Authorization'];
           dispatch({ type: userTypes.LOGOUT_USER });
       } catch (err) {
         showErrorToast(err);
