@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
 import { Button } from "@material-ui/core";
+import searchFilmActionHelpers from "../../helper/SearchFilmActionHelpers";
 
 
 const styles = theme => ({
@@ -36,12 +37,12 @@ const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
 
-handleSubmit = (event) => {
-  const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
-  event.preventDefault();
-  console.log('try to submit');
-  onButtonClick(filmName, cinema, selectedCity, sessionDate);
-}
+  handleSubmit = (event) => {
+    const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
+    event.preventDefault();
+    console.log('try to submit');
+    onButtonClick(filmName, cinema, selectedCity, sessionDate);
+  }
 
   render() {
     const { classes } = this.props;
@@ -89,7 +90,7 @@ handleSubmit = (event) => {
         >
           {this.props.cities.map(option => (
             <MenuItem key={option} value={option}>
-              {option}
+              {searchFilmActionHelpers.capitalizeFirstLatter(option)}
             </MenuItem>
           ))}
         </TextField>

@@ -5,6 +5,10 @@ class SearchFilmAction {
     return String.fromCharCode(word.charCodeAt(word.slice(0,1)) + 1);
   }
 
+  capitalizeFirstLatter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
   getFilteredData = (filters, filmListRef) => { 
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();

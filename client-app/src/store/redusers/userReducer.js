@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export const userReducer = (state = initialState, action) => {
-  let data = action.paylaod;
+  let data = action.payload;
   switch (action.type) {
     case userTypes.SET_LOCATION: {
       return {

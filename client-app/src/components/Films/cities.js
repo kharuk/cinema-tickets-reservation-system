@@ -1,1 +1,1 @@
-export const cities = ["Minsk", "Volkowysk", "Vitebsk", "Grodno", "Brest"];
+export const cities = ["minsk", "volkowysk", "vitebsk", "grodno", "brest"];

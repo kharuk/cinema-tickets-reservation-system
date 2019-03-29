@@ -26,6 +26,7 @@ class FilmSearchPage extends Component {
 
   componentDidMount() {
     this.props.fetchFilms(this.props.selectedCity, this.props.sessionDate);
+    this.props.setCurrentCity(this.props.userLocation);
   }
 
   setCurrentFilmName = (filmName) => {
@@ -92,7 +93,8 @@ const mapStateToProps = (state) => {
     selectedCity: state.search.selectedCity ,
     filmName: state.search.filmName ,
     cinema: state.search.cinema,
-    sessionDate: state.search.sessionDate 
+    sessionDate: state.search.sessionDate,
+    userLocation: state.user.userLocation
   }
 }
 

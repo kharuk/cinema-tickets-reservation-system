@@ -20,7 +20,6 @@ function setUserLocation(city) {
 }
 
 function signup(userInfo) {
-  console.log(userInfo);
   return async (dispatch) => {
     try {
       const {data} = await userServices.signup(userInfo);
@@ -32,7 +31,7 @@ function signup(userInfo) {
       } else {
         dispatch({ 
           type: userTypes.SIGN_UP_FAILD, 
-          paylaod: {
+          payload: {
             message: data.message
           }
         });
@@ -46,24 +45,24 @@ function signup(userInfo) {
 } 
 
 function login(values) {
-  console.log(values);
   return async (dispatch) => {
       try {
           const {data} = await userServices.login(values);
           if (data.isSuccessfully){
             dispatch({ 
               type: userTypes.SIGN_IN_SUCCESS, 
-              paylaod: {
+              payload: {
                 user: data.user,
                 token: data.token
               }
             });
+            dispatch(setUserLocation(data.user.location));
             axios.defaults.headers.common['Authorization'] = data.token;
             history.push(links.FILM_SEARCH_PAGE);
           } else {
             dispatch({ 
               type: userTypes.SIGN_IN_FAILD, 
-              paylaod: {
+              payload: {
                 message: data.message
               }
             });
