@@ -7,7 +7,6 @@ import '../styles/login.scss';
 import options from '../Option/optionData.json';
 import {userActions}  from '../../../store/actions/userAction';
 import { connect } from "react-redux";
-import {emailValidator, passwordValidator, isEmptyValidator, confirmPasswordValidator} from '../../../services/Validator';
 
 class SignUpForm extends Component {
 
@@ -27,67 +26,30 @@ class SignUpForm extends Component {
     errors: {}
   };
 
-  validate = () => {
-    const errors = {};  
-    let firstNameError = isEmptyValidator(this.state.firstName);
-    let lastNameError = isEmptyValidator(this.state.lastName);
-    let locationError = isEmptyValidator(this.state.location);
-    let genderError = isEmptyValidator(this.state.gender);
-    let emailError = emailValidator(this.state.email);
-    let passwordError = passwordValidator(this.state.password);
-    let confirmPasswordError = confirmPasswordValidator(this.state.password, this.state.confirmPassword);  
-    if (firstNameError) {
-      errors.firstName = firstNameError
-    }
-    if (lastNameError) {
-      errors.lastName = lastNameError
-    }
-    if (locationError) {
-      errors.location = locationError
-    }
-    if (genderError) {
-      errors.gender = genderError
-    }
-    if (emailError) {
-        errors.email = emailError
-    }
-    if (passwordError) {
-        errors.password = passwordError
-    }
-    if (confirmPasswordError) {
-      errors.confirmPassword = confirmPasswordError
-    }
-    this.setState(
-      {
-        errors: errors
-      }
-    );
-  }
-
-  handleChange = async(e) => { 
+  handleChange = (e) => { 
     const { name, value } = e.target;
-    await this.setState({ [name]: value }) 
-    this.validate();
+    this.setState({ 
+      [name]: value.trim(),
+      errors: {}
+    }) 
   }
 
-  isEmpty = (obj) => {
-    for (var key in obj) {
-      return false;
-    }
-    return true;
-  }
-
-  handleSubmit = async(e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    await this.validate();
-    const { email, password, firstName, lastName, location, gender} = this.state;
-    if (this.isEmpty(this.state.errors)) {
+    const { email, password, confirmPassword, firstName, lastName, location, gender} = this.state;
+    if (password !== confirmPassword){
+      this.setState({
+        errors: {
+          password: 'Confirm password don\'t match'
+        }
+      })
+    } else{
       this.props.signUp({email, password, firstName, lastName, location, gender});
     }
   }
 
   render() {
-    const {errors} = this.state;
+    const { email, password, confirmPassword, firstName, lastName, location, gender, errors} = this.state;
     return (
       <div className="authentication__form-wrapper">
         <Header header={'Sign Up Form'}/>
@@ -95,42 +57,56 @@ class SignUpForm extends Component {
           <p className="help__block">{this.props.errorMessage}</p>
           <InputGroup 
             onChange={this.handleChange}
-            captionFirstName={errors.firstName}
-            captionLastName={errors.lastName}
+            valueFirstName={firstName}
+            valueLastName={lastName}
+            required={true}
+            maxLength={20}
           />
           <Input 
             placeholder={'Email'}
             name="email" 
-            type={'email'} 
+            type={'email'}
             onChange={this.handleChange}
-            caption={errors.email}
+            required={true}
+            maxLength={20}
+            value={email}
           />
           <Input 
             type={'text'} 
             placeholder={'City'}
             name="location" 
             onChange={this.handleChange}
-            caption={errors.location}
+            required={true}
+            maxLength={15}
+            value={location}
           />
           <Select 
             options={options}
             onChange={this.handleChange}
             name="gender" 
-            caption={errors.gender}
+            required={true}
+            value={gender}
           />
           <Input 
             type={'password'} 
             placeholder={'Password'}
             name="password" 
             onChange={this.handleChange}
-            caption={errors.password}
+            required={true}
+            minLength={6}
+            maxLength={20}
+            value={password}
           />         
           <Input 
             type={'password'} 
             placeholder={'Confirm Password'}
             name="confirmPassword" 
             onChange={this.handleChange}
-            caption={errors.confirmPassword}
+            required={true}
+            minLength={6}
+            maxLength={20}
+            value={confirmPassword}
+            caption={errors.password}
           />
           <button className="authentication__form-button">Sign In</button>
         </form>

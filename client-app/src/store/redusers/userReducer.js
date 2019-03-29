@@ -23,7 +23,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: data.user,
-        loggingIn: true,
+        loggedIn: true,
         errorMessage: undefined,
         //token: data.token
       }
@@ -31,14 +31,14 @@ export const userReducer = (state = initialState, action) => {
     case userTypes.SIGN_IN_FAILD: {
       return {
         ...state,
-        loggingIn: false,
+        loggedIn: false,
         errorMessage: data.message
       }
     }
     case userTypes.SIGN_UP_FAILD: {
       return {
         ...state,
-        loggingIn: false,
+        loggedIn: false,
         errorMessage: data.message
       }
     }

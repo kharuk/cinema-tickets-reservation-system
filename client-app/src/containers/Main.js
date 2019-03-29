@@ -10,17 +10,22 @@ import SeatsSelectionPage from './SeatsSelectionPage';
 import ProfilePage from './ProfilePage';
 import PrivateRoute from '../shared/PrivateRouter';
 import ReduxToastr from 'react-redux-toastr'
-
 import { links } from '../config/links';
 import {history} from '../store/';
+import {userActions}  from '../store/actions/userAction';
 
 
 class Main extends Component {
 
   render() {
+    const {loggedIn, isAdmin, logout } = this.props;
     return (
       <Router history={history}>
-        <Layout>
+        <Layout
+          loggedIn={loggedIn}
+          isAdmin={isAdmin}
+          onLogout={this.props.logout}
+        >
           <ReduxToastr
             timeOut={4000}
             newestOnTop={false}
@@ -47,4 +52,14 @@ class Main extends Component {
 
 }
 
-export default Main;
+function mapStateToProps(state) {
+  return {
+      loggedIn: state.user.loggedIn,
+ };
+}
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(userActions.logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

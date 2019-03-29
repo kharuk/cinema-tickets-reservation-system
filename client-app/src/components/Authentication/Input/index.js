@@ -9,10 +9,13 @@ class Input extends Component {
           <input 
             type={this.props.type} 
             name={this.props.name} 
-            id={""} 
+            minLength={this.props.minLength}
+            maxLength={this.props.maxLength}
+            required={this.props.required}
             placeholder={this.props.placeholder} 
             className={`form-control authentication__form-control ${this.props.input_half_size}`}
             onChange={this.props.onChange}
+            value={this.props.value}
           />
           <i className=""></i>
           {this.props.caption &&
@@ -21,6 +24,15 @@ class Input extends Component {
         </div>
       )
     }
+
+
 }
+
+Input.defaultProps = {
+  minLength: 1,
+  maxLength: 20,
+  required: true,
+  value: ''
+};
 
 export default Input;

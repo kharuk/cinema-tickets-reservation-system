@@ -11,6 +11,8 @@ class Select extends Component {
           id="" 
           className="form-control form-login__select authentication__form-control" 
           onChange={this.props.onChange}
+          required={this.props.required}
+          value={this.props.value}
         >
         {
           this.props.options.map( 

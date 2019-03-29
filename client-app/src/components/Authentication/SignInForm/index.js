@@ -3,7 +3,6 @@ import Input from '../Input';
 import '../styles/login.scss';
 import Header from '../Header';
 import {userActions}  from '../../../store/actions/userAction';
-import {emailValidator, passwordValidator} from '../../../services/Validator';
 import { connect } from "react-redux";
 
 class SignInForm extends Component {
@@ -19,67 +18,46 @@ class SignInForm extends Component {
     errors: {}
   };
 
-  validate = () => {
-    const errors = {};
-    let emailError = emailValidator(this.state.email);
-    let passwordError = passwordValidator(this.state.password);
-    if (emailError) {
-        errors.email = emailError
-    }
-    if (passwordError) {
-        errors.password = passwordError
-    }
-    this.setState(
-      {
-        errors: errors
-      }
-    );
-  }
-
-  handleChange = async(e) => { 
+  handleChange = (e) => { 
     const { name, value } = e.target;
-    await this.setState({ [name]: value }) 
-    this.validate();
+    this.setState({ 
+      [name]: value.trim(),
+    }) 
   }
 
-  isEmpty = (obj) => {
-    for (var key in obj) {
-      return false;
-    }
-    return true;
-  }
-
-  handleSubmit = async(e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    await this.validate();
     const { email, password } = this.state;
-    if (this.isEmpty(this.state.errors)) {
-      this.props.login({email, password});
-    }
+    this.props.login({email, password});
   }
 
   render() {
     const { loggingIn } = this.props;
-    const { errors } = this.state;
+    const { email, password } = this.state;
     return (
       <div className="authentication__form-wrapper">
         <Header header={'Sign In Form'}/>
         <form onSubmit={this.handleSubmit} className='authentication__form-content'>
           <p className="help__block">{this.props.errorMessage}</p>
           <Input 
-            name="email" 
-            type={'email'} 
             placeholder={'Email'}
+            name="email" 
+            type={'email'}
             onChange={this.handleChange}
-            caption={errors.email}
+            required={true}
+            maxLength={20}
+            value={email}
           />
           <Input 
             type={'password'} 
             placeholder={'Password'}
             name="password" 
             onChange={this.handleChange}
-            caption={errors.password}
-          />
+            required={true}
+            minLength={6}
+            maxLength={20}
+            value={password}
+          />    
           <button className="authentication__form-button">Sign In</button>
         </form>
       </div> 

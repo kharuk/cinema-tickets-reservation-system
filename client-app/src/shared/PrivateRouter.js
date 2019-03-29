@@ -13,7 +13,7 @@ const PrivateRoute = ({ component: Components, isLoggedIn, role, requiredRoles, 
 };
 
 const mapStateToProps = state => ({
-    isLoggedIn: !!state.user.user,
+    isLoggedIn: state.user.loggedIn,
     role: state.user.user ? state.user.user.role : '',
 });
 
