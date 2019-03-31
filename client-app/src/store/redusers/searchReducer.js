@@ -2,7 +2,7 @@ import { searchTypes } from '../actions/types';
 import moment from 'moment';
 
 const initialState = {
-  selectedCity:'Minsk',
+  selectedCity:'minsk',
   filmName: undefined,
   cinema: undefined,
   sessionDate: moment(),
@@ -40,13 +40,14 @@ export const searchReducer = (state = initialState, action) => {
     case searchTypes.FETCH_FILMS: {
       return {
         ...state,
-        films: data.films
+        films: data.films,
+        filtredData: data.films
       }
     }
     case searchTypes.GET_FILTRED_FILM_LIST: {
       return {
         ...state,
-        films: data.films
+        filtredData: data.filtredData
       }
     }
     case searchTypes.GET_FILM_BY_ID: {

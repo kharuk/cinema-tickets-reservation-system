@@ -1,9 +1,9 @@
 import { userTypes } from '../actions/types';
 
 const initialState = {
-  userLocation: "Minsk",
+  userLocation: "minsk",
   user: JSON.parse(localStorage.getItem('user')) || null,
-  loggedIn: false,
+  isLoggedIn: false
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -20,21 +20,21 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: data.user,
-        loggedIn: true,
+        isLoggedIn: true,
         errorMessage: undefined,
       }
     }
     case userTypes.SIGN_IN_FAILD: {
       return {
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         errorMessage: data.message
       }
     }
     case userTypes.SIGN_UP_FAILD: {
       return {
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         errorMessage: data.message
       }
     }
@@ -42,7 +42,7 @@ export const userReducer = (state = initialState, action) => {
       localStorage.removeItem('user');
       return {
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         user: null
       }
     }

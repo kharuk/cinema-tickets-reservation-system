@@ -25,42 +25,47 @@ class FilmSearchPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchFilms(this.props.selectedCity, this.props.sessionDate);
     this.props.setCurrentCity(this.props.userLocation);
+    this.props.fetchFilms(this.props.selectedCity, this.props.sessionDate);
+    
   }
 
   setCurrentFilmName = (filmName) => {
     this.props.setCurrentFilmName(filmName);
+    this.props.getFiltredFilmList(this.props.films, filmName, this.props.cinema, this.props.selectedCity, this.props.sessionDate)
   }
   
   setCurrentCity = (city) => {
     this.props.setCurrentCity(city);
+    this.props.getFiltredFilmList(this.props.films, this.props.filmName, this.props.cinema, city, this.props.sessionDate)
   }
   
   setCurrentCinema = (cinema) => {
     this.props.setCurrentCinema(cinema);
+    this.props.getFiltredFilmList(this.props.films, this.props.filmName, cinema, this.props.selectedCity, this.props.sessionDate)
   }
 
   setSessionDate = (date) => {
     this.props.setSessionDate(date);
+    this.props.getFiltredFilmList(this.props.films, this.props.filmName, this.props.cinema, this.props.selectedCity, date)
   }
 
   onButtonClick = (filmName, cinema, city, date) => {
     console.log('clicked');
     console.log(filmName, cinema, city, date)
-    this.props.getFiltredFilmList(filmName, cinema, city, date)
+    this.props.getFiltredFilmList(this.props.films, filmName, cinema, city, date)
   }
-
+/* 
   getFiltredFilmList = (filmName, cinema, city, date) => {
     console.log('submit', filmName, cinema, city, date);
     this.props.setCurrentFilmName(filmName);
     this.props.setCurrentCity(city);
     this.props.setCurrentCinema(cinema);
     this.props.setSessionDate(date);
-  }
+  } */
 
   render() {
-    const { films, selectedCity, filmName, cinema, sessionDate } = this.props;
+    const { films,filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;
     console.log('films', films);
     return (
       <section className="page-content">
@@ -79,7 +84,7 @@ class FilmSearchPage extends Component {
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
           />
-          <FilmList filmList={films} />
+          <FilmList filmList={filtredFilms} />
         </div>
       </section>
     )
@@ -90,6 +95,7 @@ const mapStateToProps = (state) => {
   console.log('state ', state);
   return {
     films: state.search.films ,
+    filtredFilms: state.search.filtredData,
     selectedCity: state.search.selectedCity ,
     filmName: state.search.filmName ,
     cinema: state.search.cinema,
@@ -104,7 +110,7 @@ const mapDispatchToProps = dispatch => ({
   setCurrentCity: (city) => dispatch(setCurrentCity(city)),
   setCurrentCinema: (cinema) => dispatch(setCurrentCinema(cinema)),
   setSessionDate: (date) => dispatch(setSessionDate(date)),
-  getFiltredFilmList: (filmName, cinema, city, date) => dispatch(getFiltredFilmList(filmName, cinema, city, date))
+  getFiltredFilmList: (sessions, filmName, cinema, city, date) => dispatch(getFiltredFilmList(sessions, filmName, cinema, city, date))
 
  
 })

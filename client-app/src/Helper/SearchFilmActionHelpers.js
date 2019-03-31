@@ -1,4 +1,5 @@
 import moment from 'moment';
+import _ from 'lodash';
 
 class SearchFilmAction {
   getNextLetter = (word) =>{
@@ -9,24 +10,34 @@ class SearchFilmAction {
     return str.charAt(0).toUpperCase() + str.slice(1)
   }
 
-  getFilteredData = (filters, filmListRef) => { 
+  getFilteredData = (filters, sessions) => { 
+    let filtredData = JSON.parse(JSON.stringify(sessions))
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();
-      filmListRef = filmListRef.where("name", "==", filters.filmName);
+      filtredData =  _.filter(filtredData, function(item) {
+        return _.includes(item.film.filmName, filters.filmName);
+      });
     }
   
     if (filters.cinema) {
       filters.cinema = filters.cinema.toLowerCase();
-      filmListRef = filmListRef.where("cinema", "==", filters.cinema);
+      filtredData =  _.filter(filtredData, function(item) {
+        return _.includes(item.cinema.cinemaName, filters.cinema);
+      });
+     // filtredData =  _.filter(filtredData, 'cinema.cinemaName', filters.cinema);
     }
 
     if (filters.city) {
       filters.city = filters.city.toLowerCase();
-      filmListRef = filmListRef.where("city", "==", filters.city);
+      filtredData =  _.filter(filtredData, { 'location': filters.city });
     }
+
+    filtredData = this.filterByDate(filtredData, filters.date);
     
-    return filmListRef;
+    return filtredData;
   };
+
+
 
   filterByDate = (films, date) => {
     if (date.isAfter(moment(), 'day')){
@@ -34,18 +45,102 @@ class SearchFilmAction {
     date.format()
     }
     let statrDate = moment(date).unix();
+    console.log(statrDate)
     let endDate = moment(moment(date).endOf("day")).unix();
-    let filteredFilms = Object.entries(films).filter((item) => {
-      return item[1].date.seconds >= statrDate && item[1].date.seconds <= endDate ;
+    console.log(endDate)
+    let filteredFilms = Object.values(films).filter((item) => {
+      return moment(item.date).unix() >= statrDate && moment(item.date).unix() <= endDate ;
     })
+/*     console.log(filteredFilms);
     filteredFilms = filteredFilms.reduce((obj, item )=>{
       obj[item[0]] = item[1]
       return obj;
-    }, {})
+    }, {}) */
     return filteredFilms; 
   } 
+
+  filterByCity = (sessions, city) => {
+    city = city.toLowerCase();
+    return _.filter(sessions, { 'location': city });
+  }
+
 }
 
+/* 
+
+export const fetchFilmList = (filter) =>
+    delay(500)
+        .then(() => {
+            let filteredList = [];
+            filmDatabase
+            .forEach(film => {
+                if (film.title.indexOf(filter.filmName) !== -1 || !filter.filmName){
+                    let filteredFilm = {...film};
+                    film
+                        .cities
+                        .forEach(city => {
+                            if (city.name === filter.city) {
+                                var filteredCinemas = filterCinemas(city, filter);
+                                if (filteredCinemas.length > 0){
+                                    var filteresCities = {
+                                        ...city,
+                                        cinemas: filteredCinemas
+                                    };
+                                    filteredFilm = {
+                                        ...film,
+                                        cities: filteresCities
+                                    }
+                                    filteredList.push(filteredFilm);
+                                }
+                            }
+                        });
+                }
+            });
+            return filteredList;
+        })
+
+const filterCinemas = (city, filter) => {
+    var filteredCinemas = [];
+    city
+        .cinemas
+        .forEach(cinema => {
+            if (cinema.name === filter.cinema || !filter.cinema) {
+                var filteredHallsSchedule = filterSchedule(cinema, filter);
+                if (filteredHallsSchedule.length > 0){
+                    filteredCinemas.push({
+                        ...cinema,
+                        halls: filteredHallsSchedule
+                    });
+                }
+            }
+        })
+
+    return filteredCinemas;
+}
+
+const filterSchedule = (cinema, filter) => {
+    var filteredHalls = [];
+    cinema
+        .halls
+        .forEach(hall => {
+            var filteredHallSchedule = hall
+                .schedule
+                .filter(seance =>
+                    seance.dateTime.year() === filter.date.getFullYear() &&
+                    seance.dateTime.month() === filter.date.getMonth() &&
+                    seance.dateTime.date() === filter.date.getDate() &&
+                    hall.seatAmount - seance.occupiedSeats.length >= filter.freeSeats)
+            if (filteredHallSchedule.length > 0){
+                filteredHalls.push({
+                    ...hall,
+                    schedule: filteredHallSchedule
+                })
+            }
+        })
+
+    return filteredHalls;
+}
+ */
 const searchFilmActionHelpers = new SearchFilmAction();
 export default searchFilmActionHelpers;
 

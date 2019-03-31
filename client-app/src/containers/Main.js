@@ -18,11 +18,11 @@ import {userActions}  from '../store/actions/userAction';
 class Main extends Component {
 
   render() {
-    const {loggedIn, role } = this.props;
+    const {isLoggedIn, role } = this.props;
     return (
       <Router history={history}>
         <Layout
-          loggedIn={loggedIn}
+          loggedIn={isLoggedIn}
           role={role}
         >
           <ReduxToastr
@@ -53,7 +53,7 @@ class Main extends Component {
 
 function mapStateToProps(state) {
   return {
-      loggedIn: state.user.loggedIn,
+      isLoggedIn: state.user.isLoggedIn,
       role: state.user.user ? state.user.user.role : '',
  };
 }

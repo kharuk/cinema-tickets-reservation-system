@@ -1,5 +1,12 @@
 import { searchTypes } from './types';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
+import sessionServices from '../../services/sessionServices';
+import { toastr } from 'react-redux-toastr';
+
+const showErrorToast = (err) => {
+  const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
+  toastr.error(message);
+};
 
 export const setCurrentCity = (city) => {
   return {
@@ -37,61 +44,65 @@ export const setSessionDate = (date) => {
   }
 }
 
-export const getFiltredFilmList = (filmName, cinema, city, date) => {
-  return (dispatch, getState, {getFirestore}) => {
+export const getFiltredFilmList = (sessions, filmName, cinema, city, date) => async (dispatch) => {
     const filters = {
       filmName, cinema, city, date
     }
-    const firestore = getFirestore();
-    const filmListRef = firestore.collection('films');
-    const query = searchFilmActionHelpers.getFilteredData(filters, filmListRef);
-
-    query.get()
-    .then( querySnapshot => {
-      console.log('some data', querySnapshot)
-      let filtredFilmList = {};
-      querySnapshot.forEach( doc => {
-        filtredFilmList[doc.id] = doc.data();
-      });
-      filtredFilmList = searchFilmActionHelpers.filterByDate(filtredFilmList, filters.date);
+    try{
+      let filtredData = await searchFilmActionHelpers.getFilteredData(filters, sessions);
       dispatch({
         type: searchTypes.GET_FILTRED_FILM_LIST,
         payload: {
-          films: filtredFilmList
+          filtredData: filtredData
         }
       });
-    })
-    .catch( error => {
-        console.log("Error getting documents: ", error);
-    });
-  }
+    } catch(err) {
+      console.log(err);
+      showErrorToast(err);
+    } 
 }
 
-export const fetchFilms = (city, date) => (dispatch, getState, {getFirestore}) => {
+export const fetchFilms = (city, date) => async(dispatch) => {
+  try {
+    let {data} = await sessionServices.getSessionList();
+    if (data.isSuccessfully){
+      console.log(data);
+      data.sessions = searchFilmActionHelpers.filterByDate(data.sessions, date);
+      console.log(data);
+      data.sessions = searchFilmActionHelpers.filterByCity(data.sessions, city);
+      console.log(data);
+      dispatch({
+        type: searchTypes.FETCH_FILMS,
+        payload: {
+          films: data.sessions,
+        }
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    showErrorToast(err);
+  }
+  
+}
 
-  const firestore = getFirestore();
-  firestore.collection('films').where("city", "==", city.toLowerCase()).get()
-  .then( querySnapshot => {
-    let filmList = {};
-    querySnapshot.forEach( doc => {
-        filmList[doc.id] = doc.data();
-    });
-    filmList = searchFilmActionHelpers.filterByDate(filmList, date);
-    dispatch({
-      type: searchTypes.FETCH_FILMS,
-      payload: {
-        films: filmList
-      }
-    });
-  })
-  .catch( error => {
-      console.log("Error getting documents: ", error);
-  });
-};
+export const getFilmById = (id) => async(dispatch) => {
+  try {
+    let {data} = await sessionServices.getSessionById(id);
+    if (data.isSuccessfully) {
+      console.log(data);
+      dispatch({
+        type: searchTypes.GET_FILM_BY_ID,
+        payload: {
+          film: data.session
+        }
+      });
+    }
+  }  catch (err) {
+    console.log(err);
+    showErrorToast(err);
+  }
 
-export const getFilmById = (id) => (dispatch, getState, {getFirestore}) => {
-
-const firestore = getFirestore();
+/* const firestore = getFirestore();
   firestore.collection('films').doc(id).collection('film').get()
   .then(querySnapshot => {
     let filmList = {};
@@ -104,7 +115,7 @@ const firestore = getFirestore();
         film: filmList
       }
     });
-  });
+  }); */
 }
 
 export const searchFilmActions = {

@@ -7,7 +7,7 @@ const FilmInfo = (props) => (
   <div className="col-md-4 col-lg-3">
     <Link to={linkGenerator.getFilmPageLink(props.id)}>
       <div className="film-info__container" style={{backgroundImage: `url(${defaultImage})`}}>
-        <p className="film-info__caption">{props.film.name}</p>
+        <p className="film-info__caption">{props.film.filmName}</p>
       </div>     
     </Link>
   </div>
