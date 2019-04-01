@@ -20,7 +20,7 @@ class SearchFilmAction {
 
   
 
-  getFilteredData = (filters, films) => { 
+  getFilteredData =  (filters, films) => { 
     let filtredData = JSON.parse(JSON.stringify(films))
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();
@@ -76,81 +76,6 @@ class SearchFilmAction {
 
 }
 
-/* 
-
-export const fetchFilmList = (filter) =>
-    delay(500)
-        .then(() => {
-            let filteredList = [];
-            filmDatabase
-            .forEach(film => {
-                if (film.title.indexOf(filter.filmName) !== -1 || !filter.filmName){
-                    let filteredFilm = {...film};
-                    film
-                        .cities
-                        .forEach(city => {
-                            if (city.name === filter.city) {
-                                var filteredCinemas = filterCinemas(city, filter);
-                                if (filteredCinemas.length > 0){
-                                    var filteresCities = {
-                                        ...city,
-                                        cinemas: filteredCinemas
-                                    };
-                                    filteredFilm = {
-                                        ...film,
-                                        cities: filteresCities
-                                    }
-                                    filteredList.push(filteredFilm);
-                                }
-                            }
-                        });
-                }
-            });
-            return filteredList;
-        })
-
-const filterCinemas = (city, filter) => {
-    var filteredCinemas = [];
-    city
-        .cinemas
-        .forEach(cinema => {
-            if (cinema.name === filter.cinema || !filter.cinema) {
-                var filteredHallsSchedule = filterSchedule(cinema, filter);
-                if (filteredHallsSchedule.length > 0){
-                    filteredCinemas.push({
-                        ...cinema,
-                        halls: filteredHallsSchedule
-                    });
-                }
-            }
-        })
-
-    return filteredCinemas;
-}
-
-const filterSchedule = (cinema, filter) => {
-    var filteredHalls = [];
-    cinema
-        .halls
-        .forEach(hall => {
-            var filteredHallSchedule = hall
-                .schedule
-                .filter(seance =>
-                    seance.dateTime.year() === filter.date.getFullYear() &&
-                    seance.dateTime.month() === filter.date.getMonth() &&
-                    seance.dateTime.date() === filter.date.getDate() &&
-                    hall.seatAmount - seance.occupiedSeats.length >= filter.freeSeats)
-            if (filteredHallSchedule.length > 0){
-                filteredHalls.push({
-                    ...hall,
-                    schedule: filteredHallSchedule
-                })
-            }
-        })
-
-    return filteredHalls;
-}
- */
 const searchFilmActionHelpers = new SearchFilmAction();
 export default searchFilmActionHelpers;
 

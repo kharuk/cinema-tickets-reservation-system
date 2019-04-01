@@ -16,3 +16,7 @@ export const userTypes = {
   SIGN_UP_FAILD: 'SIGN_UP_FAILD',
   LOGOUT_USER: 'LOGOUT_USER'
 };
+
+export const seatsSelectionTypes = {
+  GET_SESSION_BY_ID: 'GET_SESSION_BY_ID'
+}

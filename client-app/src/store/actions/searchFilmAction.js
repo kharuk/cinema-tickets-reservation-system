@@ -89,7 +89,7 @@ export const fetchFilms = (city, date) => async(dispatch) => {
 
 export const getFilmById = (id) => async(dispatch) => {
   try {
-    let {data} = await sessionServices.getSessionById(id);
+    let {data} = await sessionServices.getFilmById(id);
     if (data.isSuccessfully) {
       console.log(data);
    //    console.log(store.getState().search);
@@ -100,7 +100,7 @@ export const getFilmById = (id) => async(dispatch) => {
         filmName: infoFromStore.filmName, 
         date: infoFromStore.sessionDate
       }
-      let filtredData = await searchFilmActionHelpers.getFilteredData(filters, [data.session]);
+      let filtredData = searchFilmActionHelpers.getFilteredData(filters, [data.session]);
       console.log(filtredData[0]);
       dispatch({
         type: searchTypes.GET_FILM_BY_ID,

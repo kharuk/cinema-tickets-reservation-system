@@ -7,6 +7,12 @@ import seatsFromFile from '../components/SeatSelect/seats.json';
 import sessionInfo from '../components/SeatSelect/sessionInfo.json';
 import ConfirmOrder from '../components/SeatSelect/ConfirmOrder';
 
+import { connect } from "react-redux";
+
+import {
+  getSessionById
+} from '../store/actions/seatsSelectionAction';
+
 class SeatsSelectionPage extends Component {
 
   state={
@@ -20,13 +26,17 @@ class SeatsSelectionPage extends Component {
   }
 
   componentDidMount() {
-    let seats = seatHelper.sortSeats(seatsFromFile[0]);
-    seats.map(item => {
-      item.chosen =  false;
-    });
-    seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
-    this.setState({
-      seats: seats
+    this.props.getSessionById(this.props.match.params.id)
+    .then(() => {
+      let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
+      //I need to think about it
+      seats.map(item => {
+        item.chosen =  false;
+      });
+      seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
+      this.setState({
+        seats: seats
+      })
     })
 
   }
@@ -143,6 +153,8 @@ class SeatsSelectionPage extends Component {
   }
 
   render() {
+    let {session} = this.props;
+    console.log('session ',session);
     return (
       <section className="page-content">
         <div className="container">
@@ -153,4 +165,16 @@ class SeatsSelectionPage extends Component {
   }
 }
 
-export default SeatsSelectionPage;
+const mapStateToProps = (state) => {
+  return {
+    session: state.seatsSelect.session
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  getSessionById: (id) => dispatch(getSessionById(id))
+
+ 
+})
+
+export default connect( mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;
