@@ -10,25 +10,41 @@ class SearchFilmAction {
     return str.charAt(0).toUpperCase() + str.slice(1)
   }
 
-  getFilteredData = (filters, sessions) => { 
-    let filtredData = JSON.parse(JSON.stringify(sessions))
+  getTimeFromDate = (date) =>{
+    return moment(date).format("hh:mm a");
+  }
+
+  getFormatedDate = (date) =>{
+    return moment(date).format("MM/DD/YYYY");
+  }
+
+  
+
+  getFilteredData = (filters, films) => { 
+    let filtredData = JSON.parse(JSON.stringify(films))
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();
       filtredData =  _.filter(filtredData, function(item) {
-        return _.includes(item.film.filmName.toLowerCase(), filters.filmName);
+        return _.includes(item.film_info.filmName.toLowerCase(), filters.filmName);
       });
     }
   
     if (filters.cinema) {
       filters.cinema = filters.cinema.toLowerCase();
-      filtredData =  _.filter(filtredData, function(item) {
-        return _.includes(item.cinema.cinemaName.toLowerCase(), filters.cinema);
+      filtredData =  _.forEach(filtredData, function(item) {
+        item.sessions = _.filter(item.sessions, function(item){
+          return _.startsWith(item.cinema.cinemaName.toLowerCase(), filters.cinema);
+        })      
       });
     }
 
     if (filters.city) {
       filters.city = filters.city.toLowerCase();
-      filtredData =  _.filter(filtredData, { 'location': filters.city });
+      filtredData =  _.forEach(filtredData, function(item) {
+        item.sessions = _.filter(item.sessions, function(item){
+          return _.includes(item.cinema.location.toLowerCase(), filters.city);
+        }) 
+      });
     }
 
     filtredData = this.filterByDate(filtredData, filters.date);
@@ -45,8 +61,10 @@ class SearchFilmAction {
     }
     let statrDate = moment(date).unix();
     let endDate = moment(moment(date).endOf("day")).unix();
-    let filteredFilms = Object.values(films).filter((item) => {
-      return moment(item.date).unix() >= statrDate && moment(item.date).unix() <= endDate ;
+    let filteredFilms = _.forEach(films, (item) => {
+      item.sessions = _.filter(item.sessions, function(item){
+        return moment(item.date).unix() >= statrDate && moment(item.date).unix() <= endDate ;
+      })  
     })
     return filteredFilms; 
   } 

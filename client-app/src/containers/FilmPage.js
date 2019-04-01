@@ -24,8 +24,8 @@ class FilmPage extends Component {
   }
 
   render() {
-    let {session} = this.props;
-    console.log(session);
+    let {film} = this.props;
+    console.log(film);
     return (
       <section className="page-content">
         <div className="container">
@@ -34,13 +34,13 @@ class FilmPage extends Component {
           <div className="row film-page__info">
             <div className="col-md-6 film-page__film-info">
               <FilmCard
-                title={session.film.filmName}
-                image={session.film.poster_path || defaultImage} 
-                description={session.film.description} 
+                title={film.film_info.filmName}
+                image={film.film_info.poster_path || defaultImage} 
+                description={film.film_info.description} 
               />
             </div>
             <div className="col-md-6 ">
-              <SessionInfo />
+              <SessionInfo sessions={film.sessions}/>
             </div>
           </div>
           <Link 
@@ -58,19 +58,20 @@ class FilmPage extends Component {
 
 
 FilmPage.defaultProps = {
-  session: {
-    film: {
+  film: {
+    film_info: {
       filmName: '',
       description: '',
       poster_path: defaultImage
-    }  
+    } ,
+    sessions: []
   }
 };
 
 const mapStateToProps = (state) => {
   console.log('state ', state);
   return {
-    session: state.search.choosenFilm 
+    film: state.search.choosenFilm 
   }
 }
 

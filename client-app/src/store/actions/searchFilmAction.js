@@ -2,6 +2,7 @@ import { searchTypes } from './types';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 import sessionServices from '../../services/sessionServices';
 import { toastr } from 'react-redux-toastr';
+import {store} from '../index';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -70,6 +71,7 @@ export const fetchFilms = (city, date) => async(dispatch) => {
         city, date
       }
       let filtredData = await searchFilmActionHelpers.getFilteredData(filters, data.sessions);
+      console.log(filtredData)
       dispatch({
         type: searchTypes.FETCH_FILMS,
         payload: {
@@ -90,10 +92,20 @@ export const getFilmById = (id) => async(dispatch) => {
     let {data} = await sessionServices.getSessionById(id);
     if (data.isSuccessfully) {
       console.log(data);
+   //    console.log(store.getState().search);
+      const infoFromStore = store.getState().search
+      const filters = {
+        city: infoFromStore.selectedCity,
+        cinema: infoFromStore.cinema, 
+        filmName: infoFromStore.filmName, 
+        date: infoFromStore.sessionDate
+      }
+      let filtredData = await searchFilmActionHelpers.getFilteredData(filters, [data.session]);
+      console.log(filtredData[0]);
       dispatch({
         type: searchTypes.GET_FILM_BY_ID,
         payload: {
-          film: data.session
+          film: filtredData[0]
         }
       });
     }
