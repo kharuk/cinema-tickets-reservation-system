@@ -41,7 +41,7 @@ export const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         films: data.films,
-        filtredData: data.films
+        filtredData: data.filtredData
       }
     }
     case searchTypes.GET_FILTRED_FILM_LIST: {

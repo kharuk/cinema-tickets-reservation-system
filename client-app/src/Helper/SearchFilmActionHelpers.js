@@ -15,16 +15,15 @@ class SearchFilmAction {
     if (filters.filmName) {
       filters.filmName = filters.filmName.toLowerCase();
       filtredData =  _.filter(filtredData, function(item) {
-        return _.includes(item.film.filmName, filters.filmName);
+        return _.includes(item.film.filmName.toLowerCase(), filters.filmName);
       });
     }
   
     if (filters.cinema) {
       filters.cinema = filters.cinema.toLowerCase();
       filtredData =  _.filter(filtredData, function(item) {
-        return _.includes(item.cinema.cinemaName, filters.cinema);
+        return _.includes(item.cinema.cinemaName.toLowerCase(), filters.cinema);
       });
-     // filtredData =  _.filter(filtredData, 'cinema.cinemaName', filters.cinema);
     }
 
     if (filters.city) {
@@ -45,17 +44,10 @@ class SearchFilmAction {
     date.format()
     }
     let statrDate = moment(date).unix();
-    console.log(statrDate)
     let endDate = moment(moment(date).endOf("day")).unix();
-    console.log(endDate)
     let filteredFilms = Object.values(films).filter((item) => {
       return moment(item.date).unix() >= statrDate && moment(item.date).unix() <= endDate ;
     })
-/*     console.log(filteredFilms);
-    filteredFilms = filteredFilms.reduce((obj, item )=>{
-      obj[item[0]] = item[1]
-      return obj;
-    }, {}) */
     return filteredFilms; 
   } 
 

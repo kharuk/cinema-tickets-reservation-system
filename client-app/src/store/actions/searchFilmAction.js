@@ -66,15 +66,15 @@ export const fetchFilms = (city, date) => async(dispatch) => {
   try {
     let {data} = await sessionServices.getSessionList();
     if (data.isSuccessfully){
-      console.log(data);
-      data.sessions = searchFilmActionHelpers.filterByDate(data.sessions, date);
-      console.log(data);
-      data.sessions = searchFilmActionHelpers.filterByCity(data.sessions, city);
-      console.log(data);
+      const filters = {
+        city, date
+      }
+      let filtredData = await searchFilmActionHelpers.getFilteredData(filters, data.sessions);
       dispatch({
         type: searchTypes.FETCH_FILMS,
         payload: {
           films: data.sessions,
+          filtredData: filtredData
         }
       });
     }

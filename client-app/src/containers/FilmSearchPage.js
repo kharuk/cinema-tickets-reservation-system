@@ -67,6 +67,7 @@ class FilmSearchPage extends Component {
   render() {
     const { films,filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;
     console.log('films', films);
+    console.log('filtredFilms', filtredFilms);
     return (
       <section className="page-content">
         <div className="container">
