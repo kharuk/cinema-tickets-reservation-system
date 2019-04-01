@@ -50,6 +50,8 @@ const SeatSelect = (props) =>{
       <RoutingButton 
         chosenSeats={props.chosenSeats}
         callBackHandleConfirmation={props.callBackHandleSeatsSelect}
+        filmId={props.filmId}
+        sessionId={props.sessionId}
       />
     </div>
   );

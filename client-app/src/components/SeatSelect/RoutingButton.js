@@ -1,6 +1,7 @@
 import React from 'react';
 import { links } from '../../config/links';
 import {Link} from 'react-router-dom';
+import { linkGenerator } from '../../config/links';
 
 const RoutingButton = (props) =>{
 
@@ -17,13 +18,13 @@ const RoutingButton = (props) =>{
       if (link === 'next') {
         return links.ORDERS_PAGE;
       } else {
-        return links.SITES_SELECTION_PAGE;
+        return linkGenerator.getSessionPageLink(props.sessionId);
       }     
     } else {
       if (link === 'next'){
-        return links.SITES_SELECTION_PAGE;
+        return linkGenerator.getSessionPageLink(props.sessionId);
       } else {
-        return links.FILM_PAGE;
+        return linkGenerator.getFilmPageLink(props.filmId);
       }
       
     }

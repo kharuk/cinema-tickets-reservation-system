@@ -12,7 +12,7 @@ const ConfirmOrder = (props) =>{
   return(
     <div className="confirm-order__container">
       <div className="row">
-        <DisplayOrderInfo />
+        <DisplayOrderInfo sessionInfo={props.sessionInfo}/>
 
         <OutputPrice 
         chosenSeats={props.chosenSeats}

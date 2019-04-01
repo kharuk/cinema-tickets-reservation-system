@@ -125,12 +125,14 @@ class SeatsSelectionPage extends Component {
             seats={this.state.seats}
             chosenSeats={this.state.chosenSeats}
             chosenExtraServices={this.state.chosenExtraServices}
-            sessionSeatTypes={this.state.session.info.SEAT_TYPE}
-            extraServices={this.state.session.info.EXTRA}
+            sessionSeatTypes={this.props.session.session_info.seat_type}
+            extraServices={this.props.session.session_info.extra_services}
             callBackHandleSeatClick={this.handleSeatClick}
             callBackHandleSeatsSelect={this.handleSeatsSelect}
             callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
             callBackCheckBoxChanged={this.handleCheckBoxChanged}
+            filmId={this.props.session.film.film_id}
+            sessionId={this.props.match.params.id}
           />
       </Fragment>
     )
@@ -145,8 +147,10 @@ class SeatsSelectionPage extends Component {
           chosenSeats={this.state.chosenSeats}
           chosenExtraServices={this.state.chosenExtraServices}
           callBackCancelConfirm={this.handleCancelConfirm}
-          sessionSeatTypes={this.state.session.info.SEAT_TYPE}
-          extraServices={this.state.session.info.EXTRA}        
+          sessionSeatTypes={this.props.session.session_info.seat_type}
+          extraServices={this.props.session.session_info.extra_services}   
+          sessionId={this.props.match.params.id}  
+          sessionInfo={this.props.session}   
         />
       </Fragment>
     )
@@ -164,6 +168,19 @@ class SeatsSelectionPage extends Component {
     )
   }
 }
+
+
+SeatsSelectionPage.defaultProps = {
+  session: {
+    session_info: {
+      extra_services: {},
+      seat_type: {}  
+    },
+    film: {
+      film_id: 1
+    }
+  }
+};
 
 const mapStateToProps = (state) => {
   return {
