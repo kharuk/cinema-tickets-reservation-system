@@ -50,7 +50,7 @@ export const getFiltredFilmList = (sessions, filmName, cinema, city, date) => as
       filmName, cinema, city, date
     }
     try{
-      let filtredData = await searchFilmActionHelpers.getFilteredData(filters, sessions);
+      let filtredData = searchFilmActionHelpers.getFilteredData(filters, sessions);
       dispatch({
         type: searchTypes.GET_FILTRED_FILM_LIST,
         payload: {
@@ -70,7 +70,7 @@ export const fetchFilms = (city, date) => async(dispatch) => {
       const filters = {
         city, date
       }
-      let filtredData = await searchFilmActionHelpers.getFilteredData(filters, data.sessions);
+      let filtredData = searchFilmActionHelpers.getFilteredData(filters, data.sessions);
       console.log(filtredData)
       dispatch({
         type: searchTypes.FETCH_FILMS,
@@ -92,7 +92,6 @@ export const getFilmById = (id) => async(dispatch) => {
     let {data} = await sessionServices.getFilmById(id);
     if (data.isSuccessfully) {
       console.log(data);
-   //    console.log(store.getState().search);
       const infoFromStore = store.getState().search
       const filters = {
         city: infoFromStore.selectedCity,
@@ -113,21 +112,6 @@ export const getFilmById = (id) => async(dispatch) => {
     console.log(err);
     showErrorToast(err);
   }
-
-/* const firestore = getFirestore();
-  firestore.collection('films').doc(id).collection('film').get()
-  .then(querySnapshot => {
-    let filmList = {};
-    querySnapshot.forEach( doc => {
-        filmList = doc.data();
-    });
-    dispatch({
-      type: searchTypes.GET_FILM_BY_ID,
-      payload: {
-        film: filmList
-      }
-    });
-  }); */
 }
 
 export const searchFilmActions = {

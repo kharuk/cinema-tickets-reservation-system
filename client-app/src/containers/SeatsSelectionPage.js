@@ -13,6 +13,10 @@ import {
   getSessionById
 } from '../store/actions/seatsSelectionAction';
 
+import {
+  addOrder
+} from '../store/actions/orderAction';
+
 class SeatsSelectionPage extends Component {
 
   state={
@@ -29,11 +33,13 @@ class SeatsSelectionPage extends Component {
     this.props.getSessionById(this.props.match.params.id)
     .then(() => {
       let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
+      console.log('sorted', seats)
       //I need to think about it
       seats.map(item => {
         item.chosen =  false;
       });
       seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
+      console.log('Array', seats)
       this.setState({
         seats: seats
       })
@@ -105,7 +111,7 @@ class SeatsSelectionPage extends Component {
 
 
   handleConfirmReservation = () =>{
-
+    this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices)
   }
 
   renderReservationContent = () => {
@@ -147,6 +153,7 @@ class SeatsSelectionPage extends Component {
           chosenSeats={this.state.chosenSeats}
           chosenExtraServices={this.state.chosenExtraServices}
           callBackCancelConfirm={this.handleCancelConfirm}
+          callBackConfirmReservation ={this.handleConfirmReservation}
           sessionSeatTypes={this.props.session.session_info.seat_type}
           extraServices={this.props.session.session_info.extra_services}   
           sessionId={this.props.match.params.id}  
@@ -189,9 +196,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getSessionById: (id) => dispatch(getSessionById(id))
-
- 
+  getSessionById: (id) => dispatch(getSessionById(id)),
+  addOrder: (session, chosenSeats, extraServices) => dispatch(addOrder(session, chosenSeats, extraServices))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;

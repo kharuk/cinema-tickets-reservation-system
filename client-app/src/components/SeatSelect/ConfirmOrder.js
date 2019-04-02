@@ -42,6 +42,7 @@ const ConfirmOrder = (props) =>{
       </div>
 
       <RoutingButton 
+        callBackHandleConfirmation={props.callBackConfirmReservation}
         isSeatsChosen={props.isSeatsChosen}
         chosenSeats={props.chosenSeats}
         callBackHandleCancel={props.callBackCancelConfirm}

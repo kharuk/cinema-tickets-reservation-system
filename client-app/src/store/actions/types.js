@@ -20,3 +20,8 @@ export const userTypes = {
 export const seatsSelectionTypes = {
   GET_SESSION_BY_ID: 'GET_SESSION_BY_ID'
 }
+
+export const orderTypes = {
+  ADD_ORDER: 'ADD_ORDER',
+  FETCH_ORDERS: 'FETCH_ORDERS'
+}

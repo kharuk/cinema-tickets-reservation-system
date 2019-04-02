@@ -7,10 +7,20 @@ import '../components/ProfilePage/profilePage.scss'
 import AccountSettings from '../components/ProfilePage/AccountSettings';
 import ProfilePageContent from '../components/ProfilePage/ProfilePageContent';
 import OrderTable from '../components/ProfilePage/OrdersTable';
+import { connect } from "react-redux";
+
+import {
+  fetchAllOrders
+} from '../store/actions/orderAction';
 
 class ProfilePage extends Component {
 
+  componentDidMount() {
+    this.props.fetchAllOrders();
+  }
+
   render() {
+    console.log(this.props.orders);
     return (
       <section className="page-content">
         <div className="container">
@@ -22,7 +32,6 @@ class ProfilePage extends Component {
                 <Route exact path={ links.ORDERS_PAGE} component={ OrderTable }/> 
                 <Route exact path={ links.PREVIOUS_ORDERS_PAGE } component={ OrderTable }/>
                 <Route exact path={ links.PROFILE_PAGE } component={ AccountSettings }/> 
-  
               </Switch>
             </ProfilePageContent>
           </div>
@@ -33,4 +42,14 @@ class ProfilePage extends Component {
   }
 }
 
-export default  ProfilePage;
+const mapStateToProps = (state) => {
+  return {
+    orders: state.order.orderList
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchAllOrders: () => dispatch(fetchAllOrders())
+})
+
+export default  connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

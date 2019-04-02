@@ -6,7 +6,8 @@ class ReservationServise{
 
     let priceOfExtraServices = Object.keys(chosenExtraServices).reduce((sum, current) =>
     sum + chosenExtraServices[current]*extraServices[current], 0);
-    return {priceOfTickets, priceOfExtraServices};
+    let totalPrice = priceOfTickets + priceOfExtraServices;
+    return {priceOfTickets, priceOfExtraServices, totalPrice};
   }
 }
 

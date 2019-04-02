@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {searchReducer} from './searchReducer';
 import {seatsSelectionReducer} from './seatsSelectionReducer';
+import {orderReducer} from './orderReducer';
 import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase'
 import { userReducer } from './userReducer';
@@ -11,5 +12,6 @@ export const rootReducer = combineReducers({
   toastr: toastrReducer,
   search: searchReducer,
   user: userReducer,
+  order: orderReducer,
   seatsSelect: seatsSelectionReducer
 });
