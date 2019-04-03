@@ -55,14 +55,6 @@ class FilmSearchPage extends Component {
     console.log(filmName, cinema, city, date)
     this.props.getFiltredFilmList(this.props.films, filmName, cinema, city, date)
   }
-/* 
-  getFiltredFilmList = (filmName, cinema, city, date) => {
-    console.log('submit', filmName, cinema, city, date);
-    this.props.setCurrentFilmName(filmName);
-    this.props.setCurrentCity(city);
-    this.props.setCurrentCinema(cinema);
-    this.props.setSessionDate(date);
-  } */
 
   render() {
     const { films,filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;

@@ -29,9 +29,3 @@ export const getSessionById = (id) => async(dispatch) => {
   }
 
 }
-
-/* export const getSessionById = (id) => (dispatch) => {
-  return Promise.new((resolve, reject) => {
-
-  })
-} */

@@ -18,13 +18,6 @@ const showErrorToast = (err) => {
   try {
     let {data} = await orderServices.addOrder(info);
      if (data.isSuccessfully) {
-     // console.log(data);
-     /*  dispatch({
-        type: orderTypes.ADD_ORDER,
-        payload: {
-          session: data.session[0]
-        }
-      }); */
     } 
   }  catch (err) {
     console.log(err);

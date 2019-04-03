@@ -20,43 +20,24 @@ const OrderTable = (props) =>{
           </tr>
         </thead>
         <tbody>
-          {
-            orders && orders.map((order) => {
-              const time = searchFilmActionHelpers.getTimeFromDate(order.date);
-              const date = searchFilmActionHelpers.getFormatedDate(order.date);
-              return (
-                <OrderItem 
-                key={order._id}
-                filmName={order.filmName}
-                city={order.location}
-                cinema={order.cinema}
-                date={date}
-                time={time}
-                countOfTickets={order.chosenSeats.length}
-                price={order.price.totalPrice}
-              />
-              )
-            })
-          }
-        {/*   <OrderItem 
-            filmName={}
-            city="Volkowysk"
-            cinema="Berest'e"
-            date="12/03/2019"
-            time="15:00"
-            countOfTickets="5"
-            price="35"
-          />
-          <OrderItem 
-            filmName="How to get away with murder"
-            city="Volkowysk"
-            cinema="Berest'e"
-            date="12/03/2019"
-            time="15:00"
-            countOfTickets="5"
-            price="35"
-          /> */}
-
+        {
+          orders && orders.map((order) => {
+            const time = searchFilmActionHelpers.getTimeFromDate(order.date);
+            const date = searchFilmActionHelpers.getFormatedDate(order.date);
+            return (
+              <OrderItem 
+              key={order._id}
+              filmName={order.filmName}
+              city={order.location}
+              cinema={order.cinema}
+              date={date}
+              time={time}
+              countOfTickets={order.chosenSeats.length}
+              price={order.price.totalPrice}
+            />
+            )
+          })
+        }
         </tbody>
       </table>
     </div>

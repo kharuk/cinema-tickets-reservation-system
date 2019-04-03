@@ -18,8 +18,6 @@ class SearchFilmAction {
     return moment(date).format("MM/DD/YYYY");
   }
 
-  
-
   getFilteredData =  (filters, films) => { 
     let filtredData = JSON.parse(JSON.stringify(films))
     if (filters.filmName) {

@@ -34,9 +34,5 @@ class SessionItem extends Component {
     )
   }
 }
-/* 
-SessionItem.defaultProps = {
-  date: new Date()
-}; */
 
 export default SessionItem;
