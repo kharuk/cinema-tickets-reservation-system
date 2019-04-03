@@ -16,7 +16,9 @@ export const orderReducer = (state = initialState, action) => {
     case orderTypes.FETCH_ORDERS: {
       return {
         ...state,
-        orderList: data.orderList
+        orderList: data.orderList,
+        currentOrders: data.currentOrders,
+        previousOrders: data.previousOrders
       }
     }
     default:

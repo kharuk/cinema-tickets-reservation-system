@@ -1,4 +1,7 @@
 import reservationServise from '../services/ReservationServices';
+import moment from 'moment';
+import _ from 'lodash';
+
 
 class OrderAction {
 
@@ -21,6 +24,19 @@ class OrderAction {
       user_id: user._id
     }
     return data
+  }
+
+  sortOrdersByDate = (orders) => {
+    let currentOrders = [];
+    let previousOrders = [];
+    orders.forEach(order => {
+      if (moment(order.date) >= moment()){
+        currentOrders.push(order);
+      } else {
+        previousOrders.push(order);
+      }
+    });
+    return ({currentOrders, previousOrders})
   }
 
 }

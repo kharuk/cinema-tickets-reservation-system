@@ -38,11 +38,14 @@ export const fetchAllOrders = () => async(dispatch) => {
     const id = user._id;
     let {data} = await orderServices.getOrderList(id);
     if (data.isSuccessfully) {
-      console.log(data);
+      let orders = orderActionHelpers.sortOrdersByDate(data.orderList);
+      console.log(orders);
       dispatch({
         type: orderTypes.FETCH_ORDERS,
         payload: {
-          orderList: data.orderList
+          orderList: data.orderList,
+          currentOrders: orders.currentOrders,
+          previousOrders: orders.previousOrders
         }
       });
     }

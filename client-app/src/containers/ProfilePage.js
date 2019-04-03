@@ -21,6 +21,7 @@ class ProfilePage extends Component {
 
   render() {
     console.log(this.props.orders);
+    console.log(this.props.currentOrders);
     return (
       <section className="page-content">
         <div className="container">
@@ -29,8 +30,8 @@ class ProfilePage extends Component {
             <ProfilePageNavBar/>
             <ProfilePageContent>
               <Switch>
-                <Route exact path={ links.ORDERS_PAGE} component={ OrderTable }/> 
-                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } component={ OrderTable }/>
+                <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={this.props.currentOrders}/>} /> 
+                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={this.props.previousOrders}/>} />
                 <Route exact path={ links.PROFILE_PAGE } component={ AccountSettings }/> 
               </Switch>
             </ProfilePageContent>
@@ -44,7 +45,9 @@ class ProfilePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.order.orderList
+    orders: state.order.orderList,
+    currentOrders: state.order.currentOrders,
+    previousOrders: state.order.previousOrders
   }
 }
 
