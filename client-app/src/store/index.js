@@ -11,7 +11,9 @@ import fbConfig from '../services/firebase/initFirebase';
 export const history = createBrowserHistory();
 const rfConfig = {} 
 
-export const store = createStore(rootReducer, compose(
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(rootReducer, composeEnhancers(
+//export const store = createStore(rootReducer, compose(
   applyMiddleware(thunk.withExtraArgument({getFirestore})),
 	reduxFirestore(fbConfig,rfConfig)
 ))

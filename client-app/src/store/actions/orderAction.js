@@ -10,14 +10,12 @@ const showErrorToast = (err) => {
   toastr.error(message);
 };
 
-
-
-  export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dispatch) => {
+export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dispatch) => {
     let info = orderActionHelpers.formOrder(session, chosenSeats, chosenExtraServices);
     console.log(info);
   try {
     let {data} = await orderServices.addOrder(info);
-     if (data.isSuccessfully) {
+    if (data.isSuccessfully) {
     } 
   }  catch (err) {
     console.log(err);

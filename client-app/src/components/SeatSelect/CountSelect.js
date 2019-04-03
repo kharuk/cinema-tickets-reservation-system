@@ -47,8 +47,8 @@ class CountSelect extends Component {
         margin="normal"
         variant="outlined"
         classes={{
-          outlined: classes.select,
-        }}
+          input: classes.select,
+        }} 
       >
         {count.map(option => (
           <MenuItem key={option} value={option}>

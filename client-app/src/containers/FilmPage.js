@@ -71,7 +71,7 @@ FilmPage.defaultProps = {
 const mapStateToProps = (state) => {
   console.log('state ', state);
   return {
-    film: state.search.choosenFilm 
+    film: state.search.choosenFilm // add selector getChhosenFilm
   }
 }
 

@@ -45,7 +45,7 @@ class ProfilePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.order.orderList,
+    orders: state.order.orderList, // filter
     currentOrders: state.order.currentOrders,
     previousOrders: state.order.previousOrders
   }

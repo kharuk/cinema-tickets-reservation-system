@@ -3,6 +3,7 @@ import { userTypes } from '../actions/types';
 const initialState = {
   userLocation: "minsk",
   user: JSON.parse(localStorage.getItem('user')) || null,
+  
 };
 
 export const userReducer = (state = initialState, action) => {

@@ -5,6 +5,7 @@ import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
 import {cities} from '../components/Films/cities';
 import { connect } from "react-redux";
+import searchFilmActionHelpers from '../helper/SearchFilmActionHelpers';
 
 import {
   fetchFilms, 
@@ -32,28 +33,22 @@ class FilmSearchPage extends Component {
 
   setCurrentFilmName = (filmName) => {
     this.props.setCurrentFilmName(filmName);
-    this.props.getFiltredFilmList(this.props.films, filmName, this.props.cinema, this.props.selectedCity, this.props.sessionDate)
+   // this.props.getFiltredFilmList(this.props.films, filmName, this.props.cinema, this.props.selectedCity, this.props.sessionDate)
   }
   
   setCurrentCity = (city) => {
     this.props.setCurrentCity(city);
-    this.props.getFiltredFilmList(this.props.films, this.props.filmName, this.props.cinema, city, this.props.sessionDate)
+  //  this.props.getFiltredFilmList(this.props.films, this.props.filmName, this.props.cinema, city, this.props.sessionDate)
   }
   
   setCurrentCinema = (cinema) => {
     this.props.setCurrentCinema(cinema);
-    this.props.getFiltredFilmList(this.props.films, this.props.filmName, cinema, this.props.selectedCity, this.props.sessionDate)
+  //  this.props.getFiltredFilmList(this.props.films, this.props.filmName, cinema, this.props.selectedCity, this.props.sessionDate)
   }
 
   setSessionDate = (date) => {
     this.props.setSessionDate(date);
-    this.props.getFiltredFilmList(this.props.films, this.props.filmName, this.props.cinema, this.props.selectedCity, date)
-  }
-
-  onButtonClick = (filmName, cinema, city, date) => {
-    console.log('clicked');
-    console.log(filmName, cinema, city, date)
-    this.props.getFiltredFilmList(this.props.films, filmName, cinema, city, date)
+  //  this.props.getFiltredFilmList(this.props.films, this.props.filmName, this.props.cinema, this.props.selectedCity, date)
   }
 
   render() {
@@ -86,9 +81,15 @@ class FilmSearchPage extends Component {
 
 const mapStateToProps = (state) => {
   console.log('state ', state);
+  let filters = {
+    filmName: state.search.filmName,
+    city: state.search.selectedCity,
+    cinema: state.search.cinema,
+    date: state.search.sessionDate
+  }
   return {
-    films: state.search.films ,
-    filtredFilms: state.search.filtredData,
+    films: state.search.films,
+    filtredFilms: searchFilmActionHelpers.getFilteredData(state.search.films, filters), // state.search.filtredData, //selector add function
     selectedCity: state.search.selectedCity ,
     filmName: state.search.filmName ,
     cinema: state.search.cinema,

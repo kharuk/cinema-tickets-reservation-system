@@ -53,8 +53,9 @@ class Main extends Component {
 
 function mapStateToProps(state) {
   return {
-      isLoggedIn: state.user.isLoggedIn,
-      role: state.user.user ? state.user.user.role : '',
+     // isLoggedIn: state.user.isLoggedIn,
+    isLoggedIn: !!state.user.user,
+    role: state.user.user ? state.user.user.role : '',
  };
 }
 

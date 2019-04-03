@@ -19,7 +19,7 @@ export const getSessionById = (id) => async(dispatch) => {
       dispatch({
         type: seatsSelectionTypes.GET_SESSION_BY_ID,
         payload: {
-          session: data.session[0]
+          session: data.session[0] //delete
         }
       });
     }
