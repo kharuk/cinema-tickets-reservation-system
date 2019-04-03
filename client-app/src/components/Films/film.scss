@@ -20,6 +20,8 @@ $film-info-text-color: #ffffff;
   max-height: 100%;
   background-color: $film-info-background-color;
   color: $film-info-text-color;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 /*   opacity: 0.5; */
 }
 

@@ -165,3 +165,14 @@ $seat-select-output-price-background-color: #dee2e6;
       }
   }
 }
+
+.order-info__film-name {
+  font-size: 0.9rem;
+  min-width: 200px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.order-info__row{
+  text-transform: capitalize;
+}

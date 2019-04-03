@@ -17,7 +17,11 @@ const styles = theme => ({
     width: '60px',
     height: '30px',
     marginTop: 10
-  }
+  },
+  select: {
+    padding: 0
+  },
+  
 });
 
 const count = [1, 2, 3, 4, 5];
@@ -42,6 +46,9 @@ class CountSelect extends Component {
         }}
         margin="normal"
         variant="outlined"
+        classes={{
+          outlined: classes.select,
+        }}
       >
         {count.map(option => (
           <MenuItem key={option} value={option}>

@@ -30,15 +30,8 @@ $order-table_without-background-color: #f9ebdf;
 
 }
 
-
-/* .order__table-head {
-  height: 60px;
-  background: $order-table_header-background-color;
-} */
-
-
  .order__table-row{
-
+  text-transform: capitalize;
   background-color: $order-table_row-background-color;
 
   td {

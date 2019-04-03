@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
-import { Button } from "@material-ui/core";
 import searchFilmActionHelpers from "../../helper/SearchFilmActionHelpers";
 
 
@@ -32,8 +31,6 @@ const styles = theme => ({
     display: 'none',
   },
 });
-
-const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
 
@@ -99,13 +96,6 @@ class SearchBar extends Component {
           setSessionDate={setSessionDate}
           sessionDate={sessionDate}
         />
-        <Button
-         onClick={()=>onButtonClick(filmName, cinema, selectedCity, sessionDate)}
-         variant="outlined" 
-         className={classes.button}
-         >
-         Search
-         </Button>
       </form>
     );
   }
