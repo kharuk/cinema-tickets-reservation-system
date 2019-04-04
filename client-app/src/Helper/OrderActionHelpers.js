@@ -27,7 +27,7 @@ class OrderAction {
   sortOrdersByDate = (orders) => {
     let currentOrders = [];
     let previousOrders = [];
-    orders.forEach(order => {
+    orders && orders.forEach(order => {
       if (moment(order.date) >= moment()){
         currentOrders.push(order);
       } else {

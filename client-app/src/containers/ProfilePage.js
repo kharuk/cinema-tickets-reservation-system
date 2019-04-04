@@ -8,7 +8,7 @@ import AccountSettings from '../components/ProfilePage/AccountSettings';
 import ProfilePageContent from '../components/ProfilePage/ProfilePageContent';
 import OrderTable from '../components/ProfilePage/OrdersTable';
 import { connect } from "react-redux";
-
+import {getOrdersFiltredByDate} from '../store/selectors';
 import {
   fetchAllOrders
 } from '../store/actions/orderAction';
@@ -20,6 +20,7 @@ class ProfilePage extends Component {
   }
 
   render() {
+    const {ordersFiltredByDate} = this.props;
     return (
       <section className="page-content">
         <div className="container">
@@ -28,14 +29,13 @@ class ProfilePage extends Component {
             <ProfilePageNavBar/>
             <ProfilePageContent>
               <Switch>
-                <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={this.props.currentOrders}/>} /> 
-                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={this.props.previousOrders}/>} />
+                <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.currentOrders}/>} /> 
+                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.previousOrders}/>} />
                 <Route exact path={ links.PROFILE_PAGE } component={ AccountSettings }/> 
               </Switch>
             </ProfilePageContent>
           </div>
         </div>
-
       </section>
     )
   }
@@ -43,9 +43,8 @@ class ProfilePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.order.orderList, // filter
-    currentOrders: state.order.currentOrders,
-    previousOrders: state.order.previousOrders
+    orders: state.order.orderList,
+    ordersFiltredByDate: getOrdersFiltredByDate(state.order)
   }
 }
 

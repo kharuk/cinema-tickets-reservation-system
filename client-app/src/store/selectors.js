@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import searchFilmActionHelpers from '../helper/SearchFilmActionHelpers';
+import orderActionHelpers from '../helper/OrderActionHelpers';
 
 const getFilmFilters = (state) => state.filters;
 const getFilms = (state) => state.films;
@@ -16,3 +17,11 @@ export const getChosenFilm = createSelector(
     (chosenFilmId, films, filmFilters) => 
       searchFilmActionHelpers.getChosenFilmWithFiltredSession(chosenFilmId, films, filmFilters)
   )
+
+const getOrders = (state) => state.orderList;
+export const getOrdersFiltredByDate = createSelector(
+    [getOrders],
+    (orders) => 
+      orderActionHelpers.sortOrdersByDate(orders)
+  )
+
