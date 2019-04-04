@@ -2,6 +2,8 @@ import { orderTypes } from './types';
 import orderActionHelpers from '../../helper/OrderActionHelpers';
 import orderServices from '../../services/orderServices';
 import { toastr } from 'react-redux-toastr';
+import {history} from '../index';
+import {links} from '../../config/links';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -22,9 +24,7 @@ export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dis
 
 export const fetchAllOrders = () => async(dispatch) => {
    try {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const id = user._id;
-    let {data} = await orderServices.getOrderList(id);
+    let {data} = await orderServices.getOrderList();
     if (data.isSuccessfully) {
       dispatch({
         type: orderTypes.FETCH_ORDERS,
@@ -34,5 +34,6 @@ export const fetchAllOrders = () => async(dispatch) => {
   } catch (err) {
     console.log(err);
     showErrorToast(err);
+    history.push(links.SIGN_IN_PAGE);
   } 
 }

@@ -1,12 +1,7 @@
 import axios from 'axios';
 
 function getOrderList(id) {
-    return axios.get('http://localhost:8080/api/orders', { 
-      withCredentials: true, 
-      headers: {
-        id
-      } 
-    });
+    return axios.get('http://localhost:8080/api/orders', { withCredentials: true });
 }
 
 function addOrder(data) {

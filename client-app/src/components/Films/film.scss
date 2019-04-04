@@ -32,3 +32,12 @@ $film-info-text-color: #ffffff;
   margin-bottom: 8px;
   padding: 18.5px 14px;
 }
+
+@media screen and (max-width: 767px) {	
+  .film-info__container{
+
+
+    background-size: cover;
+    background-position-y: 67%;
+  }
+}

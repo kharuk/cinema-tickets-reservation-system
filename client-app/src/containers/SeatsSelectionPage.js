@@ -121,19 +121,19 @@ class SeatsSelectionPage extends Component {
     return (
       <Fragment>
         <Header header="Select Seats"/>
-          <SeatSelect
-            seats={this.state.seats}
-            chosenSeats={this.state.chosenSeats}
-            chosenExtraServices={this.state.chosenExtraServices}
-            sessionSeatTypes={this.props.session.session_info.seat_type}
-            extraServices={this.props.session.session_info.extra_services}
-            callBackHandleSeatClick={this.handleSeatClick}
-            callBackHandleSeatsSelect={this.handleSeatsSelect}
-            callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
-            callBackCheckBoxChanged={this.handleCheckBoxChanged}
-            filmId={this.props.session.film.film_id}
-            sessionId={this.props.match.params.id}
-          />
+        <SeatSelect
+          seats={this.state.seats}
+          chosenSeats={this.state.chosenSeats}
+          chosenExtraServices={this.state.chosenExtraServices}
+          sessionSeatTypes={this.props.session.session_info.seat_type}
+          extraServices={this.props.session.session_info.extra_services}
+          callBackHandleSeatClick={this.handleSeatClick}
+          callBackHandleSeatsSelect={this.handleSeatsSelect}
+          callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
+          callBackCheckBoxChanged={this.handleCheckBoxChanged}
+          filmId={this.props.session.film.film_id}
+          sessionId={this.props.match.params.id}
+        />
       </Fragment>
     )
   }
@@ -158,7 +158,6 @@ class SeatsSelectionPage extends Component {
   }
 
   render() {
-    let {session} = this.props;
     return (
       <section className="page-content">
         <div className="container">
@@ -193,4 +192,4 @@ const mapDispatchToProps = dispatch => ({
   addOrder: (session, chosenSeats, extraServices) => dispatch(addOrder(session, chosenSeats, extraServices))
 })
 
-export default connect( mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;
+export default connect(mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;
