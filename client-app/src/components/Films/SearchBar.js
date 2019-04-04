@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
 import searchFilmActionHelpers from "../../helper/SearchFilmActionHelpers";
 
-
 const styles = theme => ({
   container: {
     display: "flex",
@@ -34,19 +33,14 @@ const styles = theme => ({
 
 class SearchBar extends Component {
 
-  handleSubmit = (event) => {
-    const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
-    event.preventDefault();
-    console.log('try to submit');
-    onButtonClick(filmName, cinema, selectedCity, sessionDate);
-  }
-
   render() {
     const { classes } = this.props;
-    const { selectedCity, filmName, cinema, sessionDate, onFilmNameChange, onCityChange, onCinemaChange,
-    setSessionDate, onButtonClick} = this.props;
+    const { 
+      selectedCity, filmName, cinema, sessionDate, 
+      onFilmNameChange, onCityChange, onCinemaChange, setSessionDate
+    } = this.props;
     return (
-      <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
+      <form className={classes.container} autoComplete="off">
         <TextField
           id="outlined-film"
           label="Film"

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';
 import RoutingButton from './RoutingButton';

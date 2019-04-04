@@ -6,7 +6,6 @@ import { links } from '../config/links';
 
 
 const PrivateRoute = ({ component: Components, isLoggedIn, role, requiredRoles, ...rest}) => {
-    console.log(isLoggedIn);
     if ( isLoggedIn &&  requiredRoles.includes(role)) {
         return <Route {...rest} render={props => <Components {...props} />} />;
     }

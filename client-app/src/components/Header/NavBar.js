@@ -5,7 +5,7 @@ import { links } from '../../config/links';
 class NavBar extends Component {
 
   render(){
-    const { loggedIn, role, logout } = this.props;
+    const { loggedIn, role} = this.props;
     return (
       <div className="collapse navbar-collapse" id="navbarResponsive">
         <ul className="navbar-nav ml-auto">

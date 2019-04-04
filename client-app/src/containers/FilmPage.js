@@ -6,9 +6,10 @@ import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 import SearchBar from '../components/Session/SearchBar';
 import { connect } from "react-redux";
-
+import {getChosenFilm} from '../store/selectors';
 import {
-  getFilmById
+  setChosenFilm,
+  fetchFilms
 } from '../store/actions/searchFilmAction';
 
 
@@ -19,13 +20,12 @@ import defaultImage from '../images/default-movie-poster.gif'
 class FilmPage extends Component {
 
   componentDidMount() {
-    this.props.getFilmById(this.props.match.params.id);
-    //onsole.log(this.props.session);
+    this.props.setChosenFilm(this.props.match.params.id);
+    this.props.fetchFilms();
   }
 
   render() {
     let {film} = this.props;
-    console.log(film);
     return (
       <section className="page-content">
         <div className="container">
@@ -69,16 +69,14 @@ FilmPage.defaultProps = {
 };
 
 const mapStateToProps = (state) => {
-  console.log('state ', state);
   return {
-    film: state.search.choosenFilm // add selector getChhosenFilm
+    film: getChosenFilm(state.search)
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getFilmById: (id) => dispatch(getFilmById(id))
-
- 
+  setChosenFilm: (id) => dispatch(setChosenFilm(id)),
+  fetchFilms: () => dispatch(fetchFilms()), 
 })
 
 

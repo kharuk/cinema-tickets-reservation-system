@@ -20,8 +20,6 @@ class ProfilePage extends Component {
   }
 
   render() {
-    console.log(this.props.orders);
-    console.log(this.props.currentOrders);
     return (
       <section className="page-content">
         <div className="container">

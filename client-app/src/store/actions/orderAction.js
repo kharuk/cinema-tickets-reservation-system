@@ -1,9 +1,7 @@
-import { seatsSelectionTypes, orderTypes } from './types';
+import { orderTypes } from './types';
 import orderActionHelpers from '../../helper/OrderActionHelpers';
-import reservationServise from '../../services/ReservationServices';
 import orderServices from '../../services/orderServices';
 import { toastr } from 'react-redux-toastr';
-import {store} from '../index';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -12,7 +10,6 @@ const showErrorToast = (err) => {
 
 export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dispatch) => {
     let info = orderActionHelpers.formOrder(session, chosenSeats, chosenExtraServices);
-    console.log(info);
   try {
     let {data} = await orderServices.addOrder(info);
     if (data.isSuccessfully) {
@@ -30,7 +27,6 @@ export const fetchAllOrders = () => async(dispatch) => {
     let {data} = await orderServices.getOrderList(id);
     if (data.isSuccessfully) {
       let orders = orderActionHelpers.sortOrdersByDate(data.orderList);
-      console.log(orders);
       dispatch({
         type: orderTypes.FETCH_ORDERS,
         payload: {

@@ -18,12 +18,12 @@ class SearchFilmAction {
     return moment(date).format("MM/DD/YYYY");
   }
 
-  getFilteredData =  (films, filters) => { 
-    console.log(filters);
-    console.log(films);
-
+  getFilteredData =  (filters, films) => { 
     if (films) {
-      let filtredData = JSON.parse(JSON.stringify(films))    //deep clone
+      let filtredData = _.cloneDeep(films);
+      if (!_.isArray(filtredData)) {
+        filtredData = [filtredData];
+      }
       if (filters.filmName) {
         filters.filmName = filters.filmName.toLowerCase();
         filtredData =  _.filter(filtredData, function(item) {
@@ -40,45 +40,41 @@ class SearchFilmAction {
         });
       }
 
-      if (filters.city) {
-        filters.city = filters.city.toLowerCase();
+      if (filters.selectedCity) {
+        filters.selectedCity = filters.selectedCity.toLowerCase();
         filtredData =  _.forEach(filtredData, function(item) {
           item.sessions = _.filter(item.sessions, function(item){
-            return _.includes(item.cinema.location.toLowerCase(), filters.city);
+            return _.includes(item.cinema.location.toLowerCase(), filters.selectedCity);
           }) 
         });
       }
 
-      filtredData = this.filterByDate(filtredData, filters.date);
+      filtredData = this.filterByDate(filtredData, filters.sessionDate);
       return filtredData;
-    }
-    
+    }    
   };
-
-
 
   filterByDate = (films, date) => {
     if (date.isAfter(moment(), 'day')){
-    date.set({hour:0,minute:0,second:0,millisecond:0})
-    date.format()
+      date.set({hour:0,minute:0,second:0,millisecond:0})
+      date.format()
     }
-
-    //isAfter, isBefore
-    let statrDate = moment(date).unix();
-    let endDate = moment(moment(date).endOf("day")).unix();
+    let statrDate = moment(date);
+    let endDate = moment(moment(date).endOf("day"));
     let filteredFilms = _.forEach(films, (item) => {
-      item.sessions = _.filter(item.sessions, function(item){
-        return moment(item.date).unix() >= statrDate && moment(item.date).unix() <= endDate ;
-      })  
+      item.sessions = _.filter(item.sessions, (item) =>
+        moment(item.date).isSameOrAfter(statrDate) && moment(item.date).isSameOrBefore(endDate)
+      )  
     })
     return filteredFilms; 
   } 
 
-  filterByCity = (sessions, city) => {
-    city = city.toLowerCase();
-    return _.filter(sessions, { 'location': city });
-  }
-
+  getChosenFilmWithFiltredSession = (chosenFilmId, films, filters) => {
+    const chosenFilm = _.find(films, {'film_id': chosenFilmId});
+    const chosenFilmWithFiltredSession = this.getFilteredData(filters, chosenFilm);
+    return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
+  } 
+    
 }
 
 const searchFilmActionHelpers = new SearchFilmAction();

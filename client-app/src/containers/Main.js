@@ -12,8 +12,6 @@ import PrivateRoute from '../shared/PrivateRouter';
 import ReduxToastr from 'react-redux-toastr'
 import { links } from '../config/links';
 import {history} from '../store/';
-import {userActions}  from '../store/actions/userAction';
-
 
 class Main extends Component {
 
@@ -53,7 +51,6 @@ class Main extends Component {
 
 function mapStateToProps(state) {
   return {
-     // isLoggedIn: state.user.isLoggedIn,
     isLoggedIn: !!state.user.user,
     role: state.user.user ? state.user.user.role : '',
  };

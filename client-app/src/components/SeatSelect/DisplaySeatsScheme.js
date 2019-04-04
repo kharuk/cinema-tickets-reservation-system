@@ -1,6 +1,5 @@
 import React from 'react';
 import SeatsScheme from './SeatsScheme';
-import DisplaySeatsType from './DispalySeatsType';
 
 const DisplaySeatsScheme = (props) =>{
   return(

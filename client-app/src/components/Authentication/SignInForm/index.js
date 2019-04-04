@@ -32,7 +32,6 @@ class SignInForm extends Component {
   }
 
   render() {
-    const { loggingIn } = this.props;
     const { email, password } = this.state;
     return (
       <div className="authentication__form-wrapper">
