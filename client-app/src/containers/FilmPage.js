@@ -8,8 +8,7 @@ import SearchBar from '../components/Session/SearchBar';
 import { connect } from "react-redux";
 import {getChosenFilm} from '../store/selectors';
 import {
-  setChosenFilm,
-  fetchFilms
+  setChosenFilm
 } from '../store/actions/searchFilmAction';
 
 
@@ -21,7 +20,6 @@ class FilmPage extends Component {
 
   componentDidMount() {
     this.props.setChosenFilm(this.props.match.params.id);
-    this.props.fetchFilms();
   }
 
   render() {
@@ -75,8 +73,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setChosenFilm: (id) => dispatch(setChosenFilm(id)),
-  fetchFilms: () => dispatch(fetchFilms()), 
+  setChosenFilm: (id) => dispatch(setChosenFilm(id))
 })
 
 

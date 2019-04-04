@@ -58,6 +58,7 @@ function login(values) {
             });
             dispatch(setUserLocation(data.user.location));
             axios.defaults.headers.common['Authorization'] = data.token.token;
+            localStorage.setItem('token', JSON.stringify(data.token.token));
             history.push(links.FILM_SEARCH_PAGE);
           } else {
             dispatch({ 

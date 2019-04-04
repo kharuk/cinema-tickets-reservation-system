@@ -55,7 +55,7 @@ class SearchFilmAction {
   };
 
   filterByDate = (films, date) => {
-    if (date.isAfter(moment(), 'day')){
+    if (moment(date).isAfter(moment(), 'day')){
       date.set({hour:0,minute:0,second:0,millisecond:0})
       date.format()
     }

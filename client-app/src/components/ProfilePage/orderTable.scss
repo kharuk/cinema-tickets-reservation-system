@@ -87,6 +87,10 @@ $order-table_without-background-color: #f9ebdf;
     margin-right: 20px;
     box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
 
+    &:first-child {
+      margin-top: 5px;
+    }
+    
     td {
       padding-left: 60%;
       position: relative;

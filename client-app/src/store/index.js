@@ -1,16 +1,23 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import {createBrowserHistory} from 'history';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import {rootReducer} from './redusers/rootReducer';
 import thunk from 'redux-thunk';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
-import fbConfig from '../services/firebase/initFirebase';
 
 export const history = createBrowserHistory();
-const rfConfig = {} 
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['toastr', 'order', 'seatsSelect'],
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(rootReducer, composeEnhancers(
-//export const store = createStore(rootReducer, compose(
-  applyMiddleware(thunk.withExtraArgument({getFirestore})),
-	reduxFirestore(fbConfig,rfConfig)
+export const store = createStore(persistedReducer, composeEnhancers(
+ applyMiddleware(thunk.withExtraArgument({getFirestore})),
 ))
+
+export const persistor = persistStore(store);
