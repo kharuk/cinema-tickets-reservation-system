@@ -1,4 +1,4 @@
-import { searchTypes } from '../actions/types';
+import { searchTypes, autosuggestTypes } from '../actions/types';
 import moment from 'moment';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
     sessionDate: moment(),
   },
   films: undefined,
-  chosenFilm: undefined
+  chosenFilm: undefined,
 };
 
 export const searchReducer = (state = initialState, action) => {

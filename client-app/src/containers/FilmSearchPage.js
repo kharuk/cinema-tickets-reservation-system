@@ -14,6 +14,7 @@ import {
   setSessionDate
 } from '../store/actions/searchFilmAction';
 
+
 class FilmSearchPage extends Component {
 
   componentDidMount() {
@@ -39,6 +40,7 @@ class FilmSearchPage extends Component {
 
   render() {
     const {filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;
+    
     return (
       <section className="page-content">
         <div className="container">
@@ -49,9 +51,9 @@ class FilmSearchPage extends Component {
             filmName={filmName}
             cinema={cinema}
             sessionDate={sessionDate}
-            onFilmNameChange={this.setCurrentFilmName}
+            onFilmNameChange={this.props.setCurrentFilmName}
             onCityChange={this.setCurrentCity}
-            onCinemaChange={this.setCurrentCinema}
+            onCinemaChange={this.props.setCurrentCinema}
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
           />
@@ -70,7 +72,7 @@ const mapStateToProps = (state) => {
     filmName: state.search.filters.filmName ,
     cinema: state.search.filters.cinema,
     sessionDate: state.search.filters.sessionDate,
-    userLocation: state.user.userLocation
+    userLocation: state.user.userLocation,
   }
 }
 

@@ -11,7 +11,7 @@ export const history = createBrowserHistory();
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['toastr', 'order', 'seatsSelect'],
+  blacklist: ['toastr', 'order', 'seatsSelect', 'autosuggest'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
