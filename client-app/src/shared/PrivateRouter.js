@@ -9,12 +9,12 @@ const PrivateRoute = ({ component: Components, isLoggedIn, role, requiredRoles, 
     if ( isLoggedIn &&  requiredRoles.includes(role)) {
         return <Route {...rest} render={props => <Components {...props} />} />;
     }
-     return <Redirect exact to={links.SIGN_IN_PAGE} />;
+    return <Redirect exact to={links.SIGN_IN_PAGE} />;
 };
 
 const mapStateToProps = state => ({
     isLoggedIn: !!state.user.user,
-    role: state.user.user ? state.user.user.role : '',
+    role: state.user.user,
 });
 
 export default withRouter(connect(mapStateToProps)(PrivateRoute));

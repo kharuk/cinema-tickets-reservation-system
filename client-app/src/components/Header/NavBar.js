@@ -25,7 +25,7 @@ class NavBar extends Component {
                   <NavLink to={links.SIGN_IN_PAGE} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sign Out</NavLink>
                 </li>
                 <li className="nav-item mx-0 mx-lg-1">
-                  <NavLink to={links.PROFILE_PAGE}  className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Profile</NavLink>
+                  <NavLink to={links.ORDERS_PAGE}  className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Profile</NavLink>
                 </li>
               </Fragment>)
           }

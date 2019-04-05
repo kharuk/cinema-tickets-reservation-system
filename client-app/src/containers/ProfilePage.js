@@ -20,18 +20,18 @@ class ProfilePage extends Component {
   }
 
   render() {
-    const {ordersFiltredByDate} = this.props;
+    const {ordersFiltredByDate, userInfo} = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Profile page"/>
           <div className="row profile-page__container">
-            <ProfilePageNavBar/>
+            <ProfilePageNavBar userInfo={userInfo} />
             <ProfilePageContent>
               <Switch>
                 <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.currentOrders}/>} /> 
                 <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.previousOrders}/>} />
-                <Route exact path={ links.PROFILE_PAGE } component={ AccountSettings }/> 
+                <Route exact path={ links.PROFILE_PAGE } render={(props) => <AccountSettings {...props} userInfo={userInfo}/>}/> 
               </Switch>
             </ProfilePageContent>
           </div>
@@ -44,7 +44,8 @@ class ProfilePage extends Component {
 const mapStateToProps = (state) => {
   return {
     orders: state.order.orderList,
-    ordersFiltredByDate: getOrdersFiltredByDate(state.order)
+    ordersFiltredByDate: getOrdersFiltredByDate(state.order),
+    userInfo: state.user.userInfo
   }
 }
 
