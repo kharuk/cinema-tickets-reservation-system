@@ -35,6 +35,13 @@ export const setSessionDate = (date) => {
   }
 }
 
+export const setCountOfSeats = (countOfSeats) => {
+  return {
+    type: searchTypes.SET_COUNT_OF_SEATS,
+    payload: { countOfSeats: countOfSeats }
+  }
+}
+
 export const fetchFilms = () => async(dispatch) => {
   try {
     let {data} = await sessionServices.getSessionList();

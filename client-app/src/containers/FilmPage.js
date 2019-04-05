@@ -6,9 +6,10 @@ import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 import SearchBar from '../components/Session/SearchBar';
 import { connect } from "react-redux";
-import {getChosenFilm} from '../store/selectors';
+import {getChosenFilm, getFilmFiltredByCountOfSeats} from '../store/selectors';
 import {
-  setChosenFilm
+  setChosenFilm,
+  setCountOfSeats
 } from '../store/actions/searchFilmAction';
 
 
@@ -22,13 +23,20 @@ class FilmPage extends Component {
     this.props.setChosenFilm(this.props.match.params.id);
   }
 
+  setCountOfSeats = (countOfSeats) => {
+    this.props.setCountOfSeats(countOfSeats);
+  }
+
   render() {
-    let {film} = this.props;
+    let {film, countOfSeats} = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Sessions"/>
-          <SearchBar/>
+          <SearchBar 
+            countOfSeats={countOfSeats}
+            setCountOfSeats={this.setCountOfSeats}
+          />
           <div className="row film-page__info">
             <div className="col-md-6 film-page__film-info">
               <FilmCard
@@ -68,12 +76,15 @@ FilmPage.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    film: getChosenFilm(state.search)
+    film: getChosenFilm(state.search),
+ //   filtredFilm: getFilmFiltredByCountOfSeats(state.search),
+    countOfSeats: state.search.filters.countOfSeats
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  setChosenFilm: (id) => dispatch(setChosenFilm(id))
+  setChosenFilm: (id) => dispatch(setChosenFilm(id)),
+  setCountOfSeats: (countOfSeats) => dispatch(setCountOfSeats(countOfSeats)),
 })
 
 

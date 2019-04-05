@@ -1,4 +1,4 @@
-import { searchTypes, autosuggestTypes } from '../actions/types';
+import { searchTypes} from '../actions/types';
 import moment from 'moment';
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
     filmName: undefined,
     cinema: undefined,
     sessionDate: moment(),
+    countOfSeats: 1
   },
   films: undefined,
   chosenFilm: undefined,
@@ -48,6 +49,15 @@ export const searchReducer = (state = initialState, action) => {
         filters: {
           ...state.filters,
           sessionDate: data.sesionDate
+        }
+      }
+    }
+    case searchTypes.SET_COUNT_OF_SEATS: {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          countOfSeats: data.countOfSeats
         }
       }
     }
