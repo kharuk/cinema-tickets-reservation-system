@@ -77,7 +77,6 @@ FilmPage.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     film: getChosenFilm(state.search),
- //   filtredFilm: getFilmFiltredByCountOfSeats(state.search),
     countOfSeats: state.search.filters.countOfSeats
   }
 }

@@ -82,18 +82,6 @@ class SearchFilmAction {
     const chosenFilmWithFiltredSession = this.getFilteredData(filters, chosenFilm);
     return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
   } 
-
-
-
-/*   getFilmFiltredByCountOfSeats = (chosenFilmId, films, countOfSeats) => { 
-    const chosenFilm = _.find(films, {'film_id': chosenFilmId});    
-    let filtredData = _.cloneDeep(chosenFilm);
-    filtredData.sessions = _.filter(filtredData.sessions, function(item){
-      console.log(item.seatsAvailable, countOfSeats);
-            return item.seatsAvailable = countOfSeats
-          }) 
-    return filtredData; 
-  } */
     
 }
 
