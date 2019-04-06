@@ -1,5 +1,4 @@
 import { seatsSelectionTypes } from '../actions/types';
-import moment from 'moment';
 
 const initialState = {
 };

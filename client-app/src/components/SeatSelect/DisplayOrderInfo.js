@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
 const DisplayOrderInfo = ({sessionInfo}) =>{
@@ -17,10 +17,10 @@ const DisplayOrderInfo = ({sessionInfo}) =>{
             <th scope="col">Time</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="order-info__row">
           <tr>
             <td className="order-info__film-name">
-                <h6>{sessionInfo.film.film_info.filmName}</h6>
+                <span>{sessionInfo.film.film_info.filmName}</span>
             </td>
             <td className="order-info__city">
                 <span>{sessionInfo.cinema.cinemaName}</span>

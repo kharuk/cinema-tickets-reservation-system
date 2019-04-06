@@ -1,12 +1,9 @@
 import reservationServise from '../services/ReservationServices';
 import moment from 'moment';
-import _ from 'lodash';
-
 
 class OrderAction {
 
   formOrder = (session, chosenSeats, chosenExtraServices) => {
-    const user = JSON.parse(localStorage.getItem('user'))
     const price = reservationServise.countTotalPrice(
       chosenSeats, 
       chosenExtraServices, 
@@ -20,8 +17,7 @@ class OrderAction {
       date: session.date,
       price,
       chosenSeats,
-      chosenExtraServices,
-      user_id: user._id
+      chosenExtraServices
     }
     return data
   }
@@ -29,7 +25,7 @@ class OrderAction {
   sortOrdersByDate = (orders) => {
     let currentOrders = [];
     let previousOrders = [];
-    orders.forEach(order => {
+    orders && orders.forEach(order => {
       if (moment(order.date) >= moment()){
         currentOrders.push(order);
       } else {

@@ -3,16 +3,12 @@ import SeatSelect from '../components/SeatSelect/SeatSelect';
 import Header from '../components/Authentication/Header';
 import seatHelper from "../helper/SeatHelper";
 import '../components/SeatSelect/seatSelect.scss';
-import seatsFromFile from '../components/SeatSelect/seats.json';
 import sessionInfo from '../components/SeatSelect/sessionInfo.json';
 import ConfirmOrder from '../components/SeatSelect/ConfirmOrder';
-
 import { connect } from "react-redux";
-
 import {
   getSessionById
 } from '../store/actions/seatsSelectionAction';
-
 import {
   addOrder
 } from '../store/actions/orderAction';
@@ -33,13 +29,11 @@ class SeatsSelectionPage extends Component {
     this.props.getSessionById(this.props.match.params.id)
     .then(() => {
       let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
-      console.log('sorted', seats)
       //I need to think about it
       seats.map(item => {
         item.chosen =  false;
       });
       seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
-      console.log('Array', seats)
       this.setState({
         seats: seats
       })
@@ -127,19 +121,19 @@ class SeatsSelectionPage extends Component {
     return (
       <Fragment>
         <Header header="Select Seats"/>
-          <SeatSelect
-            seats={this.state.seats}
-            chosenSeats={this.state.chosenSeats}
-            chosenExtraServices={this.state.chosenExtraServices}
-            sessionSeatTypes={this.props.session.session_info.seat_type}
-            extraServices={this.props.session.session_info.extra_services}
-            callBackHandleSeatClick={this.handleSeatClick}
-            callBackHandleSeatsSelect={this.handleSeatsSelect}
-            callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
-            callBackCheckBoxChanged={this.handleCheckBoxChanged}
-            filmId={this.props.session.film.film_id}
-            sessionId={this.props.match.params.id}
-          />
+        <SeatSelect
+          seats={this.state.seats}
+          chosenSeats={this.state.chosenSeats}
+          chosenExtraServices={this.state.chosenExtraServices}
+          sessionSeatTypes={this.props.session.session_info.seat_type}
+          extraServices={this.props.session.session_info.extra_services}
+          callBackHandleSeatClick={this.handleSeatClick}
+          callBackHandleSeatsSelect={this.handleSeatsSelect}
+          callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
+          callBackCheckBoxChanged={this.handleCheckBoxChanged}
+          filmId={this.props.session.film.film_id}
+          sessionId={this.props.match.params.id}
+        />
       </Fragment>
     )
   }
@@ -164,8 +158,6 @@ class SeatsSelectionPage extends Component {
   }
 
   render() {
-    let {session} = this.props;
-    console.log('session ',session);
     return (
       <section className="page-content">
         <div className="container">
@@ -200,4 +192,4 @@ const mapDispatchToProps = dispatch => ({
   addOrder: (session, chosenSeats, extraServices) => dispatch(addOrder(session, chosenSeats, extraServices))
 })
 
-export default connect( mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;
+export default connect(mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;

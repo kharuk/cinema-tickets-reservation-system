@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+
 function getSessionList() {
-    return axios.get('http://localhost:8080/api/sessions', { withCredentials: true });
+
+    return axios.get('http://localhost:8080/api/sessions', { withCredentials: true});
 }
 
 function getFilmById(id) {

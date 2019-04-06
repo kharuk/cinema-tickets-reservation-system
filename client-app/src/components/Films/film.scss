@@ -20,6 +20,8 @@ $film-info-text-color: #ffffff;
   max-height: 100%;
   background-color: $film-info-background-color;
   color: $film-info-text-color;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 /*   opacity: 0.5; */
 }
 
@@ -29,4 +31,13 @@ $film-info-text-color: #ffffff;
   margin-top: 16px;
   margin-bottom: 8px;
   padding: 18.5px 14px;
+}
+
+@media screen and (max-width: 767px) {	
+  .film-info__container{
+
+
+    background-size: cover;
+    background-position-y: 67%;
+  }
 }

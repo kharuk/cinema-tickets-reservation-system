@@ -7,7 +7,6 @@ class SessionInfo extends Component {
 
   render() {
     let {sessions} = this.props;
-    console.log(sessions);
     return (    
       <section>
           <div className="session__container">

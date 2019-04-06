@@ -2,8 +2,8 @@ import { userTypes } from '../actions/types';
 
 const initialState = {
   userLocation: "minsk",
-  user: JSON.parse(localStorage.getItem('user')) || null,
-  isLoggedIn: false
+  user: localStorage.getItem('user') || null,
+  userInfo: ''
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -16,10 +16,11 @@ export const userReducer = (state = initialState, action) => {
       }
     }
     case userTypes.SIGN_IN_SUCCESS: {
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user', data.user.role);
       return {
         ...state,
-        user: data.user,
+        userInfo: data.user,
+        user: data.user.role,
         isLoggedIn: true,
         errorMessage: undefined,
       }

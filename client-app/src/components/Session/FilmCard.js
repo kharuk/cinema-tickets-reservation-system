@@ -22,8 +22,9 @@ const styles = theme => ({
     color: '#4867c0',
     fontSize: '1.25rem',
     fontWeight: '700',
-    textTransform: 'uppercase'
-
+    textTransform: 'uppercase',
+    wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap'
   }, 
   media: {
     height: 0,
@@ -41,6 +42,10 @@ const styles = theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  description: {
+    wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap'
   }
 });
 
@@ -82,7 +87,10 @@ class FilmCard extends Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Description</Typography>
-            <Typography paragraph>
+            <Typography 
+              paragraph
+              className={classes.description}
+            >
               {this.props.description}
             </Typography>
           </CardContent>

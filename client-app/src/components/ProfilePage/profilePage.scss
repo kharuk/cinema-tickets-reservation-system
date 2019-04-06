@@ -21,6 +21,8 @@ $profile-page_content-background-color: #f9ebdf;
 .profile-page__usertitle {
   text-align: center;
   margin-top: 20px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .profile-page__usertitle-name{
@@ -28,6 +30,8 @@ $profile-page_content-background-color: #f9ebdf;
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 7px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .profile-page__usertitle-username {
@@ -108,8 +112,13 @@ $profile-page_content-background-color: #f9ebdf;
     margin-top: 0;
   }
 
+  .profile-page__usertitle-username {
+    font-size: 0.6rem;
+  }
 
-
+  .profile-page__menu {
+    margin-top: 10px;
+  }
 }
 
 @media screen and (max-width: 772px) {

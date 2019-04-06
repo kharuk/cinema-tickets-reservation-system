@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const sites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
   state = {
@@ -37,7 +37,7 @@ class SearchBar extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, countOfSeats, setCountOfSeats } = this.props;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
@@ -47,8 +47,8 @@ class SearchBar extends Component {
           select
           label="Count of sites"
           className={classes.textField}
-          value={this.state.count_of_sites}
-          onChange={this.handleChange("count_of_sites")}
+          value={countOfSeats}
+          onChange={e => setCountOfSeats(e.target.value)}
           SelectProps={{
             MenuProps: {
               className: classes.menu

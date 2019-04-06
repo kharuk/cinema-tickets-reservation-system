@@ -19,59 +19,70 @@ class SearchFilmAction {
   }
 
   getFilteredData =  (filters, films) => { 
-    let filtredData = JSON.parse(JSON.stringify(films))
-    if (filters.filmName) {
-      filters.filmName = filters.filmName.toLowerCase();
-      filtredData =  _.filter(filtredData, function(item) {
-        return _.includes(item.film_info.filmName.toLowerCase(), filters.filmName);
-      });
-    }
-  
-    if (filters.cinema) {
-      filters.cinema = filters.cinema.toLowerCase();
-      filtredData =  _.forEach(filtredData, function(item) {
-        item.sessions = _.filter(item.sessions, function(item){
-          return _.startsWith(item.cinema.cinemaName.toLowerCase(), filters.cinema);
-        })      
-      });
-    }
-
-    if (filters.city) {
-      filters.city = filters.city.toLowerCase();
-      filtredData =  _.forEach(filtredData, function(item) {
-        item.sessions = _.filter(item.sessions, function(item){
-          return _.includes(item.cinema.location.toLowerCase(), filters.city);
-        }) 
-      });
-    }
-
-    filtredData = this.filterByDate(filtredData, filters.date);
+    if (films) {
+      let filtredData = _.cloneDeep(films);
+      if (!_.isArray(filtredData)) {
+        filtredData = [filtredData];
+      }
+      if (filters.filmName) {
+        filters.filmName = filters.filmName.toLowerCase();
+        filtredData =  _.filter(filtredData, function(item) {
+          return _.includes(item.film_info.filmName.toLowerCase(), filters.filmName);
+        });
+      }
     
-    return filtredData;
+      if (filters.cinema) {
+        filters.cinema = filters.cinema.toLowerCase();
+        filtredData =  _.forEach(filtredData, function(item) {
+          item.sessions = _.filter(item.sessions, function(item){
+            return _.startsWith(item.cinema.cinemaName.toLowerCase(), filters.cinema);
+          })      
+        });
+      }
+
+      if (filters.selectedCity) {
+        filters.selectedCity = filters.selectedCity.toLowerCase();
+        filtredData =  _.forEach(filtredData, function(item) {
+          item.sessions = _.filter(item.sessions, function(item){
+            return _.includes(item.cinema.location.toLowerCase(), filters.selectedCity);
+          }) 
+        });
+      }
+
+      if (filters.countOfSeats) {
+        filtredData =  _.forEach(filtredData, function(item) {
+          item.sessions = _.filter(item.sessions, function(item){
+            return item.seatsAvailable >= filters.countOfSeats
+          }) 
+        });
+      }
+
+      filtredData = this.filterByDate(filtredData, filters.sessionDate);
+      return filtredData;
+    }    
   };
 
-
-
   filterByDate = (films, date) => {
-    if (date.isAfter(moment(), 'day')){
-    date.set({hour:0,minute:0,second:0,millisecond:0})
-    date.format()
+    if (moment(date).isAfter(moment(), 'day')){
+      date.set({hour:0,minute:0,second:0,millisecond:0})
+      date.format()
     }
-    let statrDate = moment(date).unix();
-    let endDate = moment(moment(date).endOf("day")).unix();
+    let statrDate = moment(date);
+    let endDate = moment(moment(date).endOf("day"));
     let filteredFilms = _.forEach(films, (item) => {
-      item.sessions = _.filter(item.sessions, function(item){
-        return moment(item.date).unix() >= statrDate && moment(item.date).unix() <= endDate ;
-      })  
+      item.sessions = _.filter(item.sessions, (item) =>
+        moment(item.date).isSameOrAfter(statrDate) && moment(item.date).isSameOrBefore(endDate)
+      )  
     })
     return filteredFilms; 
   } 
 
-  filterByCity = (sessions, city) => {
-    city = city.toLowerCase();
-    return _.filter(sessions, { 'location': city });
-  }
-
+  getChosenFilmWithFiltredSession = (chosenFilmId, films, filters) => {
+    const chosenFilm = _.find(films, {'film_id': chosenFilmId});
+    const chosenFilmWithFiltredSession = this.getFilteredData(filters, chosenFilm);
+    return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
+  } 
+    
 }
 
 const searchFilmActionHelpers = new SearchFilmAction();

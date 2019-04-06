@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import DisplaySeatsScheme from './DisplaySeatsScheme';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';

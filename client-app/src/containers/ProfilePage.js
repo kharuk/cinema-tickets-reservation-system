@@ -8,7 +8,7 @@ import AccountSettings from '../components/ProfilePage/AccountSettings';
 import ProfilePageContent from '../components/ProfilePage/ProfilePageContent';
 import OrderTable from '../components/ProfilePage/OrdersTable';
 import { connect } from "react-redux";
-
+import {getOrdersFiltredByDate} from '../store/selectors';
 import {
   fetchAllOrders
 } from '../store/actions/orderAction';
@@ -20,24 +20,22 @@ class ProfilePage extends Component {
   }
 
   render() {
-    console.log(this.props.orders);
-    console.log(this.props.currentOrders);
+    const {ordersFiltredByDate, userInfo} = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Profile page"/>
           <div className="row profile-page__container">
-            <ProfilePageNavBar/>
+            <ProfilePageNavBar userInfo={userInfo} />
             <ProfilePageContent>
               <Switch>
-                <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={this.props.currentOrders}/>} /> 
-                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={this.props.previousOrders}/>} />
-                <Route exact path={ links.PROFILE_PAGE } component={ AccountSettings }/> 
+                <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.currentOrders}/>} /> 
+                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.previousOrders}/>} />
+                <Route exact path={ links.PROFILE_PAGE } render={(props) => <AccountSettings {...props} userInfo={userInfo}/>}/> 
               </Switch>
             </ProfilePageContent>
           </div>
         </div>
-
       </section>
     )
   }
@@ -46,8 +44,8 @@ class ProfilePage extends Component {
 const mapStateToProps = (state) => {
   return {
     orders: state.order.orderList,
-    currentOrders: state.order.currentOrders,
-    previousOrders: state.order.previousOrders
+    ordersFiltredByDate: getOrdersFiltredByDate(state.order),
+    userInfo: state.user.userInfo
   }
 }
 

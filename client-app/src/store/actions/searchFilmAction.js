@@ -1,8 +1,6 @@
 import { searchTypes } from './types';
-import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 import sessionServices from '../../services/sessionServices';
 import { toastr } from 'react-redux-toastr';
-import {store} from '../index';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -12,108 +10,57 @@ const showErrorToast = (err) => {
 export const setCurrentCity = (city) => {
   return {
     type: searchTypes.SET_CURRENT_CITY,
-    payload: {
-      selectedCity: city
-    }
+    payload: { selectedCity: city }
   }
 }
 
 export const setCurrentFilmName = (filmName) => {
+  console.log(filmName);
   return {
     type: searchTypes.SET_CURRENT_FILM_NAME,
-    payload: {
-      filmName: filmName
-    }
+    payload: { filmName: filmName }
   }
 }
 
 export const setCurrentCinema = (cinema) => {
   return {
     type: searchTypes.SET_CURRENT_CINEMA,
-    payload: {
-      cinema: cinema
-    }
+    payload: { cinema: cinema }
   }
 }
 
 export const setSessionDate = (date) => {
   return {
     type: searchTypes.SET_SESSION_DATE,
-    payload: {
-      sesionDate: date
-    }
+    payload: { sesionDate: date }
   }
 }
 
-export const getFiltredFilmList = (sessions, filmName, cinema, city, date) => async (dispatch) => {
-    const filters = {
-      filmName, cinema, city, date
-    }
-    try{
-      let filtredData = searchFilmActionHelpers.getFilteredData(filters, sessions);
-      dispatch({
-        type: searchTypes.GET_FILTRED_FILM_LIST,
-        payload: {
-          filtredData: filtredData
-        }
-      });
-    } catch(err) {
-      console.log(err);
-      showErrorToast(err);
-    } 
+export const setCountOfSeats = (countOfSeats) => {
+  return {
+    type: searchTypes.SET_COUNT_OF_SEATS,
+    payload: { countOfSeats: countOfSeats }
+  }
 }
 
-export const fetchFilms = (city, date) => async(dispatch) => {
+export const fetchFilms = () => async(dispatch) => {
   try {
     let {data} = await sessionServices.getSessionList();
     if (data.isSuccessfully){
-      const filters = {
-        city, date
-      }
-      let filtredData = searchFilmActionHelpers.getFilteredData(filters, data.sessions);
-      console.log(filtredData)
       dispatch({
         type: searchTypes.FETCH_FILMS,
-        payload: {
-          films: data.sessions,
-          filtredData: filtredData
-        }
+        payload: { films: data.sessions }
       });
     }
   } catch (err) {
     console.log(err);
     showErrorToast(err);
   }
-  
 }
 
-export const getFilmById = (id) => async(dispatch) => {
-  try {
-    let {data} = await sessionServices.getFilmById(id);
-    if (data.isSuccessfully) {
-      console.log(data);
-      const infoFromStore = store.getState().search
-      const filters = {
-        city: infoFromStore.selectedCity,
-        cinema: infoFromStore.cinema, 
-        filmName: infoFromStore.filmName, 
-        date: infoFromStore.sessionDate
-      }
-      let filtredData = searchFilmActionHelpers.getFilteredData(filters, [data.session]);
-      console.log(filtredData[0]);
-      dispatch({
-        type: searchTypes.GET_FILM_BY_ID,
-        payload: {
-          film: filtredData[0]
-        }
-      });
-    }
-  }  catch (err) {
-    console.log(err);
-    showErrorToast(err);
+export const setChosenFilm = (id) => {
+  return {
+    type: searchTypes.SET_CHOSEN_FILM_ID,
+    payload: { chosenFilm: id }
   }
 }
-
-export const searchFilmActions = {
-  setCurrentCity
-};

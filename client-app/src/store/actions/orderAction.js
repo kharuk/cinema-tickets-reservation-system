@@ -1,23 +1,20 @@
-import { seatsSelectionTypes, orderTypes } from './types';
+import { orderTypes } from './types';
 import orderActionHelpers from '../../helper/OrderActionHelpers';
-import reservationServise from '../../services/ReservationServices';
 import orderServices from '../../services/orderServices';
 import { toastr } from 'react-redux-toastr';
-import {store} from '../index';
+import {history} from '../index';
+import {links} from '../../config/links';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
   toastr.error(message);
 };
 
-
-
-  export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dispatch) => {
+export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dispatch) => {
     let info = orderActionHelpers.formOrder(session, chosenSeats, chosenExtraServices);
-    console.log(info);
   try {
     let {data} = await orderServices.addOrder(info);
-     if (data.isSuccessfully) {
+    if (data.isSuccessfully) {
     } 
   }  catch (err) {
     console.log(err);
@@ -27,23 +24,16 @@ const showErrorToast = (err) => {
 
 export const fetchAllOrders = () => async(dispatch) => {
    try {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const id = user._id;
-    let {data} = await orderServices.getOrderList(id);
+    let {data} = await orderServices.getOrderList();
     if (data.isSuccessfully) {
-      let orders = orderActionHelpers.sortOrdersByDate(data.orderList);
-      console.log(orders);
       dispatch({
         type: orderTypes.FETCH_ORDERS,
-        payload: {
-          orderList: data.orderList,
-          currentOrders: orders.currentOrders,
-          previousOrders: orders.previousOrders
-        }
+        payload: { orderList: data.orderList }
       });
     }
   } catch (err) {
     console.log(err);
     showErrorToast(err);
+    history.push(links.SIGN_IN_PAGE);
   } 
 }
