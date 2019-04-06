@@ -1,112 +1,66 @@
 import { searchTypes } from './types';
-import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
+import sessionServices from '../../services/sessionServices';
+import { toastr } from 'react-redux-toastr';
+
+const showErrorToast = (err) => {
+  const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
+  toastr.error(message);
+};
 
 export const setCurrentCity = (city) => {
   return {
     type: searchTypes.SET_CURRENT_CITY,
-    payload: {
-      selectedCity: city
-    }
+    payload: { selectedCity: city }
   }
 }
 
 export const setCurrentFilmName = (filmName) => {
+  console.log(filmName);
   return {
     type: searchTypes.SET_CURRENT_FILM_NAME,
-    payload: {
-      filmName: filmName
-    }
+    payload: { filmName: filmName }
   }
 }
 
 export const setCurrentCinema = (cinema) => {
   return {
     type: searchTypes.SET_CURRENT_CINEMA,
-    payload: {
-      cinema: cinema
-    }
+    payload: { cinema: cinema }
   }
 }
 
 export const setSessionDate = (date) => {
   return {
     type: searchTypes.SET_SESSION_DATE,
-    payload: {
-      sesionDate: date
-    }
+    payload: { sesionDate: date }
   }
 }
 
-export const getFiltredFilmList = (filmName, cinema, city, date) => {
-  return (dispatch, getState, {getFirestore}) => {
-    const filters = {
-      filmName, cinema, city, date
-    }
-    const firestore = getFirestore();
-    const filmListRef = firestore.collection('films');
-    const query = searchFilmActionHelpers.getFilteredData(filters, filmListRef);
+export const setCountOfSeats = (countOfSeats) => {
+  return {
+    type: searchTypes.SET_COUNT_OF_SEATS,
+    payload: { countOfSeats: countOfSeats }
+  }
+}
 
-    query.get()
-    .then( querySnapshot => {
-      console.log('some data', querySnapshot)
-      let filtredFilmList = {};
-      querySnapshot.forEach( doc => {
-        filtredFilmList[doc.id] = doc.data();
-      });
-      filtredFilmList = searchFilmActionHelpers.filterByDate(filtredFilmList, filters.date);
+export const fetchFilms = () => async(dispatch) => {
+  try {
+    let {data} = await sessionServices.getSessionList();
+    if (data.isSuccessfully){
       dispatch({
-        type: searchTypes.GET_FILTRED_FILM_LIST,
-        payload: {
-          films: filtredFilmList
-        }
+        type: searchTypes.FETCH_FILMS,
+        payload: { films: data.sessions }
       });
-    })
-    .catch( error => {
-        console.log("Error getting documents: ", error);
-    });
+    }
+  } catch (err) {
+    console.log(err);
+    showErrorToast(err);
   }
 }
 
-export const fetchFilms = (city, date) => (dispatch, getState, {getFirestore}) => {
-
-  const firestore = getFirestore();
-  firestore.collection('films').where("city", "==", city.toLowerCase()).get()
-  .then( querySnapshot => {
-    let filmList = {};
-    querySnapshot.forEach( doc => {
-        filmList[doc.id] = doc.data();
-    });
-    filmList = searchFilmActionHelpers.filterByDate(filmList, date);
-    dispatch({
-      type: searchTypes.FETCH_FILMS,
-      payload: {
-        films: filmList
-      }
-    });
-  })
-  .catch( error => {
-      console.log("Error getting documents: ", error);
-  });
-};
-
-export const getFilmById = (id) => (dispatch, getState, {getFirestore}) => {
-
-const firestore = getFirestore();
-  firestore.collection('films').doc(id).collection('film').get()
-  .then(querySnapshot => {
-    let filmList = {};
-    querySnapshot.forEach( doc => {
-        filmList = doc.data();
-    });
-    dispatch({
-      type: searchTypes.GET_FILM_BY_ID,
-      payload: {
-        film: filmList
-      }
-    });
-  });
+export const setChosenFilm = (id) => {
+  return {
+    type: searchTypes.SET_CHOSEN_FILM_ID,
+    payload: { chosenFilm: id }
+  }
 }
-
-export const searchFilmActions = {
-  setCurrentCity
-};

@@ -1,13 +1,16 @@
-import { searchTypes } from '../actions/types';
+import { searchTypes} from '../actions/types';
 import moment from 'moment';
 
 const initialState = {
-  selectedCity:'Minsk',
-  filmName: undefined,
-  cinema: undefined,
-  sessionDate: moment(),
+  filters: {
+    selectedCity:'minsk',
+    filmName: undefined,
+    cinema: undefined,
+    sessionDate: moment(),
+    countOfSeats: 1
+  },
   films: undefined,
-  choosenFilm: undefined
+  chosenFilm: undefined,
 };
 
 export const searchReducer = (state = initialState, action) => {
@@ -16,25 +19,47 @@ export const searchReducer = (state = initialState, action) => {
     case searchTypes.SET_CURRENT_CITY: {
       return {
         ...state,
-        selectedCity: data.selectedCity
+        filters: {
+          ...state.filters,
+          selectedCity: data.selectedCity
+        }
       }
     }
     case searchTypes.SET_CURRENT_FILM_NAME: {
+      console.log(data.filmName);
       return {
         ...state,
-        filmName: data.filmName
+        filters: {
+          ...state.filters,
+          filmName: data.filmName
+        }
       }
     }
     case searchTypes.SET_CURRENT_CINEMA: {
       return {
         ...state,
-        cinema: data.cinema
+        filters: {
+          ...state.filters,
+          cinema: data.cinema
+        }
       }
     }
     case searchTypes.SET_SESSION_DATE: {
       return {
         ...state,
-        sessionDate: data.sesionDate
+        filters: {
+          ...state.filters,
+          sessionDate: data.sesionDate
+        }
+      }
+    }
+    case searchTypes.SET_COUNT_OF_SEATS: {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          countOfSeats: data.countOfSeats
+        }
       }
     }
     case searchTypes.FETCH_FILMS: {
@@ -43,16 +68,10 @@ export const searchReducer = (state = initialState, action) => {
         films: data.films
       }
     }
-    case searchTypes.GET_FILTRED_FILM_LIST: {
+    case searchTypes.SET_CHOSEN_FILM_ID: {
       return {
         ...state,
-        films: data.films
-      }
-    }
-    case searchTypes.GET_FILM_BY_ID: {
-      return {
-        ...state,
-        choosenFilm: data.film
+        chosenFilm: data.chosenFilm
       }
     }
     default:

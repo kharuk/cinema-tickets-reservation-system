@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import DisplaySeatsScheme from './DisplaySeatsScheme';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';
@@ -50,6 +50,8 @@ const SeatSelect = (props) =>{
       <RoutingButton 
         chosenSeats={props.chosenSeats}
         callBackHandleConfirmation={props.callBackHandleSeatsSelect}
+        filmId={props.filmId}
+        sessionId={props.sessionId}
       />
     </div>
   );

@@ -1,27 +1,30 @@
 import React, {Component} from 'react';
-import { links } from '../../config/links';
 import {Link} from 'react-router-dom';
+import { linkGenerator } from '../../config/links';
+import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
 class SessionItem extends Component {
 
   render() {
-
+    let {session} = this.props;
+    const time = searchFilmActionHelpers.getTimeFromDate(session.date);
+    const date = searchFilmActionHelpers.getFormatedDate(session.date);
     return (
       <div className="session__item ">
         <div className="session__item_time">
-          <span>14:00</span>
-          <span>12/02/1999</span>
+          <span>{time}</span>
+          <span>{date}</span>
         </div>
         <div className="session__item_text">
-          <span>Берестье</span>
-          <span>Минск</span>
+          <span>{session.cinema.cinemaName}</span>
+          <span>{session.cinema.location}</span>
         </div>
         <Link 
-          to={links.SITES_SELECTION_PAGE} 
+          to={linkGenerator.getSessionPageLink(this.props.id)}
           className="session__item__button" 
           role="button"
         >
-          Бронировать
+          Book
         </Link>
       </div>
     )

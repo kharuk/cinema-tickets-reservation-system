@@ -2,17 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { links } from '../../config/links';
 
-const ProfilePageNavBar = (props) =>{
+const ProfilePageNavBar = ({userInfo}) =>{
   let currentHref = window.location.href.replace('http://localhost:3000', '');
   return (
     <div className="col-md-3">
       <div className="profile-page__sidebar">
         <div className="profile-page__usertitle">
           <div className="profile-page__usertitle-name">
-            Marcus Doe
+            {`${userInfo.firstName} ${userInfo.lastName}`}
           </div>
           <div className="profile-page__usertitle-username">
-            qwerty101010
+            {userInfo.email}
           </div>
         </div>
         <div className="profile-page__menu">

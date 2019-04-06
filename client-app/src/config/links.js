@@ -4,7 +4,7 @@ export const links = {
   SIGN_IN_PAGE: '/account/login',
   FILM_SEARCH_PAGE: '/films',
   FILM_PAGE:`/films/:id`,
-  SITES_SELECTION_PAGE: '/sites-selection',
+  SITES_SELECTION_PAGE: '/sites-selection/:id',
   ORDERS_PAGE: '/profile',
   CURRENT_ORDERS_PAGE: '/profile/current-orders',
   PREVIOUS_ORDERS_PAGE: '/profile/previous-orders',
@@ -14,5 +14,8 @@ export const links = {
 export const linkGenerator = {
   getFilmPageLink :(id) => {
     return `/films/${id}`;
+  },
+  getSessionPageLink :(id) => {
+    return `/sites-selection/${id}`;
   }
 }

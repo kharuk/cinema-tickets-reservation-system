@@ -1,7 +1,9 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
-const DisplayOrderInfo = (props) =>{
-
+const DisplayOrderInfo = ({sessionInfo}) =>{
+  const time = searchFilmActionHelpers.getTimeFromDate(sessionInfo.date);
+  const date = searchFilmActionHelpers.getFormatedDate(sessionInfo.date);
       
   return(
     <div className="order-info__container table-responsive col12 col-md-7">  
@@ -15,22 +17,22 @@ const DisplayOrderInfo = (props) =>{
             <th scope="col">Time</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="order-info__row">
           <tr>
             <td className="order-info__film-name">
-                <h6>Green book</h6>
+                <span>{sessionInfo.film.film_info.filmName}</span>
             </td>
             <td className="order-info__city">
-                <span>City</span>
+                <span>{sessionInfo.cinema.cinemaName}</span>
             </td>
             <td className="order-info__cinema">
-                <span>Cinema</span>
+                <span>{sessionInfo.cinema.location}</span>
             </td>
             <td className="order-info__date">
-                <span>24 march</span>
+                <span>{date}</span>
             </td>
             <td className="order-info__time">
-                <span>18:00</span>
+                <span>{time}</span>
             </td>
           </tr>
         </tbody>

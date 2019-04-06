@@ -6,9 +6,10 @@ import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 import SearchBar from '../components/Session/SearchBar';
 import { connect } from "react-redux";
-
+import {getChosenFilm, getFilmFiltredByCountOfSeats} from '../store/selectors';
 import {
-  getFilmById
+  setChosenFilm,
+  setCountOfSeats
 } from '../store/actions/searchFilmAction';
 
 
@@ -19,28 +20,33 @@ import defaultImage from '../images/default-movie-poster.gif'
 class FilmPage extends Component {
 
   componentDidMount() {
-    this.props.getFilmById(this.props.match.params.id);
-    console.log(this.props.film);
+    this.props.setChosenFilm(this.props.match.params.id);
+  }
+
+  setCountOfSeats = (countOfSeats) => {
+    this.props.setCountOfSeats(countOfSeats);
   }
 
   render() {
-    let {film} = this.props;
-    console.log(film);
+    let {film, countOfSeats} = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Sessions"/>
-          <SearchBar/>
+          <SearchBar 
+            countOfSeats={countOfSeats}
+            setCountOfSeats={this.setCountOfSeats}
+          />
           <div className="row film-page__info">
             <div className="col-md-6 film-page__film-info">
               <FilmCard
-                title={film.name}
-                image={film.image || defaultImage} 
-                description={film.description} 
+                title={film.film_info.filmName}
+                image={film.film_info.poster_path || defaultImage} 
+                description={film.film_info.description} 
               />
             </div>
             <div className="col-md-6 ">
-              <SessionInfo />
+              <SessionInfo sessions={film.sessions}/>
             </div>
           </div>
           <Link 
@@ -59,23 +65,25 @@ class FilmPage extends Component {
 
 FilmPage.defaultProps = {
   film: {
-    image: defaultImage,
-    name: "",
-    description: ""
+    film_info: {
+      filmName: '',
+      description: '',
+      poster_path: defaultImage
+    } ,
+    sessions: []
   }
 };
 
 const mapStateToProps = (state) => {
-  console.log('state ', state);
   return {
-    film: state.search.choosenFilm 
+    film: getChosenFilm(state.search),
+    countOfSeats: state.search.filters.countOfSeats
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getFilmById: (id) => dispatch(getFilmById(id))
-
- 
+  setChosenFilm: (id) => dispatch(setChosenFilm(id)),
+  setCountOfSeats: (countOfSeats) => dispatch(setCountOfSeats(countOfSeats)),
 })
 
 

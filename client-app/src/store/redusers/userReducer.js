@@ -1,13 +1,13 @@
 import { userTypes } from '../actions/types';
 
 const initialState = {
-  userLocation: "Minsk",
-  user: JSON.parse(localStorage.getItem('user')) || null,
-  loggedIn: false,
+  userLocation: "minsk",
+  user: localStorage.getItem('user') || null,
+  userInfo: ''
 };
 
 export const userReducer = (state = initialState, action) => {
-  let data = action.paylaod;
+  let data = action.payload;
   switch (action.type) {
     case userTypes.SET_LOCATION: {
       return {
@@ -16,25 +16,26 @@ export const userReducer = (state = initialState, action) => {
       }
     }
     case userTypes.SIGN_IN_SUCCESS: {
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user', data.user.role);
       return {
         ...state,
-        user: data.user,
-        loggedIn: true,
+        userInfo: data.user,
+        user: data.user.role,
+        isLoggedIn: true,
         errorMessage: undefined,
       }
     }
     case userTypes.SIGN_IN_FAILD: {
       return {
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         errorMessage: data.message
       }
     }
     case userTypes.SIGN_UP_FAILD: {
       return {
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         errorMessage: data.message
       }
     }
@@ -42,7 +43,7 @@ export const userReducer = (state = initialState, action) => {
       localStorage.removeItem('user');
       return {
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         user: null
       }
     }

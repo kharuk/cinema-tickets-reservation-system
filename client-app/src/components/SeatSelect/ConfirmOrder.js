@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import DisplayChosenSeats from './DisplayChosenSeats';
 import Header from '../Authentication/Header';
 import RoutingButton from './RoutingButton';
@@ -12,7 +12,7 @@ const ConfirmOrder = (props) =>{
   return(
     <div className="confirm-order__container">
       <div className="row">
-        <DisplayOrderInfo />
+        <DisplayOrderInfo sessionInfo={props.sessionInfo}/>
 
         <OutputPrice 
         chosenSeats={props.chosenSeats}
@@ -42,6 +42,7 @@ const ConfirmOrder = (props) =>{
       </div>
 
       <RoutingButton 
+        callBackHandleConfirmation={props.callBackConfirmReservation}
         isSeatsChosen={props.isSeatsChosen}
         chosenSeats={props.chosenSeats}
         callBackHandleCancel={props.callBackCancelConfirm}

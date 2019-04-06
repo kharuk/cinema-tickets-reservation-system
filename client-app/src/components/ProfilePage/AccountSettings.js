@@ -8,16 +8,14 @@ import options from '../Authentication/Option/optionData.json';
 class AccountSettings extends Component {
 
     render() {
+      const {userInfo} =  this.props;
       return (
         <div className="accountSettings__container">
           <form action="" className='accountSettings__content'>
-            <InputGroup />
-            <Input type={'text'} placeholder={'User Name'}/>
-            <Input type={'text'} placeholder={'City'}/>
-            <Select options={options}/>
-            <Input type={'password'} placeholder={'Password'}/>
-            <Input type={'password'} placeholder={'Confirm Password'}/>
-            <Button text={"Save"}/>
+            <InputGroup userInfo={userInfo}/>
+            <Input type={'text'} placeholder={`Email: ${userInfo.email}`}/>
+            <Input type={'text'} placeholder={`City: ${userInfo.location}`}/>
+            <Input type={'text'} placeholder={`Gender: ${userInfo.gender}`}/>
           </form>
         </div>     
       )

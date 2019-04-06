@@ -17,7 +17,11 @@ const styles = theme => ({
     width: '60px',
     height: '30px',
     marginTop: 10
-  }
+  },
+  select: {
+    paddingTop: 6,
+    paddingBottom: 6,
+  },  
 });
 
 const count = [1, 2, 3, 4, 5];
@@ -35,13 +39,13 @@ class CountSelect extends Component {
         className={classes.textField}
         value={this.props.value||1}
         onChange={this.props.callBackHandleClick}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu
-          }
-        }}
         margin="normal"
         variant="outlined"
+        InputProps={{ 
+          classes: { 
+            input: classes.select 
+          }
+        }}
       >
         {count.map(option => (
           <MenuItem key={option} value={option}>

@@ -5,27 +5,21 @@ import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
 import {cities} from '../components/Films/cities';
 import { connect } from "react-redux";
-
+import {getFiltredFilms} from '../store/selectors';
 import {
   fetchFilms, 
   setCurrentCity,
   setCurrentFilmName,
   setCurrentCinema,
-  setSessionDate,
-  getFiltredFilmList
+  setSessionDate
 } from '../store/actions/searchFilmAction';
-
-import { compose } from 'redux';
 
 
 class FilmSearchPage extends Component {
 
-  state = {
-    tempfilms: null
-  }
-
   componentDidMount() {
-    this.props.fetchFilms(this.props.selectedCity, this.props.sessionDate);
+    this.props.setCurrentCity(this.props.userLocation);
+    this.props.fetchFilms();
   }
 
   setCurrentFilmName = (filmName) => {
@@ -44,30 +38,15 @@ class FilmSearchPage extends Component {
     this.props.setSessionDate(date);
   }
 
-  onButtonClick = (filmName, cinema, city, date) => {
-    console.log('clicked');
-    console.log(filmName, cinema, city, date)
-    this.props.getFiltredFilmList(filmName, cinema, city, date)
-  }
-
-  getFiltredFilmList = (filmName, cinema, city, date) => {
-    console.log('submit', filmName, cinema, city, date);
-    this.props.setCurrentFilmName(filmName);
-    this.props.setCurrentCity(city);
-    this.props.setCurrentCinema(cinema);
-    this.props.setSessionDate(date);
-  }
-
   render() {
-    const { films, selectedCity, filmName, cinema, sessionDate } = this.props;
-    console.log('films', films);
+    const {filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;
+    
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Film Search"/>
           <SearchBar 
             cities={cities} 
-            userLocation={'Minsk'}
             selectedCity={selectedCity}
             filmName={filmName}
             cinema={cinema}
@@ -78,7 +57,7 @@ class FilmSearchPage extends Component {
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
           />
-          <FilmList filmList={films} />
+          <FilmList filmList={filtredFilms} />
         </div>
       </section>
     )
@@ -86,28 +65,24 @@ class FilmSearchPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state ', state);
   return {
-    films: state.search.films ,
-    selectedCity: state.search.selectedCity ,
-    filmName: state.search.filmName ,
-    cinema: state.search.cinema,
-    sessionDate: state.search.sessionDate 
+    films: state.search.films,
+    filtredFilms: getFiltredFilms(state.search),
+    selectedCity: state.search.filters.selectedCity ,
+    filmName: state.search.filters.filmName ,
+    cinema: state.search.filters.cinema,
+    sessionDate: state.search.filters.sessionDate,
+    userLocation: state.user.userLocation,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchFilms: (city, date) => dispatch(fetchFilms(city, date)),
+  fetchFilms: () => dispatch(fetchFilms()),
   setCurrentFilmName: (filmName) => dispatch(setCurrentFilmName(filmName)),
   setCurrentCity: (city) => dispatch(setCurrentCity(city)),
   setCurrentCinema: (cinema) => dispatch(setCurrentCinema(cinema)),
   setSessionDate: (date) => dispatch(setSessionDate(date)),
-  getFiltredFilmList: (filmName, cinema, city, date) => dispatch(getFiltredFilmList(filmName, cinema, city, date))
-
- 
 })
 
 
-export default compose(
-  connect( mapStateToProps, mapDispatchToProps)
-)(FilmSearchPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FilmSearchPage);

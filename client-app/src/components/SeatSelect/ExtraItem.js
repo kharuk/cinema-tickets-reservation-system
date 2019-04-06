@@ -7,10 +7,6 @@ class ExtraItem extends Component{
   state = {
     isSelect: this.props.chosenExtraServices[this.props.label] ? true : false,
   }
-  componentDidMount() {
-    console.log(this.state.isSelect)
-  }
-  
 
   changeSelect = (isSelect) => {
     isSelect =  !isSelect;
@@ -27,7 +23,6 @@ class ExtraItem extends Component{
   render(){ 
     return(
       <div className="extra-service__item">
-  
         <CheckBox 
           callBackHandleCheckBoxClick={this.checkBoxClick} 
           label={this.props.label} 

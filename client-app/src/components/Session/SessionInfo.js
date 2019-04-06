@@ -6,17 +6,18 @@ import SessionTitle from './SessionTitle';
 class SessionInfo extends Component {
 
   render() {
-
-    return (
+    let {sessions} = this.props;
+    return (    
       <section>
           <div className="session__container">
 						<SessionTitle title={"Sessions"}/>
-						<div className="session__items">					
-              <SessionItem />
-              <SessionItem />
-              <SessionItem />
-              <SessionItem />
-              <SessionItem />
+						<div className="session__items">
+              {
+                sessions && 
+                Object.values( sessions ).map((item) => 
+                  <SessionItem session={item} key={item.id} id={item.id} />
+                )
+              }					
 						</div>
           </div>
       </section>

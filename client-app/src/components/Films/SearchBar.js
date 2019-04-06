@@ -4,8 +4,9 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
-import { Button } from "@material-ui/core";
-
+import searchFilmActionHelpers from "../../helper/SearchFilmActionHelpers";
+import AutosuggestInput from '../../shared/AutosuggestInput';
+import { connect } from "react-redux";
 
 const styles = theme => ({
   container: {
@@ -32,43 +33,61 @@ const styles = theme => ({
   },
 });
 
-const sites = [1, 2, 3, 4, 5];
+
+const films = [
+  {name: 'Green book'},
+  {name: 'How to get away with murder'},
+  {name: 'How to Train Your Dragon: The Hidden World'},
+  {name: 'another film'},
+  {name: 'something new'},
+  {name: 'something  how new'},
+];
+
+const cinemas = [
+  {name: 'Kiev'},
+  {name: 'Berestie'},
+  {name: 'Silver Screen'},
+];
+
 
 class SearchBar extends Component {
 
-handleSubmit = (event) => {
-  const { filmName, cinema, selectedCity, sessionDate, onButtonClick} = this.props;
-  event.preventDefault();
-  console.log('try to submit');
-  onButtonClick(filmName, cinema, selectedCity, sessionDate);
-}
+   renderInputComponent(inputProps) {
+    const { classes, label, ...other } = inputProps;
+    return (
+      <TextField
+        label={label}
+        type="search"
+        className={classes.textField}
+        margin="normal"
+        variant="outlined"
+        {...other}
+      />
+    );
+  }
 
   render() {
     const { classes } = this.props;
-    const { selectedCity, filmName, cinema, sessionDate, onFilmNameChange, onCityChange, onCinemaChange,
-    setSessionDate, onButtonClick} = this.props;
+    const { 
+      selectedCity, sessionDate, 
+      onFilmNameChange, onCityChange, onCinemaChange, setSessionDate
+    } = this.props;
+
     return (
-      <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="outlined-film"
-          label="Film"
-          type="search"
-          className={classes.textField}
-          value={filmName || ''}
-          onChange={e => onFilmNameChange(e.target.value)}
-          margin="normal"
-          variant="outlined"
+      <form className={classes.container} autoComplete="off">
+
+        <AutosuggestInput
+          onChange={onFilmNameChange}
+          renderInputComponent={this.renderInputComponent}
+          label={"Film"}
+          data={films}
         />
 
-        <TextField
-          id="outlined-cinema"
-          label="Cinema"
-          className={classes.textField}
-          type="search"
-          value={cinema || ''}
-          onChange={e => onCinemaChange(e.target.value)}
-          margin="normal"
-          variant="outlined"
+        <AutosuggestInput
+          onChange={onCinemaChange}
+          renderInputComponent={this.renderInputComponent}
+          label={"Cinema"}
+          data={cinemas}
         />
 
         <TextField
@@ -89,7 +108,7 @@ handleSubmit = (event) => {
         >
           {this.props.cities.map(option => (
             <MenuItem key={option} value={option}>
-              {option}
+              {searchFilmActionHelpers.capitalizeFirstLatter(option)}
             </MenuItem>
           ))}
         </TextField>
@@ -98,13 +117,6 @@ handleSubmit = (event) => {
           setSessionDate={setSessionDate}
           sessionDate={sessionDate}
         />
-        <Button
-         onClick={()=>onButtonClick(filmName, cinema, selectedCity, sessionDate)}
-         variant="outlined" 
-         className={classes.button}
-         >
-         Search
-         </Button>
       </form>
     );
   }
@@ -114,4 +126,4 @@ SearchBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SearchBar);
+export default withStyles(styles)(SearchBar)

@@ -1,9 +1,6 @@
 import React from 'react';
-import SeatInfoBox from './SeatInfoBox';
 
 const DisplayChosenExtraServices = (props) =>{
-    
-  
   return(
     <div className="extra-services__container">
       {
@@ -14,7 +11,6 @@ const DisplayChosenExtraServices = (props) =>{
               <p>{`Count : ${props.chosenExtraServices[key]}`}</p>
               <p>{`Price for one : ${props.extraServices[key]}`}</p>
             </div>
-
           )
         }) 
       }

@@ -5,7 +5,9 @@ export const searchTypes = {
   SET_SESSION_DATE: 'SET_SESSION_DATE',
   SET_CURRENT_CINEMA: 'SET_CURRENT_CINEMA',
   GET_FILTRED_FILM_LIST: 'GET_FILTRED_FILM_LIST',
-  GET_FILM_BY_ID:  'GET_FILM_BY_ID'
+  GET_FILM_BY_ID:  'GET_FILM_BY_ID',
+  SET_CHOSEN_FILM_ID: 'SET_CHOSEN_FILM_ID',
+  SET_COUNT_OF_SEATS: 'SET_COUNT_OF_SEATS'
 };
 
 export const userTypes = {
@@ -16,3 +18,12 @@ export const userTypes = {
   SIGN_UP_FAILD: 'SIGN_UP_FAILD',
   LOGOUT_USER: 'LOGOUT_USER'
 };
+
+export const seatsSelectionTypes = {
+  GET_SESSION_BY_ID: 'GET_SESSION_BY_ID'
+}
+
+export const orderTypes = {
+  ADD_ORDER: 'ADD_ORDER',
+  FETCH_ORDERS: 'FETCH_ORDERS'
+}

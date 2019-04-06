@@ -7,8 +7,9 @@ const FilmInfoContainer = (props) => (
       <div className="row">
         {
           props.filmList && 
-          Object.entries( props.filmList ).map((item) => 
-            <FilmInfo film={item[1]} key={item[0]} id={item[0]}/>
+          Object.values( props.filmList ).map((item) => 
+            item.sessions && item.sessions.length > 0 && 
+            <FilmInfo film={item.film_info} key={item.film_id} id={item.film_id}/>
           )
         }
       </div>
