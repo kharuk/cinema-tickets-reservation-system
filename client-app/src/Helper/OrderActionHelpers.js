@@ -4,7 +4,6 @@ import moment from 'moment';
 class OrderAction {
 
   formOrder = (session, chosenSeats, chosenExtraServices) => {
-    const user = JSON.parse(localStorage.getItem('user'))
     const price = reservationServise.countTotalPrice(
       chosenSeats, 
       chosenExtraServices, 
@@ -18,8 +17,7 @@ class OrderAction {
       date: session.date,
       price,
       chosenSeats,
-      chosenExtraServices,
-      user_id: user._id
+      chosenExtraServices
     }
     return data
   }

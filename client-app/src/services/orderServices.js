@@ -15,7 +15,8 @@ function getOrderList() {
 }
 
 function addOrder(data) {
-  return axios.post('http://localhost:8080/api/orders', data, { withCredentials: true });
+  const options = addToken();
+  return axios.post('http://localhost:8080/api/orders', data, options, { withCredentials: true });
 }
 
 
