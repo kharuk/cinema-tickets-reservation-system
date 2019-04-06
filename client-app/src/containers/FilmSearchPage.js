@@ -51,9 +51,9 @@ class FilmSearchPage extends Component {
             filmName={filmName}
             cinema={cinema}
             sessionDate={sessionDate}
-            onFilmNameChange={this.props.setCurrentFilmName}
+            onFilmNameChange={this.setCurrentFilmName}
             onCityChange={this.setCurrentCity}
-            onCinemaChange={this.props.setCurrentCinema}
+            onCinemaChange={this.setCurrentCinema}
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
           />

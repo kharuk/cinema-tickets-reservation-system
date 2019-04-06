@@ -26,6 +26,7 @@ export const searchReducer = (state = initialState, action) => {
       }
     }
     case searchTypes.SET_CURRENT_FILM_NAME: {
+      console.log(data.filmName);
       return {
         ...state,
         filters: {

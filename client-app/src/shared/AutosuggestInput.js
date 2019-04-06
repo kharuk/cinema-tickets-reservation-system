@@ -102,7 +102,7 @@ class AutosuggestInput extends PureComponent {
     this.setState({
       value: newValue
     });  
-    onChange();
+    onChange(newValue);
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
