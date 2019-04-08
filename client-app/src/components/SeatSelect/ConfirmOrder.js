@@ -45,6 +45,7 @@ const ConfirmOrder = (props) =>{
         callBackHandleConfirmation={props.callBackConfirmReservation}
         isSeatsChosen={props.isSeatsChosen}
         chosenSeats={props.chosenSeats}
+        sessionId={props.sessionId} 
         callBackHandleCancel={props.callBackCancelConfirm}
       />
     </div>

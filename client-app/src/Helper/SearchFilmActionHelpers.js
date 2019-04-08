@@ -19,6 +19,9 @@ class SearchFilmAction {
   }
 
   getFilteredData =  (filters, films) => { 
+
+   // debugger; 
+
     if (films) {
       let filtredData = _.cloneDeep(films);
       if (!_.isArray(filtredData)) {
@@ -69,16 +72,24 @@ class SearchFilmAction {
     }
     let statrDate = moment(date);
     let endDate = moment(moment(date).endOf("day"));
+    console.log('statrDate', statrDate);
+    console.log('endDate', endDate);
     let filteredFilms = _.forEach(films, (item) => {
       item.sessions = _.filter(item.sessions, (item) =>
-        moment(item.date).isSameOrAfter(statrDate) && moment(item.date).isSameOrBefore(endDate)
+      {
+        console.log('item.date', item.date)
+        return moment(item.date).isSameOrAfter(statrDate) && moment(item.date).isSameOrBefore(endDate)
+      }
+       
       )  
     })
     return filteredFilms; 
   } 
 
   getChosenFilmWithFiltredSession = (chosenFilmId, films, filters) => {
-    const chosenFilm = _.find(films, {'film_id': chosenFilmId});
+    const chosenFilm = _.find(films, {'_id': chosenFilmId});
+    console.log(chosenFilmId, films, filters)
+    console.log('chosenFilm', chosenFilm)
     const chosenFilmWithFiltredSession = this.getFilteredData(filters, chosenFilm);
     return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
   } 

@@ -9,7 +9,7 @@ const FilmInfoContainer = (props) => (
           props.filmList && 
           Object.values( props.filmList ).map((item) => 
             item.sessions && item.sessions.length > 0 && 
-            <FilmInfo film={item.film_info} key={item.film_id} id={item.film_id}/>
+            <FilmInfo film={item.film_info} key={item._id} id={item._id}/>
           )
         }
       </div>

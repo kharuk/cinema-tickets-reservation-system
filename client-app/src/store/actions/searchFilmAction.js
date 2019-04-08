@@ -15,7 +15,6 @@ export const setCurrentCity = (city) => {
 }
 
 export const setCurrentFilmName = (filmName) => {
-  console.log(filmName);
   return {
     type: searchTypes.SET_CURRENT_FILM_NAME,
     payload: { filmName: filmName }

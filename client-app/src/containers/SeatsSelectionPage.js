@@ -12,6 +12,12 @@ import {
 import {
   addOrder
 } from '../store/actions/orderAction';
+import { toastr } from 'react-redux-toastr';
+
+const showErrorToast = (err) => {
+  const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
+  toastr.error(message);
+};
 
 class SeatsSelectionPage extends Component {
 
@@ -37,6 +43,9 @@ class SeatsSelectionPage extends Component {
       this.setState({
         seats: seats
       })
+    })
+    .catch(err => {
+      showErrorToast("Something went wrong");
     })
 
   }
@@ -131,7 +140,7 @@ class SeatsSelectionPage extends Component {
           callBackHandleSeatsSelect={this.handleSeatsSelect}
           callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
           callBackCheckBoxChanged={this.handleCheckBoxChanged}
-          filmId={this.props.session.film.film_id}
+          filmId={this.props.session.film._id}
           sessionId={this.props.match.params.id}
         />
       </Fragment>
@@ -176,7 +185,7 @@ SeatsSelectionPage.defaultProps = {
       seat_type: {}  
     },
     film: {
-      film_id: 1
+      _id: 1
     }
   }
 };

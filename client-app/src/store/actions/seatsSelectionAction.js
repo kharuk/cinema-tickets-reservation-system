@@ -1,6 +1,8 @@
 import { seatsSelectionTypes } from './types';
 import sessionServices from '../../services/sessionServices';
 import { toastr } from 'react-redux-toastr';
+import {history} from '../index';
+import {links} from '../../config/links';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -21,6 +23,7 @@ export const getSessionById = (id) => async(dispatch) => {
   }  catch (err) {
     console.log(err);
     showErrorToast(err);
+    history.push(links.FILM_SEARCH_PAGE);
   }
 
 }

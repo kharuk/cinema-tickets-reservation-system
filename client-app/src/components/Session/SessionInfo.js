@@ -15,7 +15,7 @@ class SessionInfo extends Component {
               {
                 sessions && 
                 Object.values( sessions ).map((item) => 
-                  <SessionItem session={item} key={item.id} id={item.id} />
+                  <SessionItem session={item} key={item._id} id={item._id} />
                 )
               }					
 						</div>

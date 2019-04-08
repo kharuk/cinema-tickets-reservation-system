@@ -29,6 +29,7 @@ class FilmPage extends Component {
 
   render() {
     let {film, countOfSeats} = this.props;
+    console.log(film);
     return (
       <section className="page-content">
         <div className="container">
