@@ -13,6 +13,7 @@ import {
   addOrder
 } from '../store/actions/orderAction';
 import { toastr } from 'react-redux-toastr';
+import sessionServices from '../services/reservationServices';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -60,14 +61,19 @@ class SeatsSelectionPage extends Component {
   }
 
   handleSeatClick = (seatInfo) =>{
+    console.log(seatInfo);
     let localSeats = [...this.state.seats];
     if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
       if(this.state.chosenSeats.length < 5) {
-        localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
-        this.setState({
-          seats: localSeats,
-          chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
-        });
+        sessionServices.updateSeat(this.props.match.params.id, seatInfo)
+        .then(() => {
+          localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
+          this.setState({
+            seats: localSeats,
+            chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
+          });
+        })
+        .catch(error => console.log(error))
       } else if (seatInfo.chosen) {
         localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
         this.setState({

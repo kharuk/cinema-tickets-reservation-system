@@ -19,6 +19,7 @@ class FilmSearchPage extends Component {
 
   componentDidMount() {
     this.props.setCurrentCity(this.props.userLocation);
+    this.props.setSessionDate(new Date());
     this.props.fetchFilms();
   }
 

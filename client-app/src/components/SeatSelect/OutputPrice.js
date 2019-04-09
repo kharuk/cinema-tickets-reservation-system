@@ -1,8 +1,8 @@
 import React from 'react';
-import reservationServise from '../../services/ReservationServices';
+import reservationHelpers from '../../helper/ReservationHelpers';
 
 const OutputPrice = (props) => {
-  let price = reservationServise.countTotalPrice(props.chosenSeats, props.chosenExtraServices, props.sessionSeatTypes, props.extraServices);
+  let price = reservationHelpers.countTotalPrice(props.chosenSeats, props.chosenExtraServices, props.sessionSeatTypes, props.extraServices);
   let ticketsPrice = price.priceOfTickets;
   let extraServicesPrice = price.priceOfExtraServices;
   let totalPrice = ticketsPrice + extraServicesPrice;
