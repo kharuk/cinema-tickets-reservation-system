@@ -40,12 +40,15 @@ class SeatsSelectionPage extends Component {
       seats.map(item => {
         item.chosen =  false;
       });
+      console.log(seats);
       seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
+      console.log(seats)
       this.setState({
         seats: seats
       })
     })
     .catch(err => {
+      console.log(err);
       showErrorToast("Something went wrong");
     })
 

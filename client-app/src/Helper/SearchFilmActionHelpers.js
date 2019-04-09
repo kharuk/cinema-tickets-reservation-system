@@ -67,8 +67,8 @@ class SearchFilmAction {
 
   filterByDate = (films, date) => {
     if (moment(date).isAfter(moment(), 'day')){
-      date.set({hour:0,minute:0,second:0,millisecond:0})
-      date.format()
+      moment(date).set({hour:0,minute:0,second:0,millisecond:0})
+      moment(date).format()
     }
     let statrDate = moment(date);
     let endDate = moment(moment(date).endOf("day"));
