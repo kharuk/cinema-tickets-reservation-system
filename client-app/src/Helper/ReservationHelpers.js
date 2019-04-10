@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 class ReservationHelpers{
     
   countTotalPrice = (chosenSeats, chosenExtraServices, sessionSeatTypes, extraServices) => {
@@ -8,6 +10,15 @@ class ReservationHelpers{
     sum + chosenExtraServices[current]*extraServices[current], 0);
     let totalPrice = priceOfTickets + priceOfExtraServices;
     return {priceOfTickets, priceOfExtraServices, totalPrice};
+  }
+
+  modifiedSessionSeats = (sessionSeats) => {
+    return _.map(sessionSeats, function(sessionSeat) {
+      sessionSeat.row = sessionSeat.seat_id.row;
+      sessionSeat.column = sessionSeat.seat_id.column;
+      sessionSeat.type = sessionSeat.seat_id.type;
+      return sessionSeat
+    });  
   }
 }
 

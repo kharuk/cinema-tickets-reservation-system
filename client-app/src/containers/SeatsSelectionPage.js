@@ -37,9 +37,9 @@ class SeatsSelectionPage extends Component {
     .then(() => {
       let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
       //I need to think about it
-      seats.map(item => {
+     /*  seats.map(item => {
         item.chosen =  false;
-      });
+      }); */
       console.log(seats);
       seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
       console.log(seats)
@@ -67,7 +67,7 @@ class SeatsSelectionPage extends Component {
     console.log(seatInfo);
     let localSeats = [...this.state.seats];
     if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
-      if(this.state.chosenSeats.length < 5) {
+      if ((this.state.chosenSeats.length < 5) || seatInfo.chosen) {
         sessionServices.updateSeat(this.props.match.params.id, seatInfo)
         .then(() => {
           localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
@@ -77,13 +77,13 @@ class SeatsSelectionPage extends Component {
           });
         })
         .catch(error => console.log(error))
-      } else if (seatInfo.chosen) {
+     /*  } else if (seatInfo.chosen) {
         localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
         this.setState({
           seats: localSeats,
           chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
-        });
-      }
+        });*/
+      } 
     }
   }
 

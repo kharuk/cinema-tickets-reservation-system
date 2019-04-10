@@ -10,7 +10,6 @@ function addToken() {
 }
 
 function updateSeat(sessionId, seatInfo) {
-  console.log(seatInfo);
   const options = addToken();
   return axios.put(`http://localhost:8080/api/sessions/${sessionId}/seats/${seatInfo._id}`, seatInfo, options, { withCredentials: true});
 }
