@@ -13,7 +13,7 @@ import {
   addOrder
 } from '../store/actions/orderAction';
 import { toastr } from 'react-redux-toastr';
-import sessionServices from '../services/reservationServices';
+import reservationServices from '../services/reservationServices';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -29,20 +29,44 @@ class SeatsSelectionPage extends Component {
     chosenExtraServices: {},
     session: {
       info: sessionInfo
+    }, 
+    isConfirmOrder: false
+  }
+
+  saveStateToLocalStorage = () => {
+    for (let key in this.state) {
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    }
+  }
+
+  removeStateFromLocalStorage = () => {
+    console.log(this.state);
+    for (let key in this.state) {
+      localStorage.removeItem(key, JSON.stringify(this.state[key]));
+    }
+  }
+
+  hydrateStateWithLocalStorage = () => {
+    for (let key in this.state) {
+      if (localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key);
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          this.setState({ [key]: value });
+        }
+      }
     }
   }
 
   componentDidMount() {
+    window.addEventListener("beforeunload", this.saveStateToLocalStorage);
+    this.hydrateStateWithLocalStorage();
     this.props.getSessionById(this.props.match.params.id)
     .then(() => {
       let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
-      //I need to think about it
-     /*  seats.map(item => {
-        item.chosen =  false;
-      }); */
-      console.log(seats);
       seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
-      console.log(seats)
       this.setState({
         seats: seats
       })
@@ -52,6 +76,20 @@ class SeatsSelectionPage extends Component {
       showErrorToast("Something went wrong");
     })
 
+  }
+
+  removeBooking = () => {
+    !this.state.isConfirmOrder && reservationServices.removeBooking(this.props.match.params.id, this.state.chosenSeats)
+    .then((res) => {
+      console.log('unmount')
+    })
+    .catch(error => console.log(error))
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.saveStateToLocalStorage);
+    this.removeStateFromLocalStorage();
+    this.removeBooking();   
   }
 
   updateChosenSeats = (seatInfo, chosenSeats) => {
@@ -64,11 +102,10 @@ class SeatsSelectionPage extends Component {
   }
 
   handleSeatClick = (seatInfo) =>{
-    console.log(seatInfo);
     let localSeats = [...this.state.seats];
     if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
       if ((this.state.chosenSeats.length < 5) || seatInfo.chosen) {
-        sessionServices.updateSeat(this.props.match.params.id, seatInfo)
+        reservationServices.updateSeat(this.props.match.params.id, seatInfo)
         .then(() => {
           localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
           this.setState({
@@ -77,12 +114,6 @@ class SeatsSelectionPage extends Component {
           });
         })
         .catch(error => console.log(error))
-     /*  } else if (seatInfo.chosen) {
-        localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
-        this.setState({
-          seats: localSeats,
-          chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
-        });*/
       } 
     }
   }
@@ -121,9 +152,16 @@ class SeatsSelectionPage extends Component {
     });
   }
 
-
   handleConfirmReservation = () =>{
-    this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices)
+    reservationServices.bookSessionSeats(this.props.match.params.id, this.state.chosenSeats)
+    .then((res) => {
+      console.log(res);
+      this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices);
+      this.setState({
+        isConfirmOrder: true
+      });
+    })
+    .catch(error => console.log(error));
   }
 
   renderReservationContent = () => {
@@ -201,7 +239,7 @@ SeatsSelectionPage.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    session: state.seatsSelect.session
+    session: state.seatsSelect.session,
   }
 }
 

@@ -16,15 +16,6 @@ const OutputPrice = (props) => {
             <li><span>Total price : </span> <span>{totalPrice}</span></li>
           </ul>  
       </div>
-     {/*        <span className="output-price__item">
-        {`Tickets price : ${ticketsPrice}`}
-      </span> 
-      <span className="output-price__item">
-        {`Extra services price : ${extraServicesPrice}`}
-      </span>
-      <span className="output-price__item">
-        {`Total price :  ${totalPrice}`}
-      </span> */}
     </div>
   );
 }

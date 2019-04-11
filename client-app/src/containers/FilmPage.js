@@ -6,7 +6,7 @@ import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 import SearchBar from '../components/Session/SearchBar';
 import { connect } from "react-redux";
-import {getChosenFilm, getFilmFiltredByCountOfSeats} from '../store/selectors';
+import {getChosenFilm} from '../store/selectors';
 import {
   setChosenFilm,
   setCountOfSeats
@@ -29,7 +29,6 @@ class FilmPage extends Component {
 
   render() {
     let {film, countOfSeats} = this.props;
-    console.log(film);
     return (
       <section className="page-content">
         <div className="container">

@@ -1,5 +1,6 @@
 import { seatsSelectionTypes } from './types';
 import sessionServices from '../../services/sessionServices';
+import reservationServices from '../../services/reservationServices';
 import reservationHelpers from '../../helper/ReservationHelpers';
 import { toastr } from 'react-redux-toastr';
 import {history} from '../index';
@@ -28,5 +29,20 @@ export const getSessionById = (id) => async(dispatch) => {
     showErrorToast(err);
     history.push(links.FILM_SEARCH_PAGE);
   }
-
 }
+
+/* export const bookSelectedSeats = (sessionId, sessionSeats) => async(dispatch) => {
+  try {
+    let {data} = await reservationServices.bookSessionSeats(sessionId, sessionSeats);
+    if (data.isSuccessfully) {
+       dispatch({
+        type: orderTypes.FETCH_ORDERS,
+        payload: { orderList: data.orderList }
+      }); 
+    }
+  } catch (err) {
+    console.log(err);
+    showErrorToast(err);
+    history.push(links.FILM_SEARCH_PAGE);
+  }
+} */

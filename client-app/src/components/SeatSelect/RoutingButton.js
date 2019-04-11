@@ -16,7 +16,7 @@ const RoutingButton = (props) =>{
   const getPathForLink = (isSeatsChosen, link) => {
     if (isSeatsChosen){
       if (link === 'next') {
-        return links.ORDERS_PAGE;
+        return linkGenerator.getSessionPageLink(props.sessionId);
       } else {
         return linkGenerator.getSessionPageLink(props.sessionId);
       }     
