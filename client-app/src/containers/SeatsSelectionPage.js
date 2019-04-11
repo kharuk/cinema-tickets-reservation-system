@@ -14,6 +14,9 @@ import {
 } from '../store/actions/orderAction';
 import { toastr } from 'react-redux-toastr';
 import reservationServices from '../services/reservationServices';
+import { withRouter } from 'react-router';
+import CountdownTimer from '../shared/CountdownTimer';
+import { links } from '../config/links';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -102,6 +105,7 @@ class SeatsSelectionPage extends Component {
   }
 
   handleSeatClick = (seatInfo) =>{
+
     let localSeats = [...this.state.seats];
     if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
       if ((this.state.chosenSeats.length < 5) || seatInfo.chosen) {
@@ -173,10 +177,29 @@ class SeatsSelectionPage extends Component {
     }   
   }
 
+  delayRedirect = event => {
+    const { history: { push } } = this.props;
+
+    setTimeout(()=>push(links.FILM_SEARCH_PAGE), 3000);
+  }
+
+  handleTimer = () => {
+    console.log('reload page');
+    toastr.warning('The time is up');
+    this.delayRedirect();
+    
+  //  window.location.reload();
+  }
+
   renderSeatsSelectContent = () => {
+    const time_in_minutes = 1;
+    const current_time = Date.parse(new Date());
+    const deadline = new Date(current_time + time_in_minutes*60*1000);
+    console.log(deadline);
     return (
       <Fragment>
         <Header header="Select Seats"/>
+        <CountdownTimer date={`${deadline}`} handleTimer={this.handleTimer}/>
         <SeatSelect
           seats={this.state.seats}
           chosenSeats={this.state.chosenSeats}
@@ -248,4 +271,4 @@ const mapDispatchToProps = dispatch => ({
   addOrder: (session, chosenSeats, extraServices) => dispatch(addOrder(session, chosenSeats, extraServices))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SeatsSelectionPage);;
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SeatsSelectionPage));
