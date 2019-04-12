@@ -6,14 +6,21 @@ import RoutingButton from './RoutingButton';
 import OptionSelect from './OptionSelect';
 import OutputPrice from './OutputPrice';
 import DisplaySeatsType from './DispalySeatsType';
+import CountdownTimer from '../../shared/CountdownTimer';
 
 const SeatSelect = (props) =>{
 
   return(
     <div className="choose-seat__container">
-      <DisplaySeatsType
-        sessionSeatTypes={props.sessionSeatTypes}
-      />
+      <div className="choose-seat__session-info-container">
+        <DisplaySeatsType
+          sessionSeatTypes={props.sessionSeatTypes}
+        />
+        { props.chosenSeats.length > 0 && 
+          props.isTimerSet &&  
+          <CountdownTimer date={`${props.finishTime}`} handleTimer={props.callBackHandleTimer}/>
+        }
+      </div>
       <DisplaySeatsScheme
         seats={props.seats}
         callBackHandleSeatClick={props.callBackHandleSeatClick}

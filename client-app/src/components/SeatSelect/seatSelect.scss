@@ -21,6 +21,11 @@ $seat-select-output-price-background-color: #dee2e6;
 
 }
 
+.choose-seat__session-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .seats-scheme__container {
   padding: 20px;
   vertical-align: top;
@@ -94,6 +99,7 @@ $seat-select-output-price-background-color: #dee2e6;
 
 .seat-type-info__block{
   padding: 10px;
+  width: 20%;
 }
 
 .link-disabled {

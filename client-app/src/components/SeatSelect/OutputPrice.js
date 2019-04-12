@@ -11,9 +11,9 @@ const OutputPrice = (props) => {
       <div className="output-price__wrapper">
         <h5>Cart Total</h5>
         <ul className="output-price__list">
-            <li><span>Tickets price :</span> <span>{ticketsPrice}</span></li>
-            <li><span>Extra services price :</span> <span>{extraServicesPrice}</span></li>
-            <li><span>Total price : </span> <span>{totalPrice}</span></li>
+            <li><span>Tickets price :</span> <span>{ticketsPrice || 0}</span></li>
+            <li><span>Extra services price :</span> <span>{extraServicesPrice || 0}</span></li>
+            <li><span>Total price : </span> <span>{totalPrice || 0}</span></li>
           </ul>  
       </div>
     </div>

@@ -3,11 +3,11 @@ import React from 'react';
 const SeatBox = (props) =>{
     
   const getSeatBoxClass = (seatInfo) =>{
-    if(seatInfo.chosen){
-      return `${seatInfo.type}-chosen`;
-    }
-    else if(seatInfo.booked){
+    if(seatInfo.booked){
       return 'booked';
+    }
+    else if(seatInfo.chosen){
+      return `${seatInfo.type}-chosen`;
     }
     else{
       return seatInfo.type;

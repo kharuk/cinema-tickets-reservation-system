@@ -21,7 +21,6 @@ function bookSessionSeats(sessionId, sessionSeats) {
 
 function removeBooking(sessionId, sessionSeats) {
   const options = addToken();
-  console.log('removeBooking', sessionSeats);
   return axios.put(`http://localhost:8080/api/sessions/${sessionId}/seats/removeBooking`, sessionSeats, options, { withCredentials: true});
 }
 

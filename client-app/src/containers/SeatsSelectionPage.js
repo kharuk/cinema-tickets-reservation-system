@@ -15,7 +15,6 @@ import {
 import { toastr } from 'react-redux-toastr';
 import reservationServices from '../services/reservationServices';
 import { withRouter } from 'react-router';
-import CountdownTimer from '../shared/CountdownTimer';
 import { links } from '../config/links';
 
 const showErrorToast = (err) => {
@@ -24,7 +23,6 @@ const showErrorToast = (err) => {
 };
 
 class SeatsSelectionPage extends Component {
-
   state={
     isSeatsChosen: false,
     seats: [], 
@@ -33,7 +31,9 @@ class SeatsSelectionPage extends Component {
     session: {
       info: sessionInfo
     }, 
-    isConfirmOrder: false
+    isConfirmOrder: false,
+    isTimerSet: false,
+    finishTime: new Date()
   }
 
   saveStateToLocalStorage = () => {
@@ -43,7 +43,6 @@ class SeatsSelectionPage extends Component {
   }
 
   removeStateFromLocalStorage = () => {
-    console.log(this.state);
     for (let key in this.state) {
       localStorage.removeItem(key, JSON.stringify(this.state[key]));
     }
@@ -104,18 +103,38 @@ class SeatsSelectionPage extends Component {
     return chosenSeats;
   }
 
-  handleSeatClick = (seatInfo) =>{
+  setTimer = () => {
+    if (this.state.chosenSeats.length === 0) {
+      const timeInMinutes = 0.5;
+      const currentTime = Date.parse(new Date());
+      const finishTime = new Date(currentTime + timeInMinutes*60*1000);
+      this.setState({
+        isTimerSet: true,
+        finishTime
+      })
+    }
+  }
 
+  handleSeatClick = (seatInfo) =>{
+    this.setTimer();
     let localSeats = [...this.state.seats];
     if(!this.state.seats[seatInfo.row][seatInfo.column].booked){
       if ((this.state.chosenSeats.length < 5) || seatInfo.chosen) {
         reservationServices.updateSeat(this.props.match.params.id, seatInfo)
-        .then(() => {
-          localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
-          this.setState({
-            seats: localSeats,
-            chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
-          });
+        .then((res) => {
+          if (res.data.isSuccessfully) {
+            localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
+            this.setState({
+              seats: localSeats,
+              chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
+            });
+          } else {
+            toastr.warning(res.data.data);
+            localSeats[seatInfo.row][seatInfo.column].booked  = true;
+            this.setState({
+              seats: localSeats,
+            });
+          } 
         })
         .catch(error => console.log(error))
       } 
@@ -159,7 +178,6 @@ class SeatsSelectionPage extends Component {
   handleConfirmReservation = () =>{
     reservationServices.bookSessionSeats(this.props.match.params.id, this.state.chosenSeats)
     .then((res) => {
-      console.log(res);
       this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices);
       this.setState({
         isConfirmOrder: true
@@ -179,39 +197,34 @@ class SeatsSelectionPage extends Component {
 
   delayRedirect = event => {
     const { history: { push } } = this.props;
-
-    setTimeout(()=>push(links.FILM_SEARCH_PAGE), 3000);
+    setTimeout(()=>push(links.FILM_SEARCH_PAGE), 2000);
   }
 
   handleTimer = () => {
-    console.log('reload page');
     toastr.warning('The time is up');
     this.delayRedirect();
-    
-  //  window.location.reload();
   }
 
   renderSeatsSelectContent = () => {
-    const time_in_minutes = 1;
-    const current_time = Date.parse(new Date());
-    const deadline = new Date(current_time + time_in_minutes*60*1000);
-    console.log(deadline);
+
     return (
       <Fragment>
-        <Header header="Select Seats"/>
-        <CountdownTimer date={`${deadline}`} handleTimer={this.handleTimer}/>
+        <Header header="Select Seats"/>     
         <SeatSelect
           seats={this.state.seats}
           chosenSeats={this.state.chosenSeats}
           chosenExtraServices={this.state.chosenExtraServices}
           sessionSeatTypes={this.props.session.session_info.seat_type}
           extraServices={this.props.session.session_info.extra_services}
+          filmId={this.props.session.film._id}
+          sessionId={this.props.match.params.id}
+          isTimerSet={this.state.isTimerSet}
+          finishTime={this.state.finishTime}
           callBackHandleSeatClick={this.handleSeatClick}
           callBackHandleSeatsSelect={this.handleSeatsSelect}
           callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
           callBackCheckBoxChanged={this.handleCheckBoxChanged}
-          filmId={this.props.session.film._id}
-          sessionId={this.props.match.params.id}
+          callBackHandleTimer={this.handleTimer}
         />
       </Fragment>
     )
@@ -256,8 +269,9 @@ SeatsSelectionPage.defaultProps = {
     },
     film: {
       _id: 1
-    }
-  }
+    },
+  },
+  chosenSeats: []
 };
 
 const mapStateToProps = (state) => {
