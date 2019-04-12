@@ -48,7 +48,7 @@ class SearchBar extends Component {
 
   
   renderInputComponent(inputProps) {
-    const { classes, label, ...other } = inputProps;
+    const { classes, label, inputRef, ...other } = inputProps;
     return (
       <TextField
         label={label}
@@ -72,12 +72,9 @@ class SearchBar extends Component {
   render() {
     const { classes } = this.props;
     const { 
-      selectedCity, sessionDate,
+      selectedCity, sessionDate, filmName, cinema,
       onFilmNameChange, onCityChange, onCinemaChange, setSessionDate
     } = this.props;
-
-     console.log(this.state.filmList);
-    console.log(this.state.cinemaList); 
     return (
       <form className={classes.container} autoComplete="off">
         <AutosuggestInput
@@ -85,6 +82,7 @@ class SearchBar extends Component {
           renderInputComponent={this.renderInputComponent}
           label={"Film"}
           data={this.state.filmList}
+          value={filmName}
         />
 
         <AutosuggestInput
@@ -92,6 +90,7 @@ class SearchBar extends Component {
           renderInputComponent={this.renderInputComponent}
           label={"Cinema"}
           data={this.state.cinemaList}
+          value={cinema}
         />
 
         <TextField
@@ -110,7 +109,7 @@ class SearchBar extends Component {
             }
           }}
         >
-          {this.props.cities.map(option => (
+          {this.props.cities && this.props.cities.map(option => (
             <MenuItem key={option} value={option}>
               {searchFilmActionHelpers.capitalizeFirstLatter(option)}
             </MenuItem>

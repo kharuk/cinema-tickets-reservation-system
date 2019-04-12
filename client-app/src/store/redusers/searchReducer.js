@@ -66,7 +66,8 @@ export const searchReducer = (state = initialState, action) => {
         ...state,
         films: data.films,
         filmList: data.filmList,
-        cinemaList: data.cinemaList
+        cinemaList: data.cinemaList,
+        cityList: data.cityList
       }
     }
     case searchTypes.SET_CHOSEN_FILM_ID: {

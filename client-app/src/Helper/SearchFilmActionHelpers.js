@@ -83,21 +83,27 @@ class SearchFilmAction {
     return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
   } 
 
-  getFilmAndCinemaList = (films) => {
+  getFilmSearchLists = (films) => {
    // debugger;
     let filmList = [];
     let cinemaList = [];
+    let cityList = [];
     _.forEach(films, (film) => {
       if (film.sessions.length > 0) {
         filmList.push(film.film_info.filmName);
         _.forEach(film.sessions, (session) => {
-          if (cinemaList.indexOf(session.cinema.cinemaName) === -1 && moment(session.date).isSameOrAfter(moment())) {
-            cinemaList.push(session.cinema.cinemaName);
+          if (moment(session.date).isSameOrAfter(moment())) {
+            if (cinemaList.indexOf(session.cinema.cinemaName) === -1) {
+              cinemaList.push(session.cinema.cinemaName);
+            }
+            if (cityList.indexOf(session.cinema.location) === -1) {
+              cityList.push(session.cinema.location);
+            }
           }
         });
       }
     });
-    return {filmList, cinemaList}
+    return {filmList, cinemaList, cityList}
   }
     
 }

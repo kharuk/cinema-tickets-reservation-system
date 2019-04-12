@@ -3,7 +3,6 @@ import '../components/Films/film.scss';
 import FilmList from '../components/Films/FilmList';
 import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
-import {cities} from '../components/Films/cities';
 import { connect } from "react-redux";
 import {getFiltredFilms} from '../store/selectors';
 import {
@@ -14,13 +13,13 @@ import {
   setSessionDate
 } from '../store/actions/searchFilmAction';
 
-
 class FilmSearchPage extends Component {
 
   componentDidMount() {
-    this.props.setCurrentCity(this.props.userLocation);
-    this.props.setSessionDate(new Date());
     this.props.fetchFilms();
+   // this.props.setCurrentCity(this.props.userLocation);
+    this.props.setSessionDate(new Date());
+
   }
 
   setCurrentFilmName = (filmName) => {
@@ -40,13 +39,13 @@ class FilmSearchPage extends Component {
   }
 
   render() {
-    const {filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList} = this.props;
+    const {filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList, cityList} = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Film Search"/>
           <SearchBar 
-            cities={cities} 
+            cities={cityList} 
             selectedCity={selectedCity}
             filmName={filmName}
             cinema={cinema}
@@ -76,7 +75,8 @@ const mapStateToProps = (state) => {
     sessionDate: state.search.filters.sessionDate,
     userLocation: state.user.userLocation,
     filmList: state.search.filmList,
-    cinemaList: state.search.cinemaList
+    cinemaList: state.search.cinemaList,
+    cityList: state.search.cityList
   }
 }
 

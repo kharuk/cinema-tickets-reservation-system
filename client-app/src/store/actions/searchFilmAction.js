@@ -47,13 +47,14 @@ export const fetchFilms = () => async(dispatch) => {
   try {
     let {data} = await sessionServices.getSessionList();
     if (data.isSuccessfully){
-      const {filmList, cinemaList} = searchFilmActionHelpers.getFilmAndCinemaList(data.sessions);
+      const {filmList, cinemaList, cityList} = searchFilmActionHelpers.getFilmSearchLists(data.sessions);
       dispatch({
         type: searchTypes.FETCH_FILMS,
         payload: { 
           films: data.sessions,
           filmList: filmList,
-          cinemaList: cinemaList
+          cinemaList: cinemaList,
+          cityList: cityList
         }
       });
     }

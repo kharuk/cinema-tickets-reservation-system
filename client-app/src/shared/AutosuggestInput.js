@@ -93,7 +93,7 @@ class AutosuggestInput extends PureComponent {
   }
 
   state = {
-    value: '',
+    value: this.props.value || '',
     suggestions: []
   };    
 
