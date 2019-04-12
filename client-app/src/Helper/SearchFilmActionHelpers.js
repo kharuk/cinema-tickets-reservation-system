@@ -82,6 +82,23 @@ class SearchFilmAction {
     const chosenFilmWithFiltredSession = this.getFilteredData(filters, chosenFilm);
     return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
   } 
+
+  getFilmAndCinemaList = (films) => {
+   // debugger;
+    let filmList = [];
+    let cinemaList = [];
+    _.forEach(films, (film) => {
+      if (film.sessions.length > 0) {
+        filmList.push(film.film_info.filmName);
+        _.forEach(film.sessions, (session) => {
+          if (cinemaList.indexOf(session.cinema.cinemaName) === -1 && moment(session.date).isSameOrAfter(moment())) {
+            cinemaList.push(session.cinema.cinemaName);
+          }
+        });
+      }
+    });
+    return {filmList, cinemaList}
+  }
     
 }
 

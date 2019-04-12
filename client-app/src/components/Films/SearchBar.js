@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import DatePicker from './DatePicker';
 import searchFilmActionHelpers from "../../helper/SearchFilmActionHelpers";
 import AutosuggestInput from '../../shared/AutosuggestInput';
-import { connect } from "react-redux";
 
 const styles = theme => ({
   container: {
@@ -33,26 +32,22 @@ const styles = theme => ({
   },
 });
 
-
-const films = [
-  {name: 'Green book'},
-  {name: 'How to get away with murder'},
-  {name: 'How to Train Your Dragon: The Hidden World'},
-  {name: 'another film'},
-  {name: 'something new'},
-  {name: 'something  how new'},
-];
-
-const cinemas = [
-  {name: 'Kiev'},
-  {name: 'Berestie'},
-  {name: 'Silver Screen'},
-];
-
-
 class SearchBar extends Component {
 
-   renderInputComponent(inputProps) {
+  state = {
+    filmList: [],
+    cinemaList: []
+  }
+
+  componentDidMount() {
+    this.setState({
+      cinemaList: this.formatDataForAutosuggest(this.props.cinemaList),
+      filmList: this.formatDataForAutosuggest(this.props.filmList)
+    })
+  }
+
+  
+  renderInputComponent(inputProps) {
     const { classes, label, ...other } = inputProps;
     return (
       <TextField
@@ -66,28 +61,37 @@ class SearchBar extends Component {
     );
   }
 
+  formatDataForAutosuggest = (dataList) => {
+    let autosuggestList = []
+    dataList.forEach((item) => {
+      autosuggestList.push({name: item});
+    });
+    return autosuggestList;
+  }
+
   render() {
     const { classes } = this.props;
     const { 
-      selectedCity, sessionDate, 
+      selectedCity, sessionDate,
       onFilmNameChange, onCityChange, onCinemaChange, setSessionDate
     } = this.props;
 
+     console.log(this.state.filmList);
+    console.log(this.state.cinemaList); 
     return (
       <form className={classes.container} autoComplete="off">
-
         <AutosuggestInput
           onChange={onFilmNameChange}
           renderInputComponent={this.renderInputComponent}
           label={"Film"}
-          data={films}
+          data={this.state.filmList}
         />
 
         <AutosuggestInput
           onChange={onCinemaChange}
           renderInputComponent={this.renderInputComponent}
           label={"Cinema"}
-          data={cinemas}
+          data={this.state.cinemaList}
         />
 
         <TextField

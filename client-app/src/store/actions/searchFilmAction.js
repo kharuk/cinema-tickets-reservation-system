@@ -1,6 +1,7 @@
 import { searchTypes } from './types';
 import sessionServices from '../../services/sessionServices';
 import { toastr } from 'react-redux-toastr';
+import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -46,9 +47,14 @@ export const fetchFilms = () => async(dispatch) => {
   try {
     let {data} = await sessionServices.getSessionList();
     if (data.isSuccessfully){
+      const {filmList, cinemaList} = searchFilmActionHelpers.getFilmAndCinemaList(data.sessions);
       dispatch({
         type: searchTypes.FETCH_FILMS,
-        payload: { films: data.sessions }
+        payload: { 
+          films: data.sessions,
+          filmList: filmList,
+          cinemaList: cinemaList
+        }
       });
     }
   } catch (err) {

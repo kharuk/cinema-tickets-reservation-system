@@ -40,7 +40,7 @@ class FilmSearchPage extends Component {
   }
 
   render() {
-    const {filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;
+    const {filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList} = this.props;
     return (
       <section className="page-content">
         <div className="container">
@@ -56,6 +56,8 @@ class FilmSearchPage extends Component {
             onCinemaChange={this.setCurrentCinema}
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
+            filmList={filmList}
+            cinemaList={cinemaList}
           />
           <FilmList filmList={filtredFilms} />
         </div>
@@ -73,6 +75,8 @@ const mapStateToProps = (state) => {
     cinema: state.search.filters.cinema,
     sessionDate: state.search.filters.sessionDate,
     userLocation: state.user.userLocation,
+    filmList: state.search.filmList,
+    cinemaList: state.search.cinemaList
   }
 }
 

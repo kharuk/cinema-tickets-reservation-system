@@ -260,7 +260,6 @@ class SeatsSelectionPage extends Component {
   }
 }
 
-
 SeatsSelectionPage.defaultProps = {
   session: {
     session_info: {
