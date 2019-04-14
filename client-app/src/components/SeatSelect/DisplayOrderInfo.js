@@ -11,8 +11,8 @@ const DisplayOrderInfo = ({sessionInfo}) =>{
         <thead className="thead-dark">
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">City</th>
             <th scope="col">Cinema</th>
+            <th scope="col">City</th>
             <th scope="col">Date</th>
             <th scope="col">Time</th>
           </tr>
@@ -20,19 +20,19 @@ const DisplayOrderInfo = ({sessionInfo}) =>{
         <tbody className="order-info__row">
           <tr>
             <td className="order-info__film-name">
-                <span>{sessionInfo.film.film_info.filmName}</span>
-            </td>
-            <td className="order-info__city">
-                <span>{sessionInfo.cinema.cinemaName}</span>
+                <span>{sessionInfo.film.film_info && sessionInfo.film.film_info.filmName}</span>
             </td>
             <td className="order-info__cinema">
-                <span>{sessionInfo.cinema.location}</span>
+                <span>{sessionInfo.cinema && sessionInfo.cinema.cinemaName}</span>
+            </td>
+            <td className="order-info__city">
+                <span>{sessionInfo.cinema && sessionInfo.cinema.location}</span>
             </td>
             <td className="order-info__date">
-                <span>{date}</span>
+                <span>{sessionInfo && date}</span>
             </td>
             <td className="order-info__time">
-                <span>{time}</span>
+                <span>{sessionInfo && time}</span>
             </td>
           </tr>
         </tbody>

@@ -46,6 +46,10 @@ const styles = theme => ({
   description: {
     wordWrap: 'break-word',
     whiteSpace: 'pre-wrap'
+  },
+  header: {
+    fontWeight: 700,
+    fontSize: '1rem'
   }
 });
 
@@ -86,7 +90,12 @@ class FilmCard extends Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Description</Typography>
+            <Typography 
+              paragraph
+              className={classes.header}
+            >
+              Description
+            </Typography>
             <Typography 
               paragraph
               className={classes.description}

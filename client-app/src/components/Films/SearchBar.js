@@ -63,7 +63,7 @@ class SearchBar extends Component {
 
   formatDataForAutosuggest = (dataList) => {
     let autosuggestList = []
-    dataList.forEach((item) => {
+    dataList && dataList.forEach((item) => {
       autosuggestList.push({name: item});
     });
     return autosuggestList;
@@ -85,13 +85,6 @@ class SearchBar extends Component {
           value={filmName}
         />
 
-        <AutosuggestInput
-          onChange={onCinemaChange}
-          renderInputComponent={this.renderInputComponent}
-          label={"Cinema"}
-          data={this.state.cinemaList}
-          value={cinema}
-        />
 
         <TextField
           id="outlined-city"
@@ -115,6 +108,15 @@ class SearchBar extends Component {
             </MenuItem>
           ))}
         </TextField>
+
+        
+        <AutosuggestInput
+          onChange={onCinemaChange}
+          renderInputComponent={this.renderInputComponent}
+          label={"Cinema"}
+          data={this.state.cinemaList}
+          value={cinema}
+        />
 
         <DatePicker 
           setSessionDate={setSessionDate}

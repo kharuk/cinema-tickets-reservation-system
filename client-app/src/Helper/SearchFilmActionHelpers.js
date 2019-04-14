@@ -64,14 +64,14 @@ class SearchFilmAction {
 
   filterByDate = (films, date) => {
     if (moment(date).isAfter(moment(), 'day')){
-      moment(date).set({hour:0,minute:0,second:0,millisecond:0})
-      moment(date).format()
+      date = moment(date).set({hour:0,minute:0,second:0,millisecond:0})
+      date = moment(date).format()
     }
-    let statrDate = moment(date);
+    let startDate = moment(date);
     let endDate = moment(moment(date).endOf("day"));
     let filteredFilms = _.forEach(films, (item) => {
       item.sessions = _.filter(item.sessions, (item) =>
-        moment(item.date).isSameOrAfter(statrDate) && moment(item.date).isSameOrBefore(endDate)  
+        moment(item.date).isSameOrAfter(startDate) && moment(item.date).isSameOrBefore(endDate)
       )  
     })
     return filteredFilms; 

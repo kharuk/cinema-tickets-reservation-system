@@ -24,6 +24,7 @@ $session-button-color : #4a89dc;
 	color: $session-background-color;
   vertical-align: middle;
   margin-left: 15px;
+  margin-bottom: 10px;
   &:hover {
 		color: $session-background-color;
 	}
@@ -79,6 +80,10 @@ $session-button-color : #4a89dc;
   &:not(:last-child){
     margin-bottom: 20px;
   }
+}
+
+.button-back {
+  margin-top: 20px;
 }
 
 .session__item_time
@@ -169,6 +174,10 @@ $session-button-color : #4a89dc;
       font-size: 1.3rem;
       color: $session-background-color;
       line-height: initial;
+    }
+
+    .button-back {
+      margin-top: 0;
     }
   }
 

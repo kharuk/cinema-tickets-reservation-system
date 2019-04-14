@@ -19,6 +19,12 @@ function setUserLocation(city) {
   }
 }
 
+function resetErrorMessage() {
+  return {
+    type: userTypes.RESET_ERROR_MESSAGE
+  }
+}
+
 function signup(userInfo) {
   return async (dispatch) => {
     try {
@@ -90,6 +96,7 @@ function logout() {
 
 export const userActions = {
   setUserLocation,
+  resetErrorMessage,
   login,
   logout,
   signup

@@ -21,6 +21,7 @@ class FilmPage extends Component {
 
   componentDidMount() {
     this.props.setChosenFilm(this.props.match.params.id);
+    this.props.setCountOfSeats(1);
   }
 
   setCountOfSeats = (countOfSeats) => {
@@ -52,7 +53,7 @@ class FilmPage extends Component {
           <Link 
             to={links.FILM_SEARCH_PAGE}
             role="button"
-            className="film-page__button"
+            className="film-page__button button-back"
           >
             Back
           </Link>

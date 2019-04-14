@@ -16,6 +16,7 @@ import { toastr } from 'react-redux-toastr';
 import reservationServices from '../services/reservationServices';
 import { withRouter } from 'react-router';
 import { links } from '../config/links';
+import Loader from 'react-loader-spinner'
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -33,7 +34,8 @@ class SeatsSelectionPage extends Component {
     }, 
     isConfirmOrder: false,
     isTimerSet: false,
-    finishTime: new Date()
+    finishTime: new Date(),
+    isLoading: false
   }
 
   saveStateToLocalStorage = () => {
@@ -63,6 +65,9 @@ class SeatsSelectionPage extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      isLoading: false
+    });
     window.addEventListener("beforeunload", this.saveStateToLocalStorage);
     this.hydrateStateWithLocalStorage();
     this.props.getSessionById(this.props.match.params.id)
@@ -70,7 +75,8 @@ class SeatsSelectionPage extends Component {
       let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
       seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
       this.setState({
-        seats: seats
+        seats: seats,
+        isLoading: true
       })
     })
     .catch(err => {
@@ -110,7 +116,8 @@ class SeatsSelectionPage extends Component {
       const finishTime = new Date(currentTime + timeInMinutes*60*1000);
       this.setState({
         isTimerSet: true,
-        finishTime
+        finishTime,
+        isLoading: false
       })
     }
   }
@@ -126,7 +133,8 @@ class SeatsSelectionPage extends Component {
             localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
             this.setState({
               seats: localSeats,
-              chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats)
+              chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats),
+              isLoading: true
             });
           } else {
             toastr.warning(res.data.data);
@@ -178,6 +186,7 @@ class SeatsSelectionPage extends Component {
   handleConfirmReservation = () =>{
     reservationServices.bookSessionSeats(this.props.match.params.id, this.state.chosenSeats)
     .then((res) => {
+      console.log(res);
       this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices);
       this.setState({
         isConfirmOrder: true
@@ -206,26 +215,39 @@ class SeatsSelectionPage extends Component {
   }
 
   renderSeatsSelectContent = () => {
-
     return (
       <Fragment>
-        <Header header="Select Seats"/>     
-        <SeatSelect
-          seats={this.state.seats}
-          chosenSeats={this.state.chosenSeats}
-          chosenExtraServices={this.state.chosenExtraServices}
-          sessionSeatTypes={this.props.session.session_info.seat_type}
-          extraServices={this.props.session.session_info.extra_services}
-          filmId={this.props.session.film._id}
-          sessionId={this.props.match.params.id}
-          isTimerSet={this.state.isTimerSet}
-          finishTime={this.state.finishTime}
-          callBackHandleSeatClick={this.handleSeatClick}
-          callBackHandleSeatsSelect={this.handleSeatsSelect}
-          callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
-          callBackCheckBoxChanged={this.handleCheckBoxChanged}
-          callBackHandleTimer={this.handleTimer}
-        />
+        <Header header="Select Seats"/>  
+        {
+            !this.state.isLoading
+            ? <div className="loadingBlock">
+                <Loader 
+                  type="Puff"
+                  color="#ffc107c9"
+                  height="100"	
+                  width="100"
+                  className="loader"
+                />   
+              </div> 
+            :
+              <SeatSelect
+              seats={this.state.seats}
+              chosenSeats={this.state.chosenSeats}
+              chosenExtraServices={this.state.chosenExtraServices}
+              sessionSeatTypes={this.props.session.session_info.seat_type}
+              extraServices={this.props.session.session_info.extra_services}
+              filmId={this.props.session.film._id}
+              sessionId={this.props.match.params.id}
+              isTimerSet={this.state.isTimerSet}
+              finishTime={this.state.finishTime}
+              callBackHandleSeatClick={this.handleSeatClick}
+              callBackHandleSeatsSelect={this.handleSeatsSelect}
+              callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
+              callBackCheckBoxChanged={this.handleCheckBoxChanged}
+              callBackHandleTimer={this.handleTimer}
+            />
+            
+        }          
       </Fragment>
     )
   }
@@ -252,7 +274,7 @@ class SeatsSelectionPage extends Component {
   render() {
     return (
       <section className="page-content">
-        <div className="container">
+        <div className="container seat-select__container">
           {this.renderReservationContent()}
         </div>
       </section>

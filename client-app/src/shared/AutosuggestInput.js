@@ -21,6 +21,7 @@ const styles = theme => ({
     color: "#484848",
     border: '1px solid #aaaaaa',
     backgroundColor: '#f3cdae',
+    position: 'absolute'
   },
   suggestion: {
     display: "block"

@@ -1,5 +1,5 @@
 export const links = {
-  MAIN_PAGE_PATH: '/',
+  MAIN_PAGE_PATH: '/films',
   SIGN_UP_PAGE: '/account/signup',
   SIGN_IN_PAGE: '/account/login',
   FILM_SEARCH_PAGE: '/films',

@@ -2,15 +2,34 @@
 @import './variables.scss';
 @import './global.scss';
 
+.loadingBlock{
+	width: 100%;
+	height: 400px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.spinner{
+	color: #5f0d22;
+	opacity: 0.8;
+	top: 220px;
+}
+
 .page-content{
   display: flex;
-	align-items: center;
-	padding-top: 5%;
-	min-height: 100vh;
+	align-items: flex-start;
+//	padding-top: 3%;
+	min-height: calc(100vh - 51px);
+	padding-top: 85px;
 	background-color: $form-login_background-color;
 }
 .authentication__form {
 	background-color: $form-login_background-color;
+}
+
+.login__form {
+	margin: auto;
 }
 
 .authentication__content {
@@ -19,7 +38,7 @@
 	display: flex;
 	max-width: 80%;
 	margin: auto;
-
+	margin-bottom: 10px;
 	padding: 3% 0;
 }
 
@@ -118,9 +137,10 @@
 .help__block {
 	color: $error-color;
 }
-@media (max-width: 991px){
+@media (max-width: 1200px){
 	.authentication__input_group {
 		flex-direction: column;
+
 		.authentication__form-group {
 			
 			width: auto;

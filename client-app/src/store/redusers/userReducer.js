@@ -15,6 +15,12 @@ export const userReducer = (state = initialState, action) => {
         userLocation: data.userLocation
       }
     }
+    case userTypes.RESET_ERROR_MESSAGE: {
+      return {
+        ...state,
+        errorMessage: ''
+      }
+    }
     case userTypes.SIGN_IN_SUCCESS: {
       localStorage.setItem('user', data.user.role);
       return {
