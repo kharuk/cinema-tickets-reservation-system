@@ -3,10 +3,6 @@ import SeatBox from './SeatBox';
 
 const SeatsScheme = (props) =>{
 
-  const generateKey = (row, column) =>{
-    return row * props.seatsArray[0].length + column;
-  }
-
   return(   
     <Fragment>
       <div className="scheme__container">
@@ -16,7 +12,7 @@ const SeatsScheme = (props) =>{
             key={item[0].row}>
             { item.map((itemArray) =>
               <SeatBox 
-                key={generateKey(itemArray.row, itemArray.column)}
+                key={itemArray._id}
                 seatInfo={itemArray}
                 callBackFromParent={props.callBackFromParent}
               />
