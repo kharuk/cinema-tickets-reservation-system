@@ -118,6 +118,7 @@ $session-button-color : #4a89dc;
   flex-direction: column;
   //margin-left: 15%;
   text-transform: capitalize;
+  min-width: 33%;
   
   & span:first-child
   {
@@ -246,7 +247,6 @@ $session-button-color : #4a89dc;
   
   .session__item_text
   {
-    
     & span:first-child
     {
       font-size: 1.5rem;
