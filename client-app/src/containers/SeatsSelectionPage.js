@@ -141,11 +141,16 @@ class SeatsSelectionPage extends Component {
             localSeats[seatInfo.row][seatInfo.column].booked  = true;
             this.setState({
               seats: localSeats,
+              isLoading: true
             });
           } 
         })
         .catch(error => console.log(error))
       } 
+    } else {
+      this.setState({
+        isLoading: true
+      });
     }
   }
 
