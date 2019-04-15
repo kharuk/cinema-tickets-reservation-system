@@ -1,4 +1,4 @@
-import { searchTypes } from './types';
+import { searchTypes, userTypes } from './types';
 import sessionServices from '../../services/sessionServices';
 import { toastr } from 'react-redux-toastr';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
@@ -61,6 +61,9 @@ export const fetchFilms = () => async(dispatch) => {
   } catch (err) {
     console.log(err);
     showErrorToast(err);
+    dispatch({
+      type: userTypes.LOGOUT_USER
+    });
   }
 }
 
