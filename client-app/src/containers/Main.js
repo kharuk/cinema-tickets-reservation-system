@@ -34,7 +34,7 @@ class Main extends Component {
             closeOnToastrClick
           />
           <Switch>
-            <Route exact path={ links.MAIN_PAGE_PATH }/>
+            {/* <Route exact path={ links.MAIN_PAGE_PATH }/> */}
             <Route exact path={ links.SIGN_IN_PAGE  } component={ LoginPage }/>
             <Route exact path={ links.SIGN_UP_PAGE } component={ RegisterPage }/>
             <PrivateRoute requiredRoles={['User', 'Admin']} exact path={ links.FILM_SEARCH_PAGE } component={ FilmSearchPage }/>

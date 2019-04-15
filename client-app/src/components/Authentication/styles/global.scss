@@ -19,7 +19,8 @@ ul {
 }
 
 a {
-	margin: 0px;
+  margin: 0px;
+  color: #ffc107c9;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -28,4 +29,5 @@ a {
 
 a:hover {
   text-decoration: none;
+  color: white;
 }

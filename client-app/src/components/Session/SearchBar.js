@@ -43,9 +43,9 @@ class SearchBar extends Component {
       <form className={classes.container} noValidate autoComplete="off">
 
         <TextField
-          id="outlined-cout-of-sites"
+          id="outlined-cout-of-seats"
           select
-          label="Count of sites"
+          label="Number of seats"
           className={classes.textField}
           value={countOfSeats}
           onChange={e => setCountOfSeats(e.target.value)}
@@ -54,7 +54,7 @@ class SearchBar extends Component {
               className: classes.menu
             }
           }}
-          helperText="Please select count of sites"
+          helperText="Please select number of seats"
           margin="normal"
           variant="outlined"
         >

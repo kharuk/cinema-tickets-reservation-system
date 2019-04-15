@@ -26,6 +26,10 @@ class SignUpForm extends Component {
     errors: {}
   };
 
+  componentDidMount() {
+    this.props.resetErrorMessage();
+  }
+
   handleChange = (e) => { 
     const { name, value } = e.target;
     this.setState({ 
@@ -108,7 +112,7 @@ class SignUpForm extends Component {
             value={confirmPassword}
             caption={errors.password}
           />
-          <button className="authentication__form-button">Sign In</button>
+          <button className="authentication__form-button">Sign Up</button>
         </form>
       </div>     
     )
@@ -124,7 +128,8 @@ function mapStateToProps(state) {
  
 const mapDispatchToProps = dispatch => ({
   signUp: (data) => dispatch(userActions.signup(data)),
-  logout: () => dispatch(userActions.logout())
+  logout: () => dispatch(userActions.logout()),
+  resetErrorMessage: () => dispatch(userActions.resetErrorMessage())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps)(SignUpForm);

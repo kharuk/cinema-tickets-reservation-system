@@ -3,23 +3,26 @@ import '../components/Films/film.scss';
 import FilmList from '../components/Films/FilmList';
 import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
-import {cities} from '../components/Films/cities';
 import { connect } from "react-redux";
+import Loader from 'react-loader-spinner'
 import {getFiltredFilms} from '../store/selectors';
 import {
   fetchFilms, 
   setCurrentCity,
   setCurrentFilmName,
   setCurrentCinema,
-  setSessionDate
+  setSessionDate,
+  setCountOfSeats
 } from '../store/actions/searchFilmAction';
-
 
 class FilmSearchPage extends Component {
 
   componentDidMount() {
-    this.props.setCurrentCity(this.props.userLocation);
     this.props.fetchFilms();
+   // this.props.setCurrentCity(this.props.userLocation);
+    this.props.setSessionDate(new Date());
+    this.props.setCountOfSeats(1);
+
   }
 
   setCurrentFilmName = (filmName) => {
@@ -39,14 +42,13 @@ class FilmSearchPage extends Component {
   }
 
   render() {
-    const {filtredFilms, selectedCity, filmName, cinema, sessionDate } = this.props;
-    
+    const {filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList, cityList} = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Film Search"/>
           <SearchBar 
-            cities={cities} 
+            cities={cityList} 
             selectedCity={selectedCity}
             filmName={filmName}
             cinema={cinema}
@@ -56,8 +58,26 @@ class FilmSearchPage extends Component {
             onCinemaChange={this.setCurrentCinema}
             setSessionDate={this.setSessionDate}
             onButtonClick={this.onButtonClick}
+            filmList={filmList}
+            cinemaList={cinemaList}
           />
-          <FilmList filmList={filtredFilms} />
+          {
+            !filtredFilms 
+            ? <div className="loadingBlock">
+                <Loader 
+                  type="Puff"
+                  color="#ffc107c9"
+                  height="100"	
+                  width="100"
+                  className="loader"
+                />   
+              </div> 
+            :
+              <FilmList filmList={filtredFilms} />
+            
+          }
+          
+          
         </div>
       </section>
     )
@@ -73,6 +93,9 @@ const mapStateToProps = (state) => {
     cinema: state.search.filters.cinema,
     sessionDate: state.search.filters.sessionDate,
     userLocation: state.user.userLocation,
+    filmList: state.search.filmList,
+    cinemaList: state.search.cinemaList,
+    cityList: state.search.cityList
   }
 }
 
@@ -82,6 +105,7 @@ const mapDispatchToProps = dispatch => ({
   setCurrentCity: (city) => dispatch(setCurrentCity(city)),
   setCurrentCinema: (cinema) => dispatch(setCurrentCinema(cinema)),
   setSessionDate: (date) => dispatch(setSessionDate(date)),
+  setCountOfSeats: (count) => dispatch(setCountOfSeats(count))
 })
 
 

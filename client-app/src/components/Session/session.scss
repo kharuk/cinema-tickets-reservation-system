@@ -23,6 +23,8 @@ $session-button-color : #4a89dc;
 	font-size: 1.3rem;
 	color: $session-background-color;
   vertical-align: middle;
+  margin-left: 15px;
+  margin-bottom: 10px;
   &:hover {
 		color: $session-background-color;
 	}
@@ -71,13 +73,17 @@ $session-button-color : #4a89dc;
 .session__item {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
 	width: 100%;
-  padding-left: 4%;
+  //padding-left: 4%;
   
   &:not(:last-child){
     margin-bottom: 20px;
   }
+}
+
+.button-back {
+  margin-top: 20px;
 }
 
 .session__item_time
@@ -85,7 +91,8 @@ $session-button-color : #4a89dc;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: 4%;
+  //margin-left: 4%;
+  min-width: 33%;
   
   & span:first-child
   {
@@ -109,7 +116,7 @@ $session-button-color : #4a89dc;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: 15%;
+  //margin-left: 15%;
   text-transform: capitalize;
   
   & span:first-child
@@ -131,7 +138,7 @@ $session-button-color : #4a89dc;
 
 .session__item__button {
   border: none;
-	margin: auto;
+//	margin: auto;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -150,9 +157,10 @@ $session-button-color : #4a89dc;
 @media (max-width: 991px){
   .session__item__button {
     visibility: hidden;
-    padding: 0;
+   // padding: 0;
     font-size: 0%;
     line-height: 0;
+    width: inherit;
 
     &::after {
       content:'Ok'; 
@@ -167,6 +175,39 @@ $session-button-color : #4a89dc;
       color: $session-background-color;
       line-height: initial;
     }
+
+    .button-back {
+      margin-top: 0;
+    }
+  }
+
+  .session__item_time
+  {
+    padding-left: 3%;
+  
+    & span:first-child
+    {
+      font-size: 1.2rem;
+    }
+  
+    & span:last-child
+    {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .session__item_text
+  {
+    
+    & span:first-child
+    {
+      font-size: 1.2rem;
+    }
+  
+    & span:last-child
+    {
+      font-size: 0.9rem;
+    }
   }
 
 }
@@ -175,7 +216,46 @@ $session-button-color : #4a89dc;
 
 @media screen and (max-width: 767px) {	
   .film-page__button {
-    width: 100%;
+    width: calc(100% - 30px);
+    margin: 0 auto;
   }	
+
+  .film-page__film-info {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .session__item_time{
+    min-width: 22%;
+    padding-left: 3%;
+  
+    & span:first-child
+    {
+      font-size: 1.5rem;
+    }
+  
+    & span:last-child
+    {
+      font-size: 1rem;
+    }
+  }
+
+  .session__item__button {
+      width: 15%;
+  }
+  
+  .session__item_text
+  {
+    
+    & span:first-child
+    {
+      font-size: 1.5rem;
+    }
+  
+    & span:last-child
+    {
+      font-size: 1rem;
+    }
+  }
 }
 

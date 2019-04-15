@@ -64,24 +64,47 @@ class SearchFilmAction {
 
   filterByDate = (films, date) => {
     if (moment(date).isAfter(moment(), 'day')){
-      date.set({hour:0,minute:0,second:0,millisecond:0})
-      date.format()
+      date = moment(date).set({hour:0,minute:0,second:0,millisecond:0})
+      date = moment(date).format()
     }
-    let statrDate = moment(date);
+    let startDate = moment(date);
     let endDate = moment(moment(date).endOf("day"));
     let filteredFilms = _.forEach(films, (item) => {
       item.sessions = _.filter(item.sessions, (item) =>
-        moment(item.date).isSameOrAfter(statrDate) && moment(item.date).isSameOrBefore(endDate)
+        moment(item.date).isSameOrAfter(startDate) && moment(item.date).isSameOrBefore(endDate)
       )  
     })
     return filteredFilms; 
   } 
 
   getChosenFilmWithFiltredSession = (chosenFilmId, films, filters) => {
-    const chosenFilm = _.find(films, {'film_id': chosenFilmId});
+    const chosenFilm = _.find(films, {'_id': chosenFilmId});
     const chosenFilmWithFiltredSession = this.getFilteredData(filters, chosenFilm);
     return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
   } 
+
+  getFilmSearchLists = (films) => {
+   // debugger;
+    let filmList = [];
+    let cinemaList = [];
+    let cityList = [];
+    _.forEach(films, (film) => {
+      if (film.sessions.length > 0) {
+        filmList.push(film.film_info.filmName);
+        _.forEach(film.sessions, (session) => {
+          if (moment(session.date).isSameOrAfter(moment())) {
+            if (cinemaList.indexOf(session.cinema.cinemaName) === -1) {
+              cinemaList.push(session.cinema.cinemaName);
+            }
+            if (cityList.indexOf(session.cinema.location) === -1) {
+              cityList.push(session.cinema.location);
+            }
+          }
+        });
+      }
+    });
+    return {filmList, cinemaList, cityList}
+  }
     
 }
 

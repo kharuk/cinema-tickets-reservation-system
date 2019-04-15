@@ -6,7 +6,7 @@ import SessionInfo from '../components/Session/SessionInfo';
 import Header from '../components/Authentication/Header';
 import SearchBar from '../components/Session/SearchBar';
 import { connect } from "react-redux";
-import {getChosenFilm, getFilmFiltredByCountOfSeats} from '../store/selectors';
+import {getChosenFilm} from '../store/selectors';
 import {
   setChosenFilm,
   setCountOfSeats
@@ -21,6 +21,7 @@ class FilmPage extends Component {
 
   componentDidMount() {
     this.props.setChosenFilm(this.props.match.params.id);
+    this.props.setCountOfSeats(1);
   }
 
   setCountOfSeats = (countOfSeats) => {
@@ -52,7 +53,7 @@ class FilmPage extends Component {
           <Link 
             to={links.FILM_SEARCH_PAGE}
             role="button"
-            className="film-page__button"
+            className="film-page__button button-back"
           >
             Back
           </Link>

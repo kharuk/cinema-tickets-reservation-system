@@ -1,16 +1,32 @@
-class ReservationServise{
-    
-  countTotalPrice = (chosenSeats, chosenExtraServices, sessionSeatTypes, extraServices) => {
-    let priceOfTickets = chosenSeats.reduce((sum, current) => 
-    sum + sessionSeatTypes[current.type], 0);
+import axios from 'axios';
 
-    let priceOfExtraServices = Object.keys(chosenExtraServices).reduce((sum, current) =>
-    sum + chosenExtraServices[current]*extraServices[current], 0);
-    let totalPrice = priceOfTickets + priceOfExtraServices;
-    return {priceOfTickets, priceOfExtraServices, totalPrice};
+function addToken() {
+  const token = JSON.parse(localStorage.getItem('token')) || null
+  return {
+    headers: {
+      'Authorization': token
+    }
   }
 }
 
-const reservationServise = new ReservationServise();
+function updateSeat(sessionId, seatInfo) {
+  const options = addToken();
+  return axios.put(`http://localhost:8080/api/sessions/${sessionId}/seats/${seatInfo._id}`, seatInfo, options, { withCredentials: true});
+}
 
-export default reservationServise;
+function bookSessionSeats(sessionId, sessionSeats) {
+  const options = addToken();
+  return axios.put(`http://localhost:8080/api/sessions/${sessionId}/seats`, sessionSeats, options, { withCredentials: true});
+}
+
+function removeBooking(sessionId, sessionSeats) {
+  const options = addToken();
+  return axios.put(`http://localhost:8080/api/sessions/${sessionId}/seats/removeBooking`, sessionSeats, options, { withCredentials: true});
+}
+
+
+export default {
+  updateSeat,
+  bookSessionSeats,
+  removeBooking
+};

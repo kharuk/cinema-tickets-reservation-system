@@ -18,6 +18,10 @@ class SignInForm extends Component {
     errors: {}
   };
 
+  componentDidMount() {
+    this.props.resetErrorMessage();
+  }
+
   handleChange = (e) => { 
     const { name, value } = e.target;
     this.setState({ 
@@ -74,7 +78,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   login: (data) => dispatch(userActions.login(data)),
-  logout: () => dispatch(userActions.logout())
+  logout: () => dispatch(userActions.logout()),
+  resetErrorMessage: () => dispatch(userActions.resetErrorMessage())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps)(SignInForm);

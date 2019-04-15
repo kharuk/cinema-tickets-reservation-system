@@ -12,11 +12,22 @@ import {getOrdersFiltredByDate} from '../store/selectors';
 import {
   fetchAllOrders
 } from '../store/actions/orderAction';
+import Loader from 'react-loader-spinner';
 
 class ProfilePage extends Component {
 
   componentDidMount() {
-    this.props.fetchAllOrders();
+    this.props.fetchAllOrders()
+    .then( () => {
+      this.setState({
+        isLoading: true
+      })
+    })
+
+  }
+
+  state = {
+    isLoading: false
   }
 
   render() {
@@ -25,18 +36,35 @@ class ProfilePage extends Component {
       <section className="page-content">
         <div className="container">
           <Header header="Profile page"/>
-          <div className="row profile-page__container">
-            <ProfilePageNavBar userInfo={userInfo} />
-            <ProfilePageContent>
-              <Switch>
-                <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.currentOrders}/>} /> 
-                <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.previousOrders}/>} />
-                <Route exact path={ links.PROFILE_PAGE } render={(props) => <AccountSettings {...props} userInfo={userInfo}/>}/> 
-              </Switch>
-            </ProfilePageContent>
-          </div>
+          {
+            !this.state.isLoading
+            ? <div className="loadingBlock">
+                <Loader 
+                  type="Puff"
+                  color="#ffc107c9"
+                  height="100"	
+                  width="100"
+                  className="loader"
+                />   
+              </div> 
+            :
+
+              <div className="row profile-page__container">
+                <ProfilePageNavBar userInfo={userInfo} />
+                <ProfilePageContent>
+                  <Switch>
+                    <Route exact path={ links.ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.currentOrders}/>} /> 
+                    <Route exact path={ links.PREVIOUS_ORDERS_PAGE } render={(props) => <OrderTable {...props} orders={ordersFiltredByDate.previousOrders}/>} />
+                    <Route exact path={ links.PROFILE_PAGE } render={(props) => <AccountSettings {...props} userInfo={userInfo}/>}/> 
+                  </Switch>
+                </ProfilePageContent>
+              </div>
+
+            
+        }        
         </div>
       </section>
+
     )
   }
 }

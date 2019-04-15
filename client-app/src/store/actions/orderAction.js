@@ -15,6 +15,7 @@ export const addOrder = (session, chosenSeats, chosenExtraServices) => async(dis
   try {
     let {data} = await orderServices.addOrder(info);
     if (data.isSuccessfully) {
+      history.push(links.ORDERS_PAGE);
     } 
   }  catch (err) {
     console.log(err);

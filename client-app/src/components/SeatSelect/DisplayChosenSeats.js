@@ -8,7 +8,7 @@ const DisplayChosenSeats = (props) =>{
       {
         props.chosenSeats.map((item)=>
           <SeatInfoBox
-            key={item.id}
+            key={item._id}
             seatInfo={item}
             price={props.sessionSeatTypes[item.type]}
           />

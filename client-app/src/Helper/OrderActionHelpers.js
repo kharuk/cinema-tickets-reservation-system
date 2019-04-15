@@ -1,10 +1,10 @@
-import reservationServise from '../services/ReservationServices';
+import reservationHelpers from '../helper/ReservationHelpers';
 import moment from 'moment';
 
 class OrderAction {
 
   formOrder = (session, chosenSeats, chosenExtraServices) => {
-    const price = reservationServise.countTotalPrice(
+    const price = reservationHelpers.countTotalPrice(
       chosenSeats, 
       chosenExtraServices, 
       session.session_info.seat_type, 

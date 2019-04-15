@@ -16,7 +16,8 @@ export const userTypes = {
   SIGN_IN_FAILD: 'SIGN_IN_FAILD',
   SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
   SIGN_UP_FAILD: 'SIGN_UP_FAILD',
-  LOGOUT_USER: 'LOGOUT_USER'
+  LOGOUT_USER: 'LOGOUT_USER',
+  RESET_ERROR_MESSAGE: 'RESET_ERROR_MESSAGE' 
 };
 
 export const seatsSelectionTypes = {
