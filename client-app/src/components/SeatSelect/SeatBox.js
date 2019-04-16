@@ -18,7 +18,9 @@ const SeatBox = (props) =>{
     <div 
       className={`seat-${getSeatBoxClass(props.seatInfo)}`}
       onClick={() => props.callBackFromParent(props.seatInfo)}
-    />
+    >
+      {props.seatInfo.column +1}
+    </div>
   );
 }
 

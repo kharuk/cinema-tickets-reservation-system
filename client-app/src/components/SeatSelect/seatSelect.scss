@@ -34,6 +34,32 @@ $seat-select-output-price-background-color: #dee2e6;
 
 .scheme__container {
   background-color: $seat-select-background-color;
+  overflow: auto;
+
+  &::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar
+  {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb
+  {
+    background-color: #c1c6cc;	
+    background-image: -webkit-linear-gradient(45deg,
+                                              rgba(255, 255, 255, .2) 25%,
+                        transparent 25%,
+                        transparent 50%,
+                        rgba(255, 255, 255, .2) 50%,
+                        rgba(255, 255, 255, .2) 75%,
+                        transparent 75%,
+                        transparent)
+  }
 }
 
 .row{
@@ -136,6 +162,29 @@ $seat-select-output-price-background-color: #dee2e6;
   } 
 }
 
+.row__number {
+ // margin: auto 10px auto;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ min-width: 30px;
+ 
+  & span {
+    font-size: 1rem;
+    font-weight: 900;
+  }
+}
+
+.scheme__row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.row__seats {
+  flex-grow: 2;
+}
+
 .extra-item__name {
   font-size: 1.5rem;
 }
@@ -188,4 +237,12 @@ $seat-select-output-price-background-color: #dee2e6;
 
 .order-info__row{
   text-transform: capitalize;
+}
+
+@media screen and (max-width: 991px) {	
+  .order-info__film-name {
+    min-width: 150px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
 }
