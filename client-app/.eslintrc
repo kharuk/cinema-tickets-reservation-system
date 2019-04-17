@@ -1,0 +1,23 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"extends": ["react-app", "eslint:recommended", "plugin:prettier/recommended", "plugin:react/recommended"],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true,
+			"jsx": true
+		},
+		"sourceType": "module",
+		"ecmaVersion": 2017
+	},
+	"parser": "babel-eslint",
+	"plugins": ["react", "prettier"],
+	"rules": {
+		"jsx-quotes": [1, "prefer-double"],
+		"no-debugger": "error",
+		"react/prop-types": 0
+	}
+}

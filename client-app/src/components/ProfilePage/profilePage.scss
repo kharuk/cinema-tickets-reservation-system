@@ -15,7 +15,7 @@ $profile-page_content-background-color: #f9ebdf;
 .profile-page__sidebar {
   padding: 20px 0 10px 0;
   background: $profile-page_background-color;
-  box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
+  box-shadow: 10px 15px 32px -17px rgba(0, 0, 0, 0.78);
 }
 
 .profile-page__usertitle {
@@ -25,7 +25,7 @@ $profile-page_content-background-color: #f9ebdf;
   white-space: pre-wrap;
 }
 
-.profile-page__usertitle-name{
+.profile-page__usertitle-name {
   color: $profile-page_name-title-color;
   font-size: 1rem;
   font-weight: 600;
@@ -41,7 +41,7 @@ $profile-page_content-background-color: #f9ebdf;
   font-weight: 600;
   margin-bottom: 15px;
 }
-    
+
 .profile-page__menu {
   margin-top: 30px;
 }
@@ -55,11 +55,11 @@ $profile-page_content-background-color: #f9ebdf;
 
     &:last-child {
       border-bottom: none;
-    } 
+    }
 
     &.active {
       border-bottom: none;
-    
+
       .link {
         color: $profile-page_link-hover-color;
         background-color: $profile-page_link-active-background-color;
@@ -130,7 +130,7 @@ $profile-page_content-background-color: #f9ebdf;
   .profile-page__content {
     padding: 20px 0;
   }
-  
+
   .profile-page__sidebar {
     margin-right: 20px;
   }

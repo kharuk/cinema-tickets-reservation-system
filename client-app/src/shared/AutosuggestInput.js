@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import Autosuggest from "react-autosuggest";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -11,68 +11,59 @@ const styles = theme => ({
     height: 250,
     flexGrow: 1
   },
-  container: {
-    position: "relative"
-  },
+  container: { position: "relative" },
   suggestionsContainerOpen: {
-    display: 'block',
+    display: "block",
     zIndex: 2,
     width: 230,
     color: "#484848",
-    border: '1px solid #aaaaaa',
-    backgroundColor: '#f3cdae',
-    position: 'absolute'
+    border: "1px solid #aaaaaa",
+    backgroundColor: "#f3cdae",
+    position: "absolute"
   },
-  suggestion: {
-    display: "block"
-  },
+  suggestion: { display: "block" },
   suggestionsList: {
     margin: 0,
     padding: 0,
     listStyleType: "none"
   },
-  divider: {
-    height: theme.spacing.unit * 2
-  },
+  divider: { height: theme.spacing.unit * 2 },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
   menuItem: {
-    whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word',
+    whiteSpace: "pre-wrap",
+    wordWrap: "break-word"
   },
-  dropDownMenu: {
-    borderBottom: '1px solid #aaaaaa',
-  }
+  dropDownMenu: { borderBottom: "1px solid #aaaaaa" }
 });
 
 function escapeRegexCharacters(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function getSuggestions(value, items) {
-  const escapedValue = escapeRegexCharacters(value.trim()); 
-  if (escapedValue === '') {
+  const escapedValue = escapeRegexCharacters(value.trim());
+  if (escapedValue === "") {
     return [];
   }
-  const regex = new RegExp(`${escapedValue}`, 'i');
+  const regex = new RegExp(`${escapedValue}`, "i");
   return items.filter(item => regex.test(item.name));
 }
 
-function getSuggestionValue (suggestion) {
+function getSuggestionValue(suggestion) {
   return suggestion.name;
-};
+}
 
 class AutosuggestInput extends PureComponent {
-
-  renderSuggestion =  (suggestion, { query, isHighlighted }) => {
+  renderSuggestion = (suggestion, { query, isHighlighted }) => {
     const matches = match(suggestion.name, query);
     const parts = parse(suggestion.name, matches);
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
-      <MenuItem 
-        selected={isHighlighted} 
+      <MenuItem
+        selected={isHighlighted}
         component="div"
         className={classes.dropDownMenu}
       >
@@ -91,40 +82,30 @@ class AutosuggestInput extends PureComponent {
         </div>
       </MenuItem>
     );
-  }
+  };
 
   state = {
-    value: this.props.value || '',
+    value: this.props.value || "",
     suggestions: []
-  };    
+  };
 
   onChange = (_, { newValue }) => {
-    const {onChange } = this.props;  
-    this.setState({
-      value: newValue
-    });  
+    const { onChange } = this.props;
+    this.setState({ value: newValue });
     onChange(newValue);
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value, this.props.data)
-    });
+    this.setState({ suggestions: getSuggestions(value, this.props.data) });
   };
 
   onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
+    this.setState({ suggestions: [] });
   };
 
   render() {
     const { value, suggestions } = this.state;
-    const {
-      classes,
-      label, 
-      renderInputComponent
-    } = this.props;
+    const { classes, label, renderInputComponent } = this.props;
 
     const inputProps = {
       value,
@@ -146,16 +127,13 @@ class AutosuggestInput extends PureComponent {
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={this.renderSuggestion}
-        inputProps={inputProps} 
-        renderInputComponent={renderInputComponent} 
+        inputProps={inputProps}
+        renderInputComponent={renderInputComponent}
       />
     );
   }
 }
 
-AutosuggestInput.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+AutosuggestInput.propTypes = { classes: PropTypes.object.isRequired };
 
 export default withStyles(styles)(AutosuggestInput);
-

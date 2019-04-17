@@ -1,19 +1,17 @@
-import React, {Component}  from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import green from "@material-ui/core/colors/green";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const styles = {
   root: {
     color: green[600],
-    '&$checked': {
-      color: green[500],
-    },
+    "&$checked": { color: green[500] }
   },
-  checked: {},
+  checked: {}
 };
 
 class CheckboxLabels extends Component {
@@ -30,7 +28,7 @@ class CheckboxLabels extends Component {
               checked={this.props.isSelect}
               classes={{
                 root: classes.root,
-                checked: classes.checked,
+                checked: classes.checked
               }}
             />
           }
@@ -41,8 +39,6 @@ class CheckboxLabels extends Component {
   }
 }
 
-CheckboxLabels.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+CheckboxLabels.propTypes = { classes: PropTypes.object.isRequired };
 
 export default withStyles(styles)(CheckboxLabels);

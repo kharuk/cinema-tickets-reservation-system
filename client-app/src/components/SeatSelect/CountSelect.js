@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -14,20 +14,19 @@ const styles = theme => ({
     margin: 0,
     marginLeft: 5,
     marginRight: 5,
-    width: '60px',
-    height: '30px',
+    width: "60px",
+    height: "30px",
     marginTop: 10
   },
   select: {
     paddingTop: 6,
-    paddingBottom: 6,
-  },  
+    paddingBottom: 6
+  }
 });
 
 const count = [1, 2, 3, 4, 5];
 
 class CountSelect extends Component {
-
   render() {
     const { classes } = this.props;
 
@@ -37,15 +36,11 @@ class CountSelect extends Component {
         select
         label="Count"
         className={classes.textField}
-        value={this.props.value||1}
+        value={this.props.value || 1}
         onChange={this.props.callBackHandleClick}
         margin="normal"
         variant="outlined"
-        InputProps={{ 
-          classes: { 
-            input: classes.select 
-          }
-        }}
+        InputProps={{ classes: { input: classes.select } }}
       >
         {count.map(option => (
           <MenuItem key={option} value={option}>
@@ -53,13 +48,10 @@ class CountSelect extends Component {
           </MenuItem>
         ))}
       </TextField>
-
     );
   }
 }
 
-CountSelect.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+CountSelect.propTypes = { classes: PropTypes.object.isRequired };
 
 export default withStyles(styles)(CountSelect);

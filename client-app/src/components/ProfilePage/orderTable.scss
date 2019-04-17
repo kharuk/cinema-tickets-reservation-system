@@ -26,10 +26,10 @@ $order-table_without-background-color: #f9ebdf;
   width: 100%;
   margin: 0 auto;
   position: relative;
-  box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
+  box-shadow: 10px 15px 32px -17px rgba(0, 0, 0, 0.78);
 }
 
- .order__table-row{
+.order__table-row {
   text-transform: capitalize;
   background-color: $order-table_row-background-color;
 
@@ -38,13 +38,12 @@ $order-table_without-background-color: #f9ebdf;
     border-top: 1px solid $order-table_border-color;
     line-height: 1.2;
     font-weight: unset;
-    
   }
 
   &:nth-child(even) {
     background-color: $order-table_row-even-background-color;
   }
- } 
+}
 
 .order-table__cell-filmName {
   word-wrap: break-word;
@@ -58,7 +57,10 @@ $order-table_without-background-color: #f9ebdf;
     background: $order-table_without-background-color;
   }
 
-  .order-table > *, .order-table tr, .order-table td, .order-table th {
+  .order-table > *,
+  .order-table tr,
+  .order-table td,
+  .order-table th {
     display: block;
   }
 
@@ -72,12 +74,12 @@ $order-table_without-background-color: #f9ebdf;
     border: 1px solid $order-table_row-border-color;
     margin-bottom: 20px;
     margin-right: 20px;
-    box-shadow: 10px 15px 32px -17px rgba(0,0,0,0.78);
+    box-shadow: 10px 15px 32px -17px rgba(0, 0, 0, 0.78);
 
     &:first-child {
       margin-top: 5px;
     }
-    
+
     td {
       padding-left: 60%;
       position: relative;

@@ -1,15 +1,12 @@
-import { orderTypes } from '../actions/types';
+import { orderTypes } from "../actions/types";
 
-const initialState = {
-};
+const initialState = {};
 
 export const orderReducer = (state = initialState, action) => {
-  let data = action.payload;
+  const data = action.payload;
   switch (action.type) {
     case orderTypes.ADD_ORDER: {
-      return {
-        ...state,
-      }
+      return { ...state };
     }
     case orderTypes.FETCH_ORDERS: {
       return {
@@ -17,10 +14,9 @@ export const orderReducer = (state = initialState, action) => {
         orderList: data.orderList,
         currentOrders: data.currentOrders,
         previousOrders: data.previousOrders
-      }
+      };
     }
     default:
       return state;
   }
-
-}
+};

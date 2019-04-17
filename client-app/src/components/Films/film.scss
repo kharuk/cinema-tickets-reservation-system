@@ -1,8 +1,7 @@
 $film-info-background-color: #343a40;
 $film-info-text-color: #ffffff;
 
-
-.film-info__container{
+.film-info__container {
   height: 300px;
   background-color: $film-info-background-color;
   background-size: cover;
@@ -22,7 +21,7 @@ $film-info-text-color: #ffffff;
   color: $film-info-text-color;
   word-wrap: break-word;
   white-space: pre-wrap;
-/*   opacity: 0.5; */
+  /*   opacity: 0.5; */
 }
 
 .date-timer-picker_margin {
@@ -33,10 +32,8 @@ $film-info-text-color: #ffffff;
   padding: 18.5px 14px;
 }
 
-@media screen and (max-width: 767px) {	
-  .film-info__container{
-
-
+@media screen and (max-width: 767px) {
+  .film-info__container {
     background-size: cover;
     background-position-y: 67%;
   }

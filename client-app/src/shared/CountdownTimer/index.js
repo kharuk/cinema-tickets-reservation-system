@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import './countdownTimer.scss';
+import React, { Component } from "react";
+import "./countdownTimer.scss";
 
-class Countdown extends Component  {
+class Countdown extends Component {
   constructor(props) {
     super(props);
 
@@ -9,18 +9,16 @@ class Countdown extends Component  {
       min: 0,
       sec: 0,
       isFinish: false
-    }
+    };
   }
 
   componentDidMount() {
     this.interval = setInterval(() => {
       const date = this.calculateCountdown(this.props.date);
       if (date) {
-        this.setState(date)
+        this.setState(date);
       } else {
-        this.setState({
-          isFinish: true
-        });
+        this.setState({ isFinish: true });
         this.stop();
       }
     }, 1000);
@@ -32,11 +30,13 @@ class Countdown extends Component  {
 
   calculateCountdown(endDate) {
     let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
-    if (diff <= 0) return false;
+    if (diff <= 0) {
+      return false;
+    }
     const timeLeft = {
       min: 0,
       sec: 0,
-      millisec: 0,
+      millisec: 0
     };
     if (diff >= 60) {
       timeLeft.min = Math.floor(diff / 60);
@@ -55,7 +55,7 @@ class Countdown extends Component  {
   addLeadingZeros(value) {
     value = String(value);
     while (value.length < 2) {
-      value = '0' + value;
+      value = `0${value}`;
     }
     return value;
   }
@@ -82,8 +82,6 @@ class Countdown extends Component  {
   }
 }
 
-Countdown.defaultProps = {
-  date: new Date()
-};
+Countdown.defaultProps = { date: new Date() };
 
 export default Countdown;
