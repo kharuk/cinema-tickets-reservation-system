@@ -1,25 +1,25 @@
 import { userTypes } from '../actions/types';
 
 const initialState = {
-  userLocation: "minsk",
+  userLocation: 'minsk',
   user: localStorage.getItem('user') || null,
-  userInfo: ''
+  userInfo: '',
 };
 
 export const userReducer = (state = initialState, action) => {
-  let data = action.payload;
+  const data = action.payload;
   switch (action.type) {
     case userTypes.SET_LOCATION: {
       return {
         ...state,
-        userLocation: data.userLocation
-      }
+        userLocation: data.userLocation,
+      };
     }
     case userTypes.RESET_ERROR_MESSAGE: {
       return {
         ...state,
-        errorMessage: ''
-      }
+        errorMessage: '',
+      };
     }
     case userTypes.SIGN_IN_SUCCESS: {
       localStorage.setItem('user', data.user.role);
@@ -29,32 +29,31 @@ export const userReducer = (state = initialState, action) => {
         user: data.user.role,
         isLoggedIn: true,
         errorMessage: undefined,
-      }
+      };
     }
     case userTypes.SIGN_IN_FAILD: {
       return {
         ...state,
         isLoggedIn: false,
-        errorMessage: data.message
-      }
+        errorMessage: data.message,
+      };
     }
     case userTypes.SIGN_UP_FAILD: {
       return {
         ...state,
         isLoggedIn: false,
-        errorMessage: data.message
-      }
+        errorMessage: data.message,
+      };
     }
     case userTypes.LOGOUT_USER: {
       localStorage.removeItem('user');
       return {
         ...state,
         isLoggedIn: false,
-        user: null
-      }
+        user: null,
+      };
     }
     default:
       return state;
   }
-
-}
+};

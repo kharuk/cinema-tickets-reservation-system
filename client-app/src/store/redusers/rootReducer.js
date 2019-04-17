@@ -1,10 +1,10 @@
-import {combineReducers} from 'redux';
-import {searchReducer} from './searchReducer';
-import {seatsSelectionReducer} from './seatsSelectionReducer';
-import {orderReducer} from './orderReducer';
+import { combineReducers } from 'redux';
 import { firestoreReducer } from 'redux-firestore';
+import { reducer as toastrReducer } from 'react-redux-toastr';
+import { searchReducer } from './searchReducer';
+import { seatsSelectionReducer } from './seatsSelectionReducer';
+import { orderReducer } from './orderReducer';
 import { userReducer } from './userReducer';
-import {reducer as toastrReducer} from 'react-redux-toastr'
 
 export const rootReducer = combineReducers({
   firestore: firestoreReducer,
@@ -12,5 +12,5 @@ export const rootReducer = combineReducers({
   search: searchReducer,
   user: userReducer,
   order: orderReducer,
-  seatsSelect: seatsSelectionReducer
+  seatsSelect: seatsSelectionReducer,
 });

@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 function addToken() {
-  const token = JSON.parse(localStorage.getItem('token')) || null
+  const token = JSON.parse(localStorage.getItem('token')) || null;
   return {
     headers: {
-      'Authorization': token
-    }
-  }
+      Authorization: token,
+    },
+  };
 }
 
 function getSessionList() {
   const options = addToken();
-  return axios.get('http://localhost:8080/api/films', options, { withCredentials: true});
+  return axios.get('http://localhost:8080/api/films', options, { withCredentials: true });
 }
 
 function getFilmById(id) {
@@ -27,5 +27,5 @@ function getSessionById(id) {
 export default {
   getSessionList,
   getFilmById,
-  getSessionById
+  getSessionById,
 };

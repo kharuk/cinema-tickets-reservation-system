@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { linkGenerator } from '../../config/links';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
 class SessionItem extends Component {
-
   render() {
-    let {session} = this.props;
+    const { session } = this.props;
     const time = searchFilmActionHelpers.getTimeFromDate(session.date);
     const date = searchFilmActionHelpers.getFormatedDate(session.date);
     return (
@@ -19,15 +18,11 @@ class SessionItem extends Component {
           <span>{session.cinema.cinemaName}</span>
           <span>{session.cinema.location}</span>
         </div>
-        <Link 
-          to={linkGenerator.getSessionPageLink(this.props.id)}
-          className="session__item__button" 
-          role="button"
-        >
+        <Link to={linkGenerator.getSessionPageLink(this.props.id)} className="session__item__button" role="button">
           Book
         </Link>
       </div>
-    )
+    );
   }
 }
 

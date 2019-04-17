@@ -1,28 +1,28 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 import DatePicker from './DatePicker';
-import searchFilmActionHelpers from "../../helper/SearchFilmActionHelpers";
+import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 import AutosuggestInput from '../../shared/AutosuggestInput';
 
 const styles = theme => ({
   container: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    marginBottom: 10
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginBottom: 10,
   },
   textField: {
     marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
   dense: {
-    marginTop: 16
+    marginTop: 16,
   },
   menu: {
-    width: 200
+    width: 200,
   },
   button: {
     margin: 20,
@@ -33,20 +33,18 @@ const styles = theme => ({
 });
 
 class SearchBar extends Component {
-
   state = {
     filmList: [],
-    cinemaList: []
-  }
+    cinemaList: [],
+  };
 
   componentDidMount() {
     this.setState({
       cinemaList: this.formatDataForAutosuggest(this.props.cinemaList),
-      filmList: this.formatDataForAutosuggest(this.props.filmList)
-    })
+      filmList: this.formatDataForAutosuggest(this.props.filmList),
+    });
   }
 
-  
   renderInputComponent(inputProps) {
     const { classes, label, inputRef, ...other } = inputProps;
     return (
@@ -61,30 +59,36 @@ class SearchBar extends Component {
     );
   }
 
-  formatDataForAutosuggest = (dataList) => {
-    let autosuggestList = []
-    dataList && dataList.forEach((item) => {
-      autosuggestList.push({name: item});
-    });
+  formatDataForAutosuggest = dataList => {
+    const autosuggestList = [];
+    dataList
+      && dataList.forEach(item => {
+        autosuggestList.push({ name: item });
+      });
     return autosuggestList;
-  }
+  };
 
   render() {
     const { classes } = this.props;
-    const { 
-      selectedCity, sessionDate, filmName, cinema,
-      onFilmNameChange, onCityChange, onCinemaChange, setSessionDate
+    const {
+      selectedCity,
+      sessionDate,
+      filmName,
+      cinema,
+      onFilmNameChange,
+      onCityChange,
+      onCinemaChange,
+      setSessionDate,
     } = this.props;
     return (
       <form className={classes.container} autoComplete="off">
         <AutosuggestInput
           onChange={onFilmNameChange}
           renderInputComponent={this.renderInputComponent}
-          label={"Film"}
+          label="Film"
           data={this.state.filmList}
           value={filmName}
         />
-
 
         <TextField
           id="outlined-city"
@@ -98,37 +102,34 @@ class SearchBar extends Component {
           variant="outlined"
           SelectProps={{
             MenuProps: {
-              className: classes.menu
-            }
+              className: classes.menu,
+            },
           }}
         >
-          {this.props.cities && this.props.cities.map(option => (
-            <MenuItem key={option} value={option}>
-              {searchFilmActionHelpers.capitalizeFirstLatter(option)}
-            </MenuItem>
-          ))}
+          {this.props.cities
+            && this.props.cities.map(option => (
+              <MenuItem key={option} value={option}>
+                {searchFilmActionHelpers.capitalizeFirstLatter(option)}
+              </MenuItem>
+            ))}
         </TextField>
 
-        
         <AutosuggestInput
           onChange={onCinemaChange}
           renderInputComponent={this.renderInputComponent}
-          label={"Cinema"}
+          label="Cinema"
           data={this.state.cinemaList}
           value={cinema}
         />
 
-        <DatePicker 
-          setSessionDate={setSessionDate}
-          sessionDate={sessionDate}
-        />
+        <DatePicker setSessionDate={setSessionDate} sessionDate={sessionDate} />
       </form>
     );
   }
 }
 
 SearchBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SearchBar)
+export default withStyles(styles)(SearchBar);

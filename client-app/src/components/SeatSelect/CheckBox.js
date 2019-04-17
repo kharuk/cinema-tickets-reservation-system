@@ -1,4 +1,4 @@
-import React, {Component}  from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
@@ -25,14 +25,14 @@ class CheckboxLabels extends Component {
         <FormControlLabel
           control={
             <Checkbox
-              onChange={this.props.callBackHandleCheckBoxClick}
-              value="checked"
-              checked={this.props.isSelect}
-              classes={{
+  onChange={this.props.callBackHandleCheckBoxClick}
+  value="checked"
+  checked={this.props.isSelect}
+  classes={{
                 root: classes.root,
                 checked: classes.checked,
               }}
-            />
+/>
           }
           label={`${this.props.label} (${this.props.price}$)`}
         />

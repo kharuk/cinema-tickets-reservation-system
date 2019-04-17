@@ -1,54 +1,52 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import '../components/Films/film.scss';
+import { connect } from "react-redux";
 import FilmList from '../components/Films/FilmList';
 import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
-import { connect } from "react-redux";
-import Loader from 'react-loader-spinner'
-import {getFiltredFilms} from '../store/selectors';
+import Loader from 'react-loader-spinner';
+import { getFiltredFilms } from '../store/selectors';
 import {
-  fetchFilms, 
+  fetchFilms,
   setCurrentCity,
   setCurrentFilmName,
   setCurrentCinema,
   setSessionDate,
-  setCountOfSeats
+  setCountOfSeats,
 } from '../store/actions/searchFilmAction';
 
 class FilmSearchPage extends Component {
-
   componentDidMount() {
     this.props.fetchFilms();
-   // this.props.setCurrentCity(this.props.userLocation);
+    // this.props.setCurrentCity(this.props.userLocation);
     this.props.setSessionDate(new Date());
     this.props.setCountOfSeats(1);
-
   }
 
-  setCurrentFilmName = (filmName) => {
+  setCurrentFilmName = filmName => {
     this.props.setCurrentFilmName(filmName);
-  }
-  
-  setCurrentCity = (city) => {
-    this.props.setCurrentCity(city);
-  }
-  
-  setCurrentCinema = (cinema) => {
-    this.props.setCurrentCinema(cinema);
-  }
+  };
 
-  setSessionDate = (date) => {
+  setCurrentCity = city => {
+    this.props.setCurrentCity(city);
+  };
+
+  setCurrentCinema = cinema => {
+    this.props.setCurrentCinema(cinema);
+  };
+
+  setSessionDate = date => {
     this.props.setSessionDate(date);
-  }
+  };
 
   render() {
-    const {filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList, cityList} = this.props;
+    const { filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList, cityList } = this.props;
     return (
       <section className="page-content">
         <div className="container">
-          <Header header="Film Search"/>
-          <SearchBar 
-            cities={cityList} 
+          <Header header="Film Search" />
+          <SearchBar
+            cities={cityList}
             selectedCity={selectedCity}
             filmName={filmName}
             cinema={cinema}
@@ -61,9 +59,9 @@ class FilmSearchPage extends Component {
             filmList={filmList}
             cinemaList={cinemaList}
           />
-          {
-            !filtredFilms 
-            ? <div className="loadingBlock">
+          {!filtredFilms ? (
+              ? (
+<div className="loadingBlock">
                 <Loader 
                   type="Puff"
                   color="#ffc107c9"
@@ -71,21 +69,21 @@ class FilmSearchPage extends Component {
                   width="100"
                   className="loader"
                 />   
-              </div> 
-            :
-              <FilmList filmList={filtredFilms} />
-            
+              </div>
+) 
+              :
+            <FilmList filmList={filtredFilms} />
+
           }
-          
-          
+
+
         </div>
       </section>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => ({
     films: state.search.films,
     filtredFilms: getFiltredFilms(state.search),
     selectedCity: state.search.filters.selectedCity ,
@@ -96,17 +94,19 @@ const mapStateToProps = (state) => {
     filmList: state.search.filmList,
     cinemaList: state.search.cinemaList,
     cityList: state.search.cityList
-  }
-}
+  })
 
 const mapDispatchToProps = dispatch => ({
   fetchFilms: () => dispatch(fetchFilms()),
-  setCurrentFilmName: (filmName) => dispatch(setCurrentFilmName(filmName)),
-  setCurrentCity: (city) => dispatch(setCurrentCity(city)),
-  setCurrentCinema: (cinema) => dispatch(setCurrentCinema(cinema)),
-  setSessionDate: (date) => dispatch(setSessionDate(date)),
-  setCountOfSeats: (count) => dispatch(setCountOfSeats(count))
-})
+  setCurrentFilmName: filmName => dispatch(setCurrentFilmName(filmName)),
+  setCurrentCity: city => dispatch(setCurrentCity(city)),
+  setCurrentCinema: cinema => dispatch(setCurrentCinema(cinema)),
+  setSessionDate: date => dispatch(setSessionDate(date)),
+  setCountOfSeats: count => dispatch(setCountOfSeats(count)),
+});
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilmSearchPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FilmSearchPage);

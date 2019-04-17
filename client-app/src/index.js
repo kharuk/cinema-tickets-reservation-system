@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import {store, persistor} from './store/';
+import { store, persistor } from './store';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import { PersistGate } from 'redux-persist/integration/react';
+
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
       <App />
     </PersistGate>
   </Provider>,
-  rootElement);
+  rootElement,
+);
 
 serviceWorker.unregister();
