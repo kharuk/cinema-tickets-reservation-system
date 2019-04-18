@@ -2,6 +2,7 @@ import React from 'react';
 import './orderTable.scss';
 import OrderItem from './OrderItem';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
+import Pagination from '../../shared/Pagination';
 
 const OrderTable = (props) => {
   const { orders } = props;
@@ -38,6 +39,11 @@ const OrderTable = (props) => {
           })}
         </tbody>
       </table>
+      <Pagination
+        currentPage={props.currentPage}
+        nextPage={props.nextPage}
+        goToPage={props.handlePageClick}
+      />
     </div>
   );
 };

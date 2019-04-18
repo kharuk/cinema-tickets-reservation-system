@@ -1,5 +1,7 @@
-.header__link_yellow{
-  color: #ffc107c9; 
+$header-page_text: #ffc107c9;
+
+.header__link_yellow {
+  color: $header-page_text;
   font-weight: 700;
 }
 

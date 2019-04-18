@@ -10,7 +10,7 @@ import AccountSettings from '../components/ProfilePage/AccountSettings';
 import ProfilePageContent from '../components/ProfilePage/ProfilePageContent';
 import OrderTable from '../components/ProfilePage/OrdersTable';
 import { getOrdersFiltredByDate } from '../store/selectors';
-import { fetchAllOrders } from '../store/actions/orderAction';
+import { fetchOrders } from '../store/actions/orderAction';
 
 
 class ProfilePage extends Component {
@@ -19,7 +19,20 @@ class ProfilePage extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchAllOrders().then(() => {
+    const typeOfOrders = this.props.location.pathname === '/profile' ? 'current' : 'previous';
+    this.props.fetchOrders(1, typeOfOrders).then(() => {
+      this.setState({
+        isLoading: true,
+      });
+    });
+  }
+
+  setPage = (page = 1, typeOfOrders = 'current') => {
+    console.log('typeOfOrders', typeOfOrders);
+    this.setState({
+      isLoading: false,
+    });
+    this.props.fetchOrders(page, typeOfOrders).then(() => {
       this.setState({
         isLoading: true,
       });
@@ -27,7 +40,7 @@ class ProfilePage extends Component {
   }
 
   render() {
-    const { ordersFiltredByDate, userInfo } = this.props;
+    const { userInfo } = this.props;
     return (
       <section className="page-content">
         <div className="container">
@@ -52,12 +65,28 @@ class ProfilePage extends Component {
                     <Route
                       exact
                       path={links.ORDERS_PAGE}
-                      render={props => <OrderTable {...props} orders={ordersFiltredByDate.currentOrders} />}
+                      render={props => (
+                        <OrderTable
+                          {...props}
+                          orders={this.props.orders}
+                          handlePageClick={page => this.setPage(page, 'current')}
+                          currentPage={this.props.currentPage}
+                          nextPage={this.props.nextPage}
+                        />
+                      )}
                     />
                     <Route
                       exact
                       path={links.PREVIOUS_ORDERS_PAGE}
-                      render={props => <OrderTable {...props} orders={ordersFiltredByDate.previousOrders} />}
+                      render={props => (
+                        <OrderTable
+                          {...props}
+                          orders={this.props.orders}
+                          handlePageClick={page => this.setPage(page, 'previous')}
+                          currentPage={this.props.currentPage}
+                          nextPage={this.props.nextPage}
+                        />
+                      )}
                     />
                     <Route
                       exact
@@ -76,12 +105,14 @@ class ProfilePage extends Component {
 
 const mapStateToProps = state => ({
   orders: state.order.orderList,
-  ordersFiltredByDate: getOrdersFiltredByDate(state.order),
+  // ordersFiltredByDate: getOrdersFiltredByDate(state.order),
   userInfo: state.user.userInfo,
+  currentPage: state.order.currentPage,
+  nextPage: state.order.nextPage,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllOrders: () => dispatch(fetchAllOrders()),
+  fetchOrders: (page, typeOfOrders) => dispatch(fetchOrders(page, typeOfOrders)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

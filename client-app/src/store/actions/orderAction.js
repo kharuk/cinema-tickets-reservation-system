@@ -23,13 +23,18 @@ export const addOrder = (session, chosenSeats, chosenExtraServices) => async () 
   }
 };
 
-export const fetchAllOrders = () => async (dispatch) => {
+export const fetchOrders = (page, typeOfOrders) => async (dispatch) => {
   try {
-    const { data } = await orderServices.getOrderList();
+    const { data } = await orderServices.getOrderList(page, typeOfOrders);
     if (data.isSuccessfully) {
       dispatch({
         type: orderTypes.FETCH_ORDERS,
-        payload: { orderList: data.orderList },
+        payload: {
+          orderList: data.orderList,
+          pageSize: data.pageSize,
+          dataCount: data.totalAmount,
+          requestPage: data.pageNumber,
+        },
       });
     }
   } catch (err) {

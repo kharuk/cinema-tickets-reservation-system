@@ -9,9 +9,25 @@ function addToken() {
   };
 }
 
-function getOrderList() {
+function getOrderList(page, typeOfOrders) {
+  console.log(page, typeOfOrders);
   const options = addToken();
-  return axios.get('http://localhost:8080/api/orders', options, { withCredentials: true });
+
+  options.params = {
+    page,
+    typeOfOrders,
+  };
+  console.log(options);
+  return axios.get('http://localhost:8080/api/orders', options);
+
+  /* options */// {
+/*     params: {
+      page,
+      typeOfOrders,
+    },
+  }, {
+    withCredentials: true,
+  }); */
 }
 
 function addOrder(data) {

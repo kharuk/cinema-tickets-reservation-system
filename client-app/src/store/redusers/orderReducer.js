@@ -11,11 +11,20 @@ export const orderReducer = (state = initialState, action) => {
     };
   }
   case orderTypes.FETCH_ORDERS: {
+    const {
+      pageSize, orderList, dataCount, requestPage,
+    } = data;
+    const pageCount = (pageSize && orderList && orderList.length)
+      ? Math.ceil(dataCount / pageSize)
+      : 0;
+    const currentPage = (requestPage > pageCount) ? 1 : requestPage;
+    const nextPage = (currentPage < pageCount) ? (currentPage + 1) : null;
+
     return {
       ...state,
       orderList: data.orderList,
-      currentOrders: data.currentOrders,
-      previousOrders: data.previousOrders,
+      currentPage,
+      nextPage,
     };
   }
   default:
