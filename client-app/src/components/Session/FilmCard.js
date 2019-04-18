@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
@@ -16,7 +16,7 @@ const styles = theme => ({
   card: {
     width: '100%',
     marginRight: '5%',
-    backgroundColor: '#f0f2f6'
+    backgroundColor: '#f0f2f6',
   },
   title: {
     color: '#4867c0',
@@ -24,8 +24,8 @@ const styles = theme => ({
     fontWeight: '700',
     textTransform: 'uppercase',
     wordWrap: 'break-word',
-    whiteSpace: 'pre-wrap'
-  }, 
+    whiteSpace: 'pre-wrap',
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -45,12 +45,12 @@ const styles = theme => ({
   },
   description: {
     wordWrap: 'break-word',
-    whiteSpace: 'pre-wrap'
+    whiteSpace: 'pre-wrap',
   },
   header: {
     fontWeight: 700,
-    fontSize: '1rem'
-  }
+    fontSize: '1rem',
+  },
 });
 
 class FilmCard extends Component {
@@ -71,12 +71,8 @@ class FilmCard extends Component {
             title: classes.title,
           }}
         />
-        <CardMedia
-          height="140"
-          className={classes.media}
-          image={this.props.image}
-        />
-        <CardActions className={classes.actions} disableActionSpacing>    
+        <CardMedia height="140" className={classes.media} image={this.props.image} />
+        <CardActions className={classes.actions} disableActionSpacing>
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
@@ -90,16 +86,10 @@ class FilmCard extends Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography 
-              paragraph
-              className={classes.header}
-            >
+            <Typography paragraph className={classes.header}>
               Description
             </Typography>
-            <Typography 
-              paragraph
-              className={classes.description}
-            >
+            <Typography paragraph className={classes.description}>
               {this.props.description}
             </Typography>
           </CardContent>
@@ -109,8 +99,6 @@ class FilmCard extends Component {
   }
 }
 
-FilmCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+PropTypes.shape({ classes: PropTypes.object.isRequired });
 
 export default withStyles(styles)(FilmCard);

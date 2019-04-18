@@ -1,13 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import '../styles/login.scss';
 
-class Header extends Component {
-
-    render() {
-      return (
-        <h3 className={`authentication__header ${this.props.className}`}>{this.props.header}</h3>
-      )
-    }
-}
+const Header = props => <h3 className={`authentication__header ${props.className}`}>{props.header}</h3>;
 
 export default Header;

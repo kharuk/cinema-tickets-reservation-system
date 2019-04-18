@@ -1,10 +1,10 @@
 import React from 'react';
-import './orderTable.scss'
+import './orderTable.scss';
 import OrderItem from './OrderItem';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
-const OrderTable = (props) =>{
-  const {orders} = props;
+const OrderTable = (props) => {
+  const { orders } = props;
   return (
     <div className="order__container table-responsive-lg">
       <table className="order-table table  table-hover">
@@ -20,28 +20,26 @@ const OrderTable = (props) =>{
           </tr>
         </thead>
         <tbody>
-        {
-          orders && orders.map((order) => {
+          {orders.map((order) => {
             const time = searchFilmActionHelpers.getTimeFromDate(order.date);
             const date = searchFilmActionHelpers.getFormatedDate(order.date);
             return (
-              <OrderItem 
-              key={order._id}
-              filmName={order.filmName}
-              city={order.location}
-              cinema={order.cinema}
-              date={date}
-              time={time}
-              countOfTickets={order.chosenSeats.length}
-              price={order.price.totalPrice}
-            />
-            )
-          })
-        }
+              <OrderItem
+                key={order._id}
+                filmName={order.filmName}
+                city={order.location}
+                cinema={order.cinema}
+                date={date}
+                time={time}
+                countOfTickets={order.chosenSeats.length}
+                price={order.price.totalPrice}
+              />
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
 export default OrderTable;
