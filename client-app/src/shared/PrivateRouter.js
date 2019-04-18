@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 import { links } from '../config/links';
 
-const PrivateRoute = ({ component: Components, isLoggedIn, role, requiredRoles, ...rest }) => {
+const PrivateRoute = ({
+  component: Components, isLoggedIn, role, requiredRoles, ...rest
+}) => {
   if (isLoggedIn && requiredRoles.includes(role)) {
     return <Route {...rest} render={props => <Components {...props} />} />;
   }

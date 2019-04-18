@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import { PersistGate } from 'redux-persist/integration/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,7 +8,6 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { store, persistor } from './store';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
-import { PersistGate } from 'redux-persist/integration/react';
 
 const rootElement = document.getElementById('root');
 

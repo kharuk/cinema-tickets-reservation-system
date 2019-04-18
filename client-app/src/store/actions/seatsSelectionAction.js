@@ -5,12 +5,12 @@ import reservationHelpers from '../../helper/ReservationHelpers';
 import { history } from '../index';
 import { links } from '../../config/links';
 
-const showErrorToast = err => {
+const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
   toastr.error(message);
 };
 
-export const getSessionById = id => async dispatch => {
+export const getSessionById = id => async (dispatch) => {
   try {
     const { data } = await sessionServices.getSessionById(id);
     if (data.isSuccessfully) {

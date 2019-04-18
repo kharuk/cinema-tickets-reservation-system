@@ -4,7 +4,7 @@ import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 
 class Picker extends Component {
-  setMaxDate = time => {
+  setMaxDate = (time) => {
     const nextDay = moment(time);
     return nextDay.add(1, 'month');
   };

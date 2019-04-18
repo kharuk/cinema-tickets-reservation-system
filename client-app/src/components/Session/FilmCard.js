@@ -99,8 +99,6 @@ class FilmCard extends Component {
   }
 }
 
-FilmCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+PropTypes.shape({ classes: PropTypes.object.isRequired });
 
 export default withStyles(styles)(FilmCard);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { links, linkGenerator } from '../../config/links';
+import { linkGenerator } from '../../config/links';
 
-const RoutingButton = props => {
-  const getLinkClass = chosenSeats => {
+const RoutingButton = (props) => {
+  const getLinkClass = (chosenSeats) => {
     if (chosenSeats.length === 0) {
       return 'link-disabled';
     }

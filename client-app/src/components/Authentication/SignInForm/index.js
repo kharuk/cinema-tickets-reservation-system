@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Input from '../Input';
 import '../styles/login.scss';
 import Header from '../Header';
 import { userActions } from '../../../store/actions/userAction';
-import { connect } from 'react-redux';
+
 
 class SignInForm extends Component {
   constructor(props) {
@@ -14,21 +15,20 @@ class SignInForm extends Component {
   state = {
     email: '',
     password: '',
-    errors: {},
   };
 
   componentDidMount() {
     this.props.resetErrorMessage();
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value.trim(),
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     this.props.login({ email, password });
@@ -60,7 +60,7 @@ class SignInForm extends Component {
             maxLength={20}
             value={password}
           />
-          <button className="authentication__form-button">Sign In</button>
+          <button className="authentication__form-button" type="submit">Sign In</button>
         </form>
       </div>
     );

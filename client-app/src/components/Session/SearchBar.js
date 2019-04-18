@@ -26,11 +26,7 @@ const styles = theme => ({
 const sites = [1, 2, 3, 4, 5];
 
 class SearchBar extends Component {
-  state = {
-    count_of_sites: '',
-  };
-
-  handleChange = name => event => {
+  handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -68,8 +64,6 @@ class SearchBar extends Component {
   }
 }
 
-SearchBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+PropTypes.shape({ classes: PropTypes.object.isRequired });
 
 export default withStyles(styles)(SearchBar);

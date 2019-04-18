@@ -18,31 +18,25 @@ class SearchFilmAction {
       }
       if (filters.filmName) {
         filters.filmName = filters.filmName.toLowerCase();
-        filtredData = _.filter(filtredData, item =>
-          _.includes(item.film_info.filmName.toLowerCase(), filters.filmName)
-        );
+        filtredData = _.filter(filtredData, item => _.includes(item.film_info.filmName.toLowerCase(), filters.filmName));
       }
 
       if (filters.cinema) {
         filters.cinema = filters.cinema.toLowerCase();
-        filtredData = _.forEach(filtredData, item => {
-          item.sessions = _.filter(item.sessions, item =>
-            _.startsWith(item.cinema.cinemaName.toLowerCase(), filters.cinema)
-          );
+        filtredData = _.forEach(filtredData, (item) => {
+          item.sessions = _.filter(item.sessions, item => _.startsWith(item.cinema.cinemaName.toLowerCase(), filters.cinema));
         });
       }
 
       if (filters.selectedCity) {
         filters.selectedCity = filters.selectedCity.toLowerCase();
-        filtredData = _.forEach(filtredData, item => {
-          item.sessions = _.filter(item.sessions, item =>
-            _.includes(item.cinema.location.toLowerCase(), filters.selectedCity)
-          );
+        filtredData = _.forEach(filtredData, (item) => {
+          item.sessions = _.filter(item.sessions, item => _.includes(item.cinema.location.toLowerCase(), filters.selectedCity));
         });
       }
 
       if (filters.countOfSeats) {
-        filtredData = _.forEach(filtredData, item => {
+        filtredData = _.forEach(filtredData, (item) => {
           item.sessions = _.filter(item.sessions, item => item.seatsAvailable >= filters.countOfSeats);
         });
       }
@@ -54,15 +48,16 @@ class SearchFilmAction {
 
   filterByDate = (films, date) => {
     if (moment(date).isAfter(moment(), 'day')) {
-      date = moment(date).set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+      date = moment(date).set({
+        hour: 0, minute: 0, second: 0, millisecond: 0,
+      });
       date = moment(date).format();
     }
     const startDate = moment(date);
     const endDate = moment(moment(date).endOf('day'));
-    const filteredFilms = _.forEach(films, item => {
+    const filteredFilms = _.forEach(films, (item) => {
       item.sessions = _.filter(
-        item.sessions,
-        item => moment(item.date).isSameOrAfter(startDate) && moment(item.date).isSameOrBefore(endDate)
+        item.sessions, item => moment(item.date).isSameOrAfter(startDate) && moment(item.date).isSameOrBefore(endDate),
       );
     });
     return filteredFilms;
@@ -74,15 +69,15 @@ class SearchFilmAction {
     return chosenFilmWithFiltredSession && chosenFilmWithFiltredSession[0];
   };
 
-  getFilmSearchLists = films => {
+  getFilmSearchLists = (films) => {
     // debugger;
     const filmList = [];
     const cinemaList = [];
     const cityList = [];
-    _.forEach(films, film => {
+    _.forEach(films, (film) => {
       if (film.sessions.length > 0) {
         filmList.push(film.film_info.filmName);
-        _.forEach(film.sessions, session => {
+        _.forEach(film.sessions, (session) => {
           if (moment(session.date).isSameOrAfter(moment())) {
             if (cinemaList.indexOf(session.cinema.cinemaName) === -1) {
               cinemaList.push(session.cinema.cinemaName);

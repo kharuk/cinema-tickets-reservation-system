@@ -3,7 +3,7 @@ import { searchTypes, userTypes } from './types';
 import sessionServices from '../../services/sessionServices';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
-const showErrorToast = err => {
+const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
   toastr.error(message);
 };
@@ -33,7 +33,7 @@ export const setCountOfSeats = countOfSeats => ({
   payload: { countOfSeats },
 });
 
-export const fetchFilms = () => async dispatch => {
+export const fetchFilms = () => async (dispatch) => {
   try {
     const { data } = await sessionServices.getSessionList();
     if (data.isSuccessfully) {

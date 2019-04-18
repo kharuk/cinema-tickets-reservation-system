@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
@@ -13,46 +13,44 @@ import PrivateRoute from '../shared/PrivateRouter';
 import { links } from '../config/links';
 import { history } from '../store';
 
-class Main extends Component {
-  render() {
-    const { isLoggedIn, role } = this.props;
-    return (
-      <Router history={history}>
-        <Layout loggedIn={isLoggedIn} role={role}>
-          <ReduxToastr
-            timeOut={4000}
-            newestOnTop={false}
-            preventDuplicates
-            position="top-left"
-            transitionIn="fadeIn"
-            transitionOut="fadeOut"
-            progressBar
-            closeOnToastrClick
+const Main = (props) => {
+  const { isLoggedIn, role } = props;
+  return (
+    <Router history={history}>
+      <Layout loggedIn={isLoggedIn} role={role}>
+        <ReduxToastr
+          timeOut={4000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-left"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          progressBar
+          closeOnToastrClick
+        />
+        <Switch>
+          {/* <Route exact path={ links.MAIN_PAGE_PATH }/> */}
+          <Route exact path={links.SIGN_IN_PAGE} component={LoginPage} />
+          <Route exact path={links.SIGN_UP_PAGE} component={RegisterPage} />
+          <PrivateRoute
+            requiredRoles={['User', 'Admin']}
+            exact
+            path={links.FILM_SEARCH_PAGE}
+            component={FilmSearchPage}
           />
-          <Switch>
-            {/* <Route exact path={ links.MAIN_PAGE_PATH }/> */}
-            <Route exact path={links.SIGN_IN_PAGE} component={LoginPage} />
-            <Route exact path={links.SIGN_UP_PAGE} component={RegisterPage} />
-            <PrivateRoute
-              requiredRoles={['User', 'Admin']}
-              exact
-              path={links.FILM_SEARCH_PAGE}
-              component={FilmSearchPage}
-            />
-            <PrivateRoute requiredRoles={['User', 'Admin']} exact path={links.FILM_PAGE} component={FilmPage} />
-            <PrivateRoute
-              requiredRoles={['User', 'Admin']}
-              exact
-              path={links.SITES_SELECTION_PAGE}
-              component={SeatsSelectionPage}
-            />
-            <PrivateRoute requiredRoles={['User', 'Admin']} path={links.ORDERS_PAGE} component={ProfilePage} />
-          </Switch>
-        </Layout>
-      </Router>
-    );
-  }
-}
+          <PrivateRoute requiredRoles={['User', 'Admin']} exact path={links.FILM_PAGE} component={FilmPage} />
+          <PrivateRoute
+            requiredRoles={['User', 'Admin']}
+            exact
+            path={links.SITES_SELECTION_PAGE}
+            component={SeatsSelectionPage}
+          />
+          <PrivateRoute requiredRoles={['User', 'Admin']} path={links.ORDERS_PAGE} component={ProfilePage} />
+        </Switch>
+      </Layout>
+    </Router>
+  );
+};
 
 function mapStateToProps(state) {
   return {

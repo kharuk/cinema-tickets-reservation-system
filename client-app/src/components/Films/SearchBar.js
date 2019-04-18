@@ -45,8 +45,19 @@ class SearchBar extends Component {
     });
   }
 
+  formatDataForAutosuggest = (dataList) => {
+    const autosuggestList = [];
+    dataList
+      && dataList.forEach((item) => {
+        autosuggestList.push({ name: item });
+      });
+    return autosuggestList;
+  };
+
   renderInputComponent(inputProps) {
-    const { classes, label, inputRef, ...other } = inputProps;
+    const {
+      classes, label, inputRef, ...other
+    } = inputProps;
     return (
       <TextField
         label={label}
@@ -58,15 +69,6 @@ class SearchBar extends Component {
       />
     );
   }
-
-  formatDataForAutosuggest = dataList => {
-    const autosuggestList = [];
-    dataList
-      && dataList.forEach(item => {
-        autosuggestList.push({ name: item });
-      });
-    return autosuggestList;
-  };
 
   render() {
     const { classes } = this.props;
@@ -128,8 +130,6 @@ class SearchBar extends Component {
   }
 }
 
-SearchBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+PropTypes.shape({ classes: PropTypes.object.isRequired });
 
 export default withStyles(styles)(SearchBar);

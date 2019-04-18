@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SeatBox = props => {
-  const getSeatBoxClass = seatInfo => {
+const SeatBox = (props) => {
+  const getSeatBoxClass = (seatInfo) => {
     if (seatInfo.booked) {
       return 'booked';
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Header from '../Header';
 import Input from '../Input';
 import InputGroup from '../Input/InputGroup';
@@ -6,7 +7,6 @@ import Select from '../Select';
 import '../styles/login.scss';
 import options from '../Option/optionData.json';
 import { userActions } from '../../../store/actions/userAction';
-import { connect } from 'react-redux';
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class SignUpForm extends Component {
     this.props.resetErrorMessage();
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value.trim(),
@@ -37,9 +37,11 @@ class SignUpForm extends Component {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword, firstName, lastName, location, gender } = this.state;
+    const {
+      email, password, confirmPassword, firstName, lastName, location, gender,
+    } = this.state;
     if (password !== confirmPassword) {
       this.setState({
         errors: {
@@ -47,12 +49,16 @@ class SignUpForm extends Component {
         },
       });
     } else {
-      this.props.signUp({ email, password, firstName, lastName, location, gender });
+      this.props.signUp({
+        email, password, firstName, lastName, location, gender,
+      });
     }
   };
 
   render() {
-    const { email, password, confirmPassword, firstName, lastName, location, gender, errors } = this.state;
+    const {
+      email, password, confirmPassword, firstName, lastName, location, gender, errors,
+    } = this.state;
     return (
       <div className="authentication__form-wrapper">
         <Header header="Sign Up Form" />
@@ -105,7 +111,7 @@ class SignUpForm extends Component {
             value={confirmPassword}
             caption={errors.password}
           />
-          <button className="authentication__form-button">Sign Up</button>
+          <button className="authentication__form-button" type="submit">Sign Up</button>
         </form>
       </div>
     );

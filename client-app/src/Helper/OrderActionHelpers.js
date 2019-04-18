@@ -21,11 +21,11 @@ class OrderAction {
     return data;
   };
 
-  sortOrdersByDate = orders => {
+  sortOrdersByDate = (orders) => {
     const currentOrders = [];
     const previousOrders = [];
     orders
-      && orders.forEach(order => {
+      && orders.forEach((order) => {
         if (moment(order.date) >= moment()) {
           currentOrders.push(order);
         } else {

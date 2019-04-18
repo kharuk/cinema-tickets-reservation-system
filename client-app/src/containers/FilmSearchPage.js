@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import '../components/Films/film.scss';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner';
 import FilmList from '../components/Films/FilmList';
 import SearchBar from '../components/Films/SearchBar';
 import Header from '../components/Authentication/Header';
-import Loader from 'react-loader-spinner';
 import { getFiltredFilms } from '../store/selectors';
 import {
   fetchFilms,
@@ -23,24 +23,26 @@ class FilmSearchPage extends Component {
     this.props.setCountOfSeats(1);
   }
 
-  setCurrentFilmName = filmName => {
+  setCurrentFilmName = (filmName) => {
     this.props.setCurrentFilmName(filmName);
   };
 
-  setCurrentCity = city => {
+  setCurrentCity = (city) => {
     this.props.setCurrentCity(city);
   };
 
-  setCurrentCinema = cinema => {
+  setCurrentCinema = (cinema) => {
     this.props.setCurrentCinema(cinema);
   };
 
-  setSessionDate = date => {
+  setSessionDate = (date) => {
     this.props.setSessionDate(date);
   };
 
   render() {
-    const { filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList, cityList } = this.props;
+    const {
+      filtredFilms, selectedCity, filmName, cinema, sessionDate, filmList, cinemaList, cityList,
+    } = this.props;
     return (
       <section className="page-content">
         <div className="container">
@@ -59,24 +61,20 @@ class FilmSearchPage extends Component {
             filmList={filmList}
             cinemaList={cinemaList}
           />
-          {!filtredFilms ? (
-              ? (
-<div className="loadingBlock">
-                <Loader 
+          {!filtredFilms
+            ? (
+              <div className="loadingBlock">
+                <Loader
                   type="Puff"
                   color="#ffc107c9"
-                  height="100"	
+                  height="100"
                   width="100"
                   className="loader"
-                />   
+                />
               </div>
-) 
-              :
-            <FilmList filmList={filtredFilms} />
-
+            )
+            : <FilmList filmList={filtredFilms} />
           }
-
-
         </div>
       </section>
     );
@@ -84,17 +82,17 @@ class FilmSearchPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    films: state.search.films,
-    filtredFilms: getFiltredFilms(state.search),
-    selectedCity: state.search.filters.selectedCity ,
-    filmName: state.search.filters.filmName ,
-    cinema: state.search.filters.cinema,
-    sessionDate: state.search.filters.sessionDate,
-    userLocation: state.user.userLocation,
-    filmList: state.search.filmList,
-    cinemaList: state.search.cinemaList,
-    cityList: state.search.cityList
-  })
+  films: state.search.films,
+  filtredFilms: getFiltredFilms(state.search),
+  selectedCity: state.search.filters.selectedCity,
+  filmName: state.search.filters.filmName,
+  cinema: state.search.filters.cinema,
+  sessionDate: state.search.filters.sessionDate,
+  userLocation: state.user.userLocation,
+  filmList: state.search.filmList,
+  cinemaList: state.search.cinemaList,
+  cityList: state.search.cityList,
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchFilms: () => dispatch(fetchFilms()),

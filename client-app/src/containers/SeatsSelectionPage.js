@@ -1,20 +1,24 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { toastr } from 'react-redux-toastr';
+import { withRouter } from 'react-router';
+import Loader from 'react-loader-spinner';
 import SeatSelect from '../components/SeatSelect/SeatSelect';
 import Header from '../components/Authentication/Header';
 import seatHelper from '../helper/SeatHelper';
 import '../components/SeatSelect/seatSelect.scss';
 import sessionInfo from '../components/SeatSelect/sessionInfo.json';
 import ConfirmOrder from '../components/SeatSelect/ConfirmOrder';
-import { connect } from 'react-redux';
 import { getSessionById } from '../store/actions/seatsSelectionAction';
 import { addOrder } from '../store/actions/orderAction';
-import { toastr } from 'react-redux-toastr';
 import reservationServices from '../services/reservationServices';
-import { withRouter } from 'react-router';
 import { links } from '../config/links';
-import Loader from 'react-loader-spinner';
 
-const showErrorToast = err => {
+
+const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
   toastr.error(message);
 };
@@ -33,6 +37,34 @@ class SeatsSelectionPage extends Component {
     finishTime: new Date(),
     isLoading: false,
   };
+
+  componentDidMount() {
+    this.setState({
+      isLoading: false,
+    });
+    window.addEventListener('beforeunload', this.saveStateToLocalStorage);
+    this.hydrateStateWithLocalStorage();
+    this.props
+      .getSessionById(this.props.match.params.id)
+      .then(() => {
+        let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
+        seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
+        this.setState({
+          seats,
+          isLoading: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        showErrorToast('Something went wrong');
+      });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.saveStateToLocalStorage);
+    this.removeStateFromLocalStorage();
+    this.removeBooking();
+  }
 
   saveStateToLocalStorage = () => {
     for (const key in this.state) {
@@ -60,43 +92,15 @@ class SeatsSelectionPage extends Component {
     }
   };
 
-  componentDidMount() {
-    this.setState({
-      isLoading: false,
-    });
-    window.addEventListener('beforeunload', this.saveStateToLocalStorage);
-    this.hydrateStateWithLocalStorage();
-    this.props
-      .getSessionById(this.props.match.params.id)
-      .then(() => {
-        let seats = seatHelper.sortSeats(this.props.session.sessionSeats);
-        seats = seatHelper.convertSeatsArray(seats, seatHelper.getSeatsRowsNumber(seats));
-        this.setState({
-          seats,
-          isLoading: true,
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        showErrorToast('Something went wrong');
-      });
-  }
-
   removeBooking = () => {
     !this.state.isConfirmOrder
       && reservationServices
         .removeBooking(this.props.match.params.id, this.state.chosenSeats)
-        .then((res) => {
+        .then(() => {
           console.log('unmount');
         })
         .catch(error => console.log(error));
   };
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.saveStateToLocalStorage);
-    this.removeStateFromLocalStorage();
-    this.removeBooking();
-  }
 
   updateChosenSeats = (seatInfo, chosenSeats) => {
     if (seatInfo.chosen) {
@@ -120,14 +124,14 @@ class SeatsSelectionPage extends Component {
     }
   };
 
-  handleSeatClick = seatInfo => {
+  handleSeatClick = (seatInfo) => {
     this.setTimer();
     const localSeats = [...this.state.seats];
     if (!this.state.seats[seatInfo.row][seatInfo.column].booked) {
       if (this.state.chosenSeats.length < 5 || seatInfo.chosen) {
         reservationServices
           .updateSeat(this.props.match.params.id, seatInfo)
-          .then(res => {
+          .then((res) => {
             if (res.data.isSuccessfully) {
               localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
               this.setState({
@@ -174,7 +178,7 @@ class SeatsSelectionPage extends Component {
     return chosenExtraServices;
   };
 
-  handleExtraServicesSelect = extra => event => {
+  handleExtraServicesSelect = extra => (event) => {
     const count = event.target.value;
     this.setState({
       chosenExtraServices: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, count, true),
@@ -190,7 +194,7 @@ class SeatsSelectionPage extends Component {
   handleConfirmReservation = () => {
     reservationServices
       .bookSessionSeats(this.props.match.params.id, this.state.chosenSeats)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices);
         this.setState({
@@ -208,7 +212,7 @@ class SeatsSelectionPage extends Component {
     return this.renderConfirmOrderContent();
   }
 
-  delayRedirect = event => {
+  delayRedirect = (event) => {
     const {
       history: { push },
     } = this.props;
@@ -223,37 +227,37 @@ class SeatsSelectionPage extends Component {
   renderSeatsSelectContent = () => (
     <Fragment>
       <Header header="Select Seats" />
-      {!this.state.isLoading ? (
-        (
-<div className="loadingBlock">
-                <Loader 
-                  type="Puff"
-                  color="#ffc107c9"
-                  height="100"	
-                  width="100"
-                  className="loader"
-                />   
-              </div>
-) 
-              :
-            <SeatSelect
-          seats={this.state.seats}
-          chosenSeats={this.state.chosenSeats}
-                chosenExtraServices={this.state.chosenExtraServices}
-          sessionSeatTypes={this.props.session.session_info.seat_type}
-          extraServices={this.props.session.session_info.extra_services}
-          filmId={this.props.session.film._id}
-                sessionId={this.props.match.params.id}
-                isTimerSet={this.state.isTimerSet}
-                finishTime={this.state.finishTime}
-          callBackHandleSeatClick={this.handleSeatClick}
-                callBackHandleSeatsSelect={this.handleSeatsSelect}
-          callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
-                callBackCheckBoxChanged={this.handleCheckBoxChanged}
-          callBackHandleTimer={this.handleTimer}
-              />
-
-        }
+      { !this.state.isLoading
+        ? (
+          <div className="loadingBlock">
+            <Loader
+              type="Puff"
+              color="#ffc107c9"
+              height="100"
+              width="100"
+              className="loader"
+            />
+          </div>
+        )
+        : (
+          <SeatSelect
+            seats={this.state.seats}
+            chosenSeats={this.state.chosenSeats}
+            chosenExtraServices={this.state.chosenExtraServices}
+            sessionSeatTypes={this.props.session.session_info.seat_type}
+            extraServices={this.props.session.session_info.extra_services}
+            filmId={this.props.session.film._id}
+            sessionId={this.props.match.params.id}
+            isTimerSet={this.state.isTimerSet}
+            finishTime={this.state.finishTime}
+            callBackHandleSeatClick={this.handleSeatClick}
+            callBackHandleSeatsSelect={this.handleSeatsSelect}
+            callBackHandleExtraServicesSelect={this.handleExtraServicesSelect}
+            callBackCheckBoxChanged={this.handleCheckBoxChanged}
+            callBackHandleTimer={this.handleTimer}
+          />
+        )
+      }
     </Fragment>
   )
 

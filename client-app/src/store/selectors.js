@@ -13,8 +13,7 @@ export const getFiltredFilms = createSelector(
 const getChosenFilmId = state => state.chosenFilm;
 export const getChosenFilm = createSelector(
   [getChosenFilmId, getFilms, getFilmFilters],
-  (chosenFilmId, films, filmFilters) =>
-    searchFilmActionHelpers.getChosenFilmWithFiltredSession(chosenFilmId, films, filmFilters),
+  (chosenFilmId, films, filmFilters) => searchFilmActionHelpers.getChosenFilmWithFiltredSession(chosenFilmId, films, filmFilters),
 );
 
 const getOrders = state => state.orderList;

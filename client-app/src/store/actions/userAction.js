@@ -5,7 +5,7 @@ import userServices from '../../services/authServices';
 import { links } from '../../config/links';
 import { history } from '../index';
 
-const showErrorToast = err => {
+const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
   toastr.error(message);
 };
@@ -26,7 +26,7 @@ function resetErrorMessage() {
 }
 
 function login(values) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const { data } = await userServices.login(values);
       if (data.isSuccessfully) {
@@ -56,7 +56,7 @@ function login(values) {
 }
 
 function signup(userInfo) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const { data } = await userServices.signup(userInfo);
       if (data.isSuccessfully) {
@@ -82,7 +82,7 @@ function signup(userInfo) {
 }
 
 function logout() {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       await userServices.logout();
       delete axios.defaults.headers.common.Authorization;

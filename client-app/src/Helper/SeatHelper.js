@@ -1,22 +1,21 @@
 class SeatHelper {
   getSeatsRowsNumber = seats => seats[seats.length - 1].row + 1;
 
-  sortSeats = seats =>
-    seats.sort((a, b) => {
-      if (a.row === b.row) {
-        if (a.column > b.column) {
-          return 1;
-        }
-        if (a.column < b.column) {
-          return -1;
-        }
-        return 0;
-      }
-      if (a.row > b.row) {
+  sortSeats = seats => seats.sort((a, b) => {
+    if (a.row === b.row) {
+      if (a.column > b.column) {
         return 1;
       }
-      return -1;
-    });
+      if (a.column < b.column) {
+        return -1;
+      }
+      return 0;
+    }
+    if (a.row > b.row) {
+      return 1;
+    }
+    return -1;
+  });
 
   convertSeatsArray = (seats, rows) => {
     const seatsArray = [];

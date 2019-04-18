@@ -7,7 +7,7 @@ class ExtraItem extends Component {
     isSelect: !!this.props.chosenExtraServices[this.props.label],
   };
 
-  changeSelect = isSelect => {
+  changeSelect = (isSelect) => {
     isSelect = !isSelect;
     this.props.callBackCheckBoxChanged(this.props.label, isSelect);
     return isSelect;
@@ -30,13 +30,15 @@ class ExtraItem extends Component {
         />
         {
           this.state.isSelect
-          ?           <CountSelect
-            label={this.props.label}
-            value={this.props.chosenExtraServices[this.props.label]}
-            callBackHandleClick={this.props.callBackHandleClick(this.props.label)}
-          />
-          :          ''
-        )}
+            ? (
+              <CountSelect
+                label={this.props.label}
+                value={this.props.chosenExtraServices[this.props.label]}
+                callBackHandleClick={this.props.callBackHandleClick(this.props.label)}
+              />
+            )
+            : ''
+        }
 
       </div>
     );

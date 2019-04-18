@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../styles/login.scss';
 
-class Select extends Component {
-  render() {
-    return <option value={this.props.value}>{this.props.item}</option>;
-  }
-}
+const Select = props => <option value={props.value}>{props.item}</option>;
 
 export default Select;

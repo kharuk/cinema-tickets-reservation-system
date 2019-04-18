@@ -18,7 +18,7 @@ class FilmPage extends Component {
     this.props.setCountOfSeats(1);
   }
 
-  setCountOfSeats = countOfSeats => {
+  setCountOfSeats = (countOfSeats) => {
     this.props.setCountOfSeats(countOfSeats);
   };
 

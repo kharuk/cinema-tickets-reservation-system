@@ -12,8 +12,7 @@ class ReservationHelpers {
     return { priceOfTickets, priceOfExtraServices, totalPrice };
   };
 
-  modifiedSessionSeats = sessionSeats =>
-    _.map(sessionSeats, sessionSeat => {
+  modifiedSessionSeats = sessionSeats => _.map(sessionSeats, (sessionSeat) => {
     sessionSeat.row = sessionSeat.seat_id.row;
     sessionSeat.column = sessionSeat.seat_id.column;
     sessionSeat.type = sessionSeat.seat_id.type;

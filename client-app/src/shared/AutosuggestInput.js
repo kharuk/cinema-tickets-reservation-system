@@ -77,17 +77,15 @@ class AutosuggestInput extends PureComponent {
     return (
       <MenuItem selected={isHighlighted} component="div" className={classes.dropDownMenu}>
         <div className={classes.menuItem}>
-          {parts.map((part, index) =>
-            part.highlight ? (
-              <span key={String(index)} style={{ fontWeight: 700 }}>
-                {part.text}
-              </span>
-            ) : (
-              <strong key={String(index)} style={{ fontWeight: 300 }}>
-                {part.text}
-              </strong>
-            )
-          )}
+          {parts.map((part, index) => (part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 700 }}>
+              {part.text}
+            </span>
+          ) : (
+            <strong key={String(index)} style={{ fontWeight: 300 }}>
+              {part.text}
+            </strong>
+          )))}
         </div>
       </MenuItem>
     );
@@ -144,8 +142,6 @@ class AutosuggestInput extends PureComponent {
   }
 }
 
-AutosuggestInput.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+PropTypes.shape({ classes: PropTypes.object.isRequired });
 
 export default withStyles(styles)(AutosuggestInput);

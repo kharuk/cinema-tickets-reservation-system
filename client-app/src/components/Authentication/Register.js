@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SignUpForm from './SignUpForm';
 import './styles/login.scss';
 import Logo from './Logo';
 
-class Register extends Component {
-  render() {
-    return (
-      <section className="page-content authentication__form">
-        <div className="container">
-          <div className="authentication__content">
-            <Logo src="../images/registration-form-2.jpg" alt="sing in image" />
-            <SignUpForm />
-          </div>
-        </div>
-      </section>
-    );
-  }
-}
+const Register = () => (
+  <section className="page-content authentication__form">
+    <div className="container">
+      <div className="authentication__content">
+        <Logo src="../images/registration-form-2.jpg" alt="sing in image" />
+        <SignUpForm />
+      </div>
+    </div>
+  </section>
+);
 
 export default Register;

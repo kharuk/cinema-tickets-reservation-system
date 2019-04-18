@@ -5,7 +5,7 @@ import orderServices from '../../services/orderServices';
 import { history } from '../index';
 import { links } from '../../config/links';
 
-const showErrorToast = err => {
+const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
   toastr.error(message);
 };
@@ -23,7 +23,7 @@ export const addOrder = (session, chosenSeats, chosenExtraServices) => async () 
   }
 };
 
-export const fetchAllOrders = () => async dispatch => {
+export const fetchAllOrders = () => async (dispatch) => {
   try {
     const { data } = await orderServices.getOrderList();
     if (data.isSuccessfully) {

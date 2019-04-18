@@ -3,7 +3,7 @@ import './orderTable.scss';
 import OrderItem from './OrderItem';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
-const OrderTable = props => {
+const OrderTable = (props) => {
   const { orders } = props;
   return (
     <div className="order__container table-responsive-lg">
@@ -20,7 +20,7 @@ const OrderTable = props => {
           </tr>
         </thead>
         <tbody>
-          {orders.map(order => {
+          {orders.map((order) => {
             const time = searchFilmActionHelpers.getTimeFromDate(order.date);
             const date = searchFilmActionHelpers.getFormatedDate(order.date);
             return (

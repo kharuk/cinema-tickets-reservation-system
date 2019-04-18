@@ -1,7 +1,7 @@
 import React from 'react';
 import reservationHelpers from '../../helper/ReservationHelpers';
 
-const OutputPrice = props => {
+const OutputPrice = (props) => {
   const price = reservationHelpers.countTotalPrice(
     props.chosenSeats,
     props.chosenExtraServices,
