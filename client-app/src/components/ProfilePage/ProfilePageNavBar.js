@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { links } from '../../config/links';
+import { checkPropTypes } from 'prop-types';
 
-const ProfilePageNavBar = ({ userInfo }) => {
+const ProfilePageNavBar = ({ userInfo, handlePageClick }) => {
   const currentHref = window.location.href.replace('http://localhost:3000', '');
   return (
     <div className="col-md-3">
@@ -14,13 +15,13 @@ const ProfilePageNavBar = ({ userInfo }) => {
         <div className="profile-page__menu">
           <ul className="navbar-nav profile-page__nav">
             <li className={`${currentHref === links.ORDERS_PAGE && 'active'} nav-item`}>
-              <Link to={links.ORDERS_PAGE} className="link nav-link">
+              <Link to={links.ORDERS_PAGE} onClick={() => handlePageClick(1, 'current')} className="link nav-link">
                 <i className="glyphicon glyphicon-home" />
                 Current orders
               </Link>
             </li>
             <li className={`${currentHref === links.PREVIOUS_ORDERS_PAGE && 'active'} nav-item`}>
-              <Link to={links.PREVIOUS_ORDERS_PAGE} className="link nav-link">
+              <Link to={links.PREVIOUS_ORDERS_PAGE} onClick={() => handlePageClick(1, 'previous')} className="link nav-link">
                 <i className="glyphicon glyphicon-ok" />
                 Previous orders
               </Link>

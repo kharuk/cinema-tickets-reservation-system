@@ -51,6 +51,12 @@ $order-table_without-background-color: #f9ebdf;
   white-space: pre-wrap;
 }
 
+.order-not-found{
+  padding-top: 5%;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 992px) {
   .order-table {
     display: block;

@@ -10,24 +10,13 @@ function addToken() {
 }
 
 function getOrderList(page, typeOfOrders) {
-  console.log(page, typeOfOrders);
   const options = addToken();
-
   options.params = {
     page,
     typeOfOrders,
   };
-  console.log(options);
-  return axios.get('http://localhost:8080/api/orders', options);
 
-  /* options */// {
-/*     params: {
-      page,
-      typeOfOrders,
-    },
-  }, {
-    withCredentials: true,
-  }); */
+  return axios.get('http://localhost:8080/api/orders', options);
 }
 
 function addOrder(data) {

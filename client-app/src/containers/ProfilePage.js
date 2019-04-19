@@ -28,7 +28,6 @@ class ProfilePage extends Component {
   }
 
   setPage = (page = 1, typeOfOrders = 'current') => {
-    console.log('typeOfOrders', typeOfOrders);
     this.setState({
       isLoading: false,
     });
@@ -59,7 +58,10 @@ class ProfilePage extends Component {
             )
             : (
               <div className="row profile-page__container">
-                <ProfilePageNavBar userInfo={userInfo} />
+                <ProfilePageNavBar 
+                  userInfo={userInfo}
+                  handlePageClick={this.setPage} 
+                />
                 <ProfilePageContent>
                   <Switch>
                     <Route
@@ -109,6 +111,7 @@ const mapStateToProps = state => ({
   userInfo: state.user.userInfo,
   currentPage: state.order.currentPage,
   nextPage: state.order.nextPage,
+
 });
 
 const mapDispatchToProps = dispatch => ({

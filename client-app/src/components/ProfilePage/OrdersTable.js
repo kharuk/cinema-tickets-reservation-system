@@ -39,11 +39,17 @@ const OrderTable = (props) => {
           })}
         </tbody>
       </table>
-      <Pagination
-        currentPage={props.currentPage}
-        nextPage={props.nextPage}
-        goToPage={props.handlePageClick}
-      />
+      {
+        orders && orders.length ? (
+          <Pagination
+            currentPage={props.currentPage}
+            nextPage={props.nextPage}
+            goToPage={props.handlePageClick}
+          />
+        ) : (
+          <p className="order-not-found">Nothing not foud</p>
+        )
+      }
     </div>
   );
 };

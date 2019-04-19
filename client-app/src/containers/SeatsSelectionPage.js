@@ -195,7 +195,6 @@ class SeatsSelectionPage extends Component {
     reservationServices
       .bookSessionSeats(this.props.match.params.id, this.state.chosenSeats)
       .then((res) => {
-        console.log(res);
         this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices);
         this.setState({
           isConfirmOrder: true,

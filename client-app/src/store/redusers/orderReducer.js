@@ -1,6 +1,9 @@
 import { orderTypes } from '../actions/types';
 
-const initialState = {};
+const initialState = {
+  currentPage: 1,
+  nextPage: null
+};
 
 export const orderReducer = (state = initialState, action) => {
   const data = action.payload;
@@ -19,7 +22,6 @@ export const orderReducer = (state = initialState, action) => {
       : 0;
     const currentPage = (requestPage > pageCount) ? 1 : requestPage;
     const nextPage = (currentPage < pageCount) ? (currentPage + 1) : null;
-
     return {
       ...state,
       orderList: data.orderList,
