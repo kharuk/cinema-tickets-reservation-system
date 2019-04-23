@@ -10,6 +10,7 @@ import FilmPage from './FilmPage';
 import SeatsSelectionPage from './SeatsSelectionPage';
 import ProfilePage from './ProfilePage';
 import PrivateRoute from '../shared/PrivateRouter';
+import Admin from './Admin';
 import { links } from '../config/links';
 import { history } from '../store';
 
@@ -33,6 +34,11 @@ const Main = (props) => {
           <Route exact path={links.SIGN_IN_PAGE} component={LoginPage} />
           <Route exact path={links.SIGN_UP_PAGE} component={RegisterPage} />
           <PrivateRoute
+            requiredRoles={['Admin']}
+            path={links.ADMIN_HOME}
+            component={Admin}
+          />
+          <PrivateRoute
             requiredRoles={['User', 'Admin']}
             exact
             path={links.FILM_SEARCH_PAGE}
@@ -55,7 +61,7 @@ const Main = (props) => {
 function mapStateToProps(state) {
   return {
     isLoggedIn: !!state.user.user,
-    role: state.user.user ? state.user.user.role : '',
+    role: state.user.user ? state.user.user : '',
   };
 }
 

@@ -9,7 +9,6 @@ import '../components/ProfilePage/profilePage.scss';
 import AccountSettings from '../components/ProfilePage/AccountSettings';
 import ProfilePageContent from '../components/ProfilePage/ProfilePageContent';
 import OrderTable from '../components/ProfilePage/OrdersTable';
-import { getOrdersFiltredByDate } from '../store/selectors';
 import { fetchOrders } from '../store/actions/orderAction';
 
 
@@ -58,9 +57,9 @@ class ProfilePage extends Component {
             )
             : (
               <div className="row profile-page__container">
-                <ProfilePageNavBar 
+                <ProfilePageNavBar
                   userInfo={userInfo}
-                  handlePageClick={this.setPage} 
+                  handlePageClick={this.setPage}
                 />
                 <ProfilePageContent>
                   <Switch>

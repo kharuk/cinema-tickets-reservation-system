@@ -9,6 +9,10 @@ export const links = {
   CURRENT_ORDERS_PAGE: '/profile/current-orders',
   PREVIOUS_ORDERS_PAGE: '/profile/previous-orders',
   PROFILE_PAGE: '/profile/account-settings',
+  ADMIN_HOME: '/admin',
+  MANAGE_MOVIES: '/admin/films',
+  MANAGE_CINEMAS: '/admin/cinemas',
+  MANAGE_SESSIONS: '/admin/sessions',
 };
 
 export const linkGenerator = {

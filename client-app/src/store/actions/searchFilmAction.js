@@ -47,6 +47,11 @@ export const fetchFilms = () => async (dispatch) => {
           cityList,
         },
       });
+    } else {
+      showErrorToast(data.message);
+      dispatch({
+        type: userTypes.LOGOUT_USER,
+      });
     }
   } catch (err) {
     console.log(err);

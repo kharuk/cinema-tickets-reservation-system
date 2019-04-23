@@ -21,12 +21,20 @@ const NavBar = (props) => {
             )
             : (
               <Fragment>
-                <li className="nav-item mx-0 mx-lg-1">
-                  <NavLink to={links.SIGN_IN_PAGE} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sign Out</NavLink>
-                </li>
+                {role === 'Admin'
+                && (
+                  <li className="nav-item mx-0 mx-lg-1">
+                    <NavLink to={links.ADMIN_HOME} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Admin Home</NavLink>
+                  </li>
+                )
+                }
                 <li className="nav-item mx-0 mx-lg-1">
                   <NavLink to={links.ORDERS_PAGE} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Profile</NavLink>
                 </li>
+                <li className="nav-item mx-0 mx-lg-1">
+                  <NavLink to={links.SIGN_IN_PAGE} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Sign Out</NavLink>
+                </li>
+
               </Fragment>
             )
         }

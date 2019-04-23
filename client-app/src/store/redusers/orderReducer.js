@@ -2,7 +2,7 @@ import { orderTypes } from '../actions/types';
 
 const initialState = {
   currentPage: 1,
-  nextPage: null
+  nextPage: null,
 };
 
 export const orderReducer = (state = initialState, action) => {
