@@ -29,7 +29,7 @@ const styles = theme => ({
 });
 
 function LinkTab(props) {
-  return <Tab component={NavLink} {...props} />;
+  return <Tab className="tab-link" component={NavLink} {...props} />;
 }
 
 class ScrollableTabsButtonForce extends React.Component {
