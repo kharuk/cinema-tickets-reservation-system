@@ -65,9 +65,9 @@ class ScrollableTabsButtonForce extends React.Component {
               </Tabs>
             </AppBar>
             <TabContainer>
-              <Route exact path={links.MANAGE_MOVIES} component={ManageFilms} />
-              <Route exact path={links.MANAGE_CINEMAS} component={ManageCinemas} />
-              <Route exact path={links.MANAGE_SESSIONS} component={ManageSessions} />
+              <Route path={links.MANAGE_MOVIES} component={ManageFilms} />
+              <Route path={links.MANAGE_CINEMAS} component={ManageCinemas} />
+              <Route path={links.MANAGE_SESSIONS} component={ManageSessions} />
             </TabContainer>
 
             {/*        {value === 0 && <TabContainer><ManageFilms /></TabContainer>}

@@ -13,6 +13,7 @@ export const links = {
   MANAGE_MOVIES: '/admin/films',
   MANAGE_CINEMAS: '/admin/cinemas',
   MANAGE_SESSIONS: '/admin/sessions',
+  ADD_FILM: '/admin/films/create',
 };
 
 export const linkGenerator = {

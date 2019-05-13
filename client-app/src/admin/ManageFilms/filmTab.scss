@@ -56,6 +56,14 @@ $session-background-color:  #f0f2f6;
         color: $session-background-color;
       }
   }
+
+  &__button-create {
+    margin-bottom: 10px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: flex-start;
+
+  }
   
   .link-disabled {
     color: currentColor;
