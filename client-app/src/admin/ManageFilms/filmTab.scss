@@ -56,4 +56,12 @@ $session-background-color:  #f0f2f6;
         color: $session-background-color;
       }
   }
+  
+  .link-disabled {
+    color: currentColor;
+    opacity: 0.5;
+    text-decoration: none;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 }

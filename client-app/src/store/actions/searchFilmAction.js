@@ -38,6 +38,9 @@ export const fetchFilms = () => async (dispatch) => {
     const { data } = await sessionServices.getSessionList();
     if (data.isSuccessfully) {
       const { filmList, cinemaList, cityList } = searchFilmActionHelpers.getFilmSearchLists(data.sessions);
+   /*    filmList.forEach(film => {
+        searchFilmActionHelpers.getPhoto(film);
+      }); */
       dispatch({
         type: searchTypes.FETCH_FILMS,
         payload: {

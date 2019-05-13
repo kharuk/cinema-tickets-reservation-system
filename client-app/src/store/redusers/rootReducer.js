@@ -5,7 +5,8 @@ import { searchReducer } from './searchReducer';
 import { seatsSelectionReducer } from './seatsSelectionReducer';
 import { orderReducer } from './orderReducer';
 import { userReducer } from './userReducer';
-import { reducer as formReducer } from 'redux-form'
+import { adminReducer } from './adminReducer';
+import { reducer as formReducer } from 'redux-form';
 
 export const rootReducer = combineReducers({
   firestore: firestoreReducer,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   user: userReducer,
   order: orderReducer,
   seatsSelect: seatsSelectionReducer,
+  admin: adminReducer, 
   form: formReducer,
 });
