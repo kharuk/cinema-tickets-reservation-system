@@ -68,6 +68,8 @@ export const searchReducer = (state = initialState, action) => {
       filmList: data.filmList,
       cinemaList: data.cinemaList,
       cityList: data.cityList,
+/*       allFilmList: data.allFilmList,
+      allCinemaList: data.allCinemaList */
     };
   }
   case searchTypes.SET_CHOSEN_FILM_ID: {

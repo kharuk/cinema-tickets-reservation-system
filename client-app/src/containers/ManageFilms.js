@@ -3,7 +3,7 @@ import Header from '../components/Authentication/Header';
 import { connect } from 'react-redux';
 import '../components/Session/session.scss';
 import AddFilmForm from '../admin/ManageFilms/CreateFilm';
-import FilmList from '../admin/FilmList';
+import FilmList from '../admin/ManageFilms/FilmList';
 import ShowContent from '../admin/ShowContent';
 import {
   withRouter, Route, Switch,
@@ -15,13 +15,6 @@ import { links } from '../config/links';
 
 
 class ManageFilms extends Component {
-  state = {
-    count: 1,
-  }
-
-  componentDidMount() {
-  
-  }
 
   render() {
     let {films, removeItem, updateItem, fetchFilm, fetchFilms} = this.props;
@@ -40,8 +33,7 @@ class ManageFilms extends Component {
                   updateItem={updateItem}
                   fetchFilms={fetchFilms}
                 />
-              )}
-             
+              )}  
             /> 
             <Route
               exact path={links.ADD_FILM}
@@ -59,15 +51,7 @@ class ManageFilms extends Component {
               )}
 
             /> 
-
-            {/*         <Route exact path={links.MANAGE_CINEMAS} component={ManageCinemas} />
-            <Route exact path={links.MANAGE_SESSIONS} component={ManageSessions} /> */} 
           </ShowContent>
-          
-           
-          
-   
-      
         </div>
       </section>
     );

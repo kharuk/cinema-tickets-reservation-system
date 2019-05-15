@@ -1,5 +1,5 @@
 import { toastr } from 'react-redux-toastr';
-import { searchTypes, userTypes } from './types';
+import { searchTypes, userTypes, adminTypes } from './types';
 import sessionServices from '../../services/sessionServices';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
 
@@ -38,6 +38,7 @@ export const fetchFilms = () => async (dispatch) => {
     const { data } = await sessionServices.getSessionList();
     if (data.isSuccessfully) {
       const { filmList, cinemaList, cityList } = searchFilmActionHelpers.getFilmSearchLists(data.sessions);
+    //  const {allFilmList, allCinemaList} = searchFilmActionHelpers.getAllFilmList(data.sessions);
    /*    filmList.forEach(film => {
         searchFilmActionHelpers.getPhoto(film);
       }); */
@@ -48,8 +49,13 @@ export const fetchFilms = () => async (dispatch) => {
           filmList,
           cinemaList,
           cityList,
+   /*        allFilmList,
+          allCinemaList */
         },
       });
+      dispatch({
+        type: adminTypes.RESET_FILM_INFO,
+      }); 
     } else {
       showErrorToast(data.message);
       dispatch({

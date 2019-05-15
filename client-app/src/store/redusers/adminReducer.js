@@ -1,5 +1,3 @@
-
-
 import { adminTypes } from '../actions/types';
 
 const initialState = {
@@ -15,6 +13,23 @@ export const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         film: data.film
+      }
+    }
+    case adminTypes.RESET_SESSION_INFO: {
+      return initialState;
+    }
+    case adminTypes.FETCH_SESSION_BY_ID: {
+      return {
+        ...state,
+        session: data.session
+      }
+    }
+    case adminTypes.FETCH_SESSION: {
+      return {
+        ...state,
+        sessions: data.sessions,
+        allFilmList: data.allFilmList,
+        allCinemaList: data.allCinemaList
       }
     }
   default:

@@ -5,6 +5,7 @@
     flex-flow: row nowrap;
     margin-left: 10px;
 
+
     &_focused {
         border-color: rgb(66, 150, 153);
     }
@@ -24,6 +25,8 @@
         outline: none;
         font: 100 1em/0.5em "Roboto", sans-serif;
         font-weight: 500;
+        line-height: 1.2;
+        //overflow: scroll;
     }
 
     &__icon {

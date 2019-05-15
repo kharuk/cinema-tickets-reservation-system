@@ -14,11 +14,14 @@ export const links = {
   MANAGE_CINEMAS: '/admin/cinemas',
   MANAGE_SESSIONS: '/admin/sessions',
   ADD_FILM: '/admin/films/create',
-  UPDATE_FILM: '/admin/films/:id/update'
+  UPDATE_FILM: '/admin/films/:id/update',
+  ADD_SESSION: '/admin/sessions/create',
+  UPDATE_SESSION: '/admin/sessions/:id/update'
 };
 
 export const linkGenerator = {
   getFilmPageLink: id => `/films/${id}`,
   getFilmLink: id => `/admin/films/${id}/update`,
+  getSessionLink: id => `/admin/sessions/${id}/update`,
   getSessionPageLink: id => `/sites-selection/${id}`,
 };

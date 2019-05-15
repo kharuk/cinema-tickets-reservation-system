@@ -76,6 +76,11 @@ $seat-select-output-price-background-color: #dee2e6;
   border: solid $seat-select-seat-border-color;
   margin: 5px;
   display: inline-block;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .seat-default {

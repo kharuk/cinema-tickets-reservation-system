@@ -91,6 +91,24 @@ class SearchFilmAction {
     });
     return { filmList, cinemaList, cityList };
   };
+
+  getAllFilmList = (films) => {
+    const allFilmList = [];
+    const allCinemaList = [];
+    _.forEach(films, (film) => {
+      allFilmList.push({value: film._id, label: film.film_info.filmName});
+        _.forEach(film.sessions, (session) => {
+          let arr = _.find(allCinemaList, {'value': session.cinema._id, 'label': session.cinema.cinemaName });
+         // if (allCinemaList.indexOf(session.cinema.cinemaName) === -1) {
+           if (!arr) {
+         //  if (_.find(allCinemaList, { 'id': session.cinema._id, 'label': session.cinema.cinemaName })){
+            allCinemaList.push({value:  session.cinema._id, label:  session.cinema.cinemaName});
+          }
+        });
+      }
+    );
+    return { allFilmList, allCinemaList};
+  }
 }
 
 const searchFilmActionHelpers = new SearchFilmAction();

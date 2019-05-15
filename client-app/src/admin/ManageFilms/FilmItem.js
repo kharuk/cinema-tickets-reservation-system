@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import defaultImage from '../images/default-movie-poster.jpg';
-import Tool from '../shared/Tool/Tool';
-import { links } from '../config/links';
-import { linkGenerator } from '../config/links';
-import './ManageFilms/filmTab.scss'
+import defaultImage from '../../images/default-movie-poster.jpg';
+import Tool from '../../shared/Tool/Tool';
+import { links } from '../../config/links';
+import { linkGenerator } from '../../config/links';
+import './filmTab.scss'
 
 const FilmInfo = props => (
   <div className="col-md-4 col-lg-3">

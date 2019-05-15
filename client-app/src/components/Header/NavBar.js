@@ -24,7 +24,7 @@ const NavBar = (props) => {
                 {role === 'Admin'
                 && (
                   <li className="nav-item mx-0 mx-lg-1">
-                    <NavLink to={links.ADMIN_HOME} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Admin Home</NavLink>
+                    <NavLink to={links.MANAGE_MOVIES} className="nav-link py-3 px-0 px-lg-3 header__link_yellow">Admin Home</NavLink>
                   </li>
                 )
                 }

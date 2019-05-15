@@ -17,11 +17,7 @@ function addFilm(filmInfo) {
 
 function saveImages(formData) {
   console.log('formData', formData);
-  return axios.post('http://localhost:8080/api/images', formData, {
- /*      headers: {
-          'Content-Type': 'multipart/form-data',
-      }, */
-  });
+  return axios.post('http://localhost:8080/api/images', formData);
 }
 
 function removeFilm(id) {
@@ -42,10 +38,45 @@ function getFilm(id) {
   return axios.get(`http://localhost:8080/api/films/${id}`, options);
 }
 
+function addSession(sessionInfo) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.post('http://localhost:8080/api/sessions', { ...sessionInfo }, options);
+}
+
+function removeSession(id) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.delete(`http://localhost:8080/api/sessions/${id}`, options);
+}
+
+function updateSession(id, data) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.put(`http://localhost:8080/api/sessions/${id}`, { ...data }, options);
+}
+
+function getSession(id) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.get(`http://localhost:8080/api/sessions/${id}`, options);
+}
+
+function getAllSessions() {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.get(`http://localhost:8080/api/sessions`, options);
+}
+
 export default {
   addFilm,
   saveImages,
   removeFilm,
   updateFilm,
-  getFilm
+  getFilm,
+  addSession,
+  removeSession,
+  updateSession,
+  getSession,
+  getAllSessions
 };

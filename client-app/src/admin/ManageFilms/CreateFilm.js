@@ -49,7 +49,7 @@ class FilmTab extends Component {
               className="film-tab__form-field"
               name="description"
               component={TextInput}
-              rows={4}
+              rows={5}
               type="text"
               essence="Film description"
               placeholder="Film Description"

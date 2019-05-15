@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import FilmItem from './FilmItem';
 import { Link } from 'react-router-dom';
-import { links } from '../config/links';
-import socket from '../constants/socket';
+import { links } from '../../config/links';
+import socket from '../../constants/socket';
 
 class  FilmInfoContainer extends Component{
   componentDidMount() {
