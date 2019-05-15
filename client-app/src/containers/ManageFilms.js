@@ -9,7 +9,8 @@ import {
   withRouter, Route, Switch,
 } from 'react-router-dom';
 
-import {fetchFilms} from '../store/actions/searchFilmAction';
+import { fetchFilms } from '../store/actions/searchFilmAction';
+import { removeItem, updateItem, fetchFilm } from '../store/actions/adminActions'
 import { links } from '../config/links';
 
 
@@ -19,11 +20,11 @@ class ManageFilms extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchFilms();
+  
   }
 
   render() {
-    let {films} = this.props;
+    let {films, removeItem, updateItem, fetchFilm, fetchFilms} = this.props;
     return (
       <section className="page-content">
         <div className="container">
@@ -35,13 +36,28 @@ class ManageFilms extends Component {
                 <FilmList
                   {...props}
                   filmList={films}
-
+                  removeItem={removeItem}
+                  updateItem={updateItem}
+                  fetchFilms={fetchFilms}
                 />
               )}
+             
             /> 
             <Route
               exact path={links.ADD_FILM}
               component={AddFilmForm}
+            /> 
+            <Route
+              exact path={links.UPDATE_FILM}
+              render={props => (
+                <AddFilmForm
+                {...props}
+                fetchFilm={fetchFilm}
+                updateFilm={updateItem}
+                isEditable={true}
+                />
+              )}
+
             /> 
 
             {/*         <Route exact path={links.MANAGE_CINEMAS} component={ManageCinemas} />
@@ -64,6 +80,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchFilms: () => dispatch(fetchFilms()),
+  removeItem: (id) => dispatch(removeItem(id)),
+  updateItem: (id, data) => dispatch(updateItem(id, data)),
+  fetchFilm: (id) => dispatch(fetchFilm(id))
 });
 
 

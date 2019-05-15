@@ -24,15 +24,29 @@ class ImageUploader extends PureComponent {
         images: [],
     };
 
+    componentDidMount() {
+/*         const {
+            input: { value }
+        } = this.props;*/
+/*         this.props.input.value && this.setState(state => ({
+            images: [
+               { src:  this.props.input.value},
+                //...this.props.input.value.map(file => Object.assign(file, { src: URL.createObjectURL(file) }) ),
+            ]
+        })) 
+        this.props.input.onChange(this.state.images);  */
+    }
+
     handleDrop = (acceptedFiles) => {
-        this.setState(state => ({
+        console.log('acceptedFiles', acceptedFiles);
+         this.setState(state => ({
             images: [
                 ...state.images,
                 ...acceptedFiles.map(file => Object.assign(file, { src: URL.createObjectURL(file) })),
             ],
         }));
 
-        this.props.input.onChange(this.state.images);
+        this.props.input.onChange(this.state.images); 
     };
 
     removeItem = removingFile => () => {

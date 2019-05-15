@@ -72,4 +72,24 @@ $session-background-color:  #f0f2f6;
     pointer-events: none;
     cursor: not-allowed;
   }
+
+  .film-info__container-delete {
+    position: absolute;
+    top: -3px;
+    left: -10px;
+
+    &:active {
+        background-color: rgb(233, 80, 80);
+    }
+  }
+
+  .film-info__container-update {
+    position: absolute;
+    top: -3px;
+    left: -50px;
+
+    &:active {
+        background-color: $film-tab-button-color 
+    }
+  }
 }

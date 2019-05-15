@@ -12,17 +12,22 @@ import './filmTab.scss';
 
 class FilmTab extends Component {
 
-    onSubmit = (values) => {
-      this.props.addFilmInfo(values);
-    };
-
-    state = {
-      filmPoster: new FormData()
+    componentDidMount() {
+      if (this.props.isEditable) {
+        this.props.fetchFilm(this.props.match.params.id)
+      }
     }
 
+    onSubmit = (values) => {
+      if (this.props.isEditable) {
+        this.props.updateFilm(this.props.match.params.id, values);
+      } else {
+        this.props.addFilmInfo(values);
+      }
+    };
 
     render() {
-      const { handleSubmit, pristine, reset, submitting } = this.props;
+      const { handleSubmit, pristine, reset, submitting, isEditable } = this.props;
       return (
         <Form className="film-tab__form" onSubmit={handleSubmit(this.onSubmit)} noValidate>        
           <label className="film-tab__form-label" htmlFor="name">
@@ -59,15 +64,24 @@ class FilmTab extends Component {
               validate={[validators.isRequired]} 
             />
           </div>  */}
-          <label className="film-tab__form-label" htmlFor="photo">
-            {'Choose film poster'}
-            <Field 
-              name="photo" 
-              className="photo-form__field" 
-              component={ImageUploader} 
-              validate={[validators.isRequired]} 
-            />
-          </label>   
+          {
+            
+            isEditable ?
+            (
+              <img className="uploader__aside-container-image" src={this.props.initialValues.photo}/>
+            )
+            : (
+              <label className="film-tab__form-label" htmlFor="photo">
+              {'Choose film poster'}
+              <Field 
+                name="photo" 
+                className="photo-form__field" 
+                component={ImageUploader} 
+                validate={[validators.isRequired]} 
+              />
+            </label>   
+            )
+          }
           <div>
             <button className={`film-tab__button ${(pristine || submitting) && 'link-disabled'}`} type="submit" disabled={pristine || submitting}>Submit</button>
           </div>
@@ -77,14 +91,15 @@ class FilmTab extends Component {
 }
 
 const mapStateToProps = state => ({
-/*   initialValues: !state.adminReducer.filmInfo.name
-  ? { country: 'Russia' }
-  : {
-      name: state.adminReducer.filmInfo.name,
-      country: state.adminReducer.filmInfo.country,
-      city: state.adminReducer.filmInfo.city,
-      address: state.adminReducer.filmInfo.address,
-  }, */
+  initialValues: !!state.admin.film
+  ?
+  {
+      name: state.admin.film.film_info.filmName,
+      description: state.admin.film.film_info.description,
+      photo: state.admin.film.film_info.poster_path,
+  }: '', 
+  film: state.admin.film,
+ // isEditable: !!state.admin.film,
 
 });
 

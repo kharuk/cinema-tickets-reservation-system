@@ -24,12 +24,28 @@ function saveImages(formData) {
   });
 }
 
-function createFilm(film) {
+function removeFilm(id) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.delete(`http://localhost:8080/api/films/${id}`, options);
+}
 
+function updateFilm(id, data) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.put(`http://localhost:8080/api/films/${id}`, { ...data }, options);
+}
+
+function getFilm(id) {
+  const options = addToken();
+  // eslint-disable-next-line no-underscore-dangle
+  return axios.get(`http://localhost:8080/api/films/${id}`, options);
 }
 
 export default {
   addFilm,
   saveImages,
-  createFilm
+  removeFilm,
+  updateFilm,
+  getFilm
 };

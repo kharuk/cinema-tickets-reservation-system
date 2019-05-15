@@ -11,6 +11,12 @@ export const adminReducer = (state = initialState, action) => {
     case adminTypes.RESET_FILM_INFO: {
       return initialState;
     }
+    case adminTypes.FETCH_FILM_BY_ID: {
+      return {
+        ...state,
+        film: data.film
+      }
+    }
   default:
     return state;
   }
