@@ -8,28 +8,28 @@ import './tool.scss';
 
 class Tool extends PureComponent {
     static defaultProps = {
-        className: '',
+      className: '',
     };
 
     static propTypes = {
-        handleClick: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        src: PropTypes.string.isRequired,
+      handleClick: PropTypes.func.isRequired,
+      className: PropTypes.string,
+      src: PropTypes.string.isRequired,
     };
 
     render() {
-        const { handleClick, className, src } = this.props;
+      const { handleClick, className, src } = this.props;
 
-        const toolClasses = classNames('tool', className);
+      const toolClasses = classNames('tool', className);
 
-        return (
-            <Button
-                className={toolClasses}
-                type="button"
-                src={src}
-                handleClick={handleClick}
-            />
-        );
+      return (
+        <Button
+          className={toolClasses}
+          type="button"
+          src={src}
+          handleClick={handleClick}
+        />
+      );
     }
 }
 

@@ -7,9 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FilmIcon from '@material-ui/icons/OndemandVideo';
 import CinemaIcon from '@material-ui/icons/Domain';
 import SessionPinIcon from '@material-ui/icons/Today';
-import {
-  withRouter, Route, NavLink, Redirect,
-} from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import TabContainer from './TabContainer';
 import ManageFilms from './ManageFilms';
 import ManageCinemas from './ManageCinemas';

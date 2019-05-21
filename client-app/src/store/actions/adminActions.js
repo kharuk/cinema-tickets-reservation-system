@@ -1,12 +1,11 @@
-import _ from 'lodash';
+import moment from 'moment';
 import { toastr } from 'react-redux-toastr';
 import { adminTypes } from './types';
-import adminServices from '../../services/adminSevices';
 import { links } from '../../config/links';
-import { history } from '../index';
-import moment from 'moment';
+import { history, store } from '../index';
+import adminServices from '../../services/adminServices';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
-import {store} from '../index.js';
+
 
 const showErrorToast = (err) => {
   const message = err.response && err.response.data.error ? err.response.data.error.message : `${err}`;
@@ -17,18 +16,18 @@ const showSuccessToast = (message) => {
   toastr.success(message);
 };
 
-export const addFilmInfo = (film) => async (dispatch) => {
+export const addFilmInfo = film => async (dispatch) => {
   try {
-    let image = film.photo[0];
-    let formData = new FormData();
-    formData.append('FilmPoster', image);     
+    const image = film.photo[0];
+    const formData = new FormData();
+    formData.append('FilmPoster', image);
     const {
-        data: { imagePath },
+      data: { imagePath },
     } = await adminServices.saveImages(formData);
 
     const newFilm = {
-        ...film,
-        imagePath: imagePath.src
+      ...film,
+      imagePath: imagePath.src,
     };
 
     const response = await adminServices.addFilm(newFilm);
@@ -41,123 +40,113 @@ export const addFilmInfo = (film) => async (dispatch) => {
     });
     showSuccessToast('Film created!');
     dispatch({
-        type: adminTypes.RESET_FILM_INFO,
+      type: adminTypes.RESET_FILM_INFO,
     });
- 
+
     history.push(links.MANAGE_MOVIES);
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-}
+};
 
-export const removeItem = (id) => async (dispatch) => {
+export const removeItem = id => async () => {
   try {
     const response = await adminServices.removeFilm(id);
     if (response.data.isSuccessfully) {
-      showSuccessToast('Film deleted!'); 
-    }  
+      showSuccessToast('Film deleted!');
+    }
     history.push(links.MANAGE_MOVIES);
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-
-}
+};
 
 export const updateItem = (id, film) => async (dispatch) => {
   try {
-    film.imagePath=film.photo
+    film.imagePath = film.photo;
     const response = await adminServices.updateFilm(id, film);
     if (response.data.isSuccessfully) {
-      showSuccessToast('Film updated!'); 
+      showSuccessToast('Film updated!');
     }
     dispatch({
       type: adminTypes.RESET_FILM_INFO,
-    });  
+    });
     history.push(links.MANAGE_MOVIES);
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
+};
 
-}
-
-export const fetchFilm = (id) => async (dispatch) => {
+export const fetchFilm = id => async (dispatch) => {
   try {
-    console.log('qwerty');
     const response = await adminServices.getFilm(id);
-    console.log(response);
     if (response.data.isSuccessfully) {
-     dispatch({
-      type: adminTypes.FETCH_FILM_BY_ID,
-      payload: {
-        film: response.data.result,
-      },
-    }); 
-  }
+      dispatch({
+        type: adminTypes.FETCH_FILM_BY_ID,
+        payload: {
+          film: response.data.result,
+        },
+      });
+    }
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-}
+};
 
 export const fetchSessions = () => async (dispatch) => {
   try {
     dispatch({
       type: adminTypes.RESET_FILM_INFO,
-    });  
-    console.log('fetchSessions');
+    });
     const response = await adminServices.getAllSessions();
-
-    const {allFilmList, allCinemaList} = searchFilmActionHelpers.getAllFilmList(store.getState().search.films);
-    console.log(response);
+    const { allFilmList, allCinemaList } = searchFilmActionHelpers.getAllFilmList(store.getState().search.films);
     if (response.data.isSuccessfully) {
-     dispatch({
-      type: adminTypes.FETCH_SESSION,
-      payload: {
-        sessions: response.data.sessions,
-        allFilmList,
-        allCinemaList
-      },
-    }); 
-  }
+      dispatch({
+        type: adminTypes.FETCH_SESSION,
+        payload: {
+          sessions: response.data.sessions,
+          allFilmList,
+          allCinemaList,
+        },
+      });
+    }
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-}
+};
 
-export const fetchSession = (id) => async (dispatch) => {
+export const fetchSession = id => async (dispatch) => {
   try {
     const response = await adminServices.getSession(id);
-    console.log(response);
     if (response.data.isSuccessfully) {
-     dispatch({
-      type: adminTypes.FETCH_SESSION_BY_ID,
-      payload: {
-        session: response.data.result,
-      },
-    }); 
-  }
+      dispatch({
+        type: adminTypes.FETCH_SESSION_BY_ID,
+        payload: {
+          session: response.data.result,
+        },
+      });
+    }
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-}
+};
 
-export const addSessionInfo = (session) => async (dispatch) => {
+export const addSessionInfo = session => async (dispatch) => {
   try {
-  
     session.date = moment(moment.now()).add(1, 'day');
     session.session_info = {
-      "seat_type": {
-        "vip": 7,
-        "default": 3
+      seat_type: {
+        vip: 7,
+        default: 3,
       },
-      "extra_services": {
-        "popcorn": 1,
-        "cola": 1,
-        "juce": 3,
-        "marshmallow": 2
-      }
-    }
-    console.log(session);
-     const response = await adminServices.addSession(session);
+      extra_services: {
+        popcorn: 1,
+        cola: 1,
+        juice: 3,
+        marshmallow: 2,
+      },
+    };
+    const response = await adminServices.addSession(session);
     dispatch({
       type: adminTypes.ADD_SESSION,
       payload: {
@@ -166,46 +155,38 @@ export const addSessionInfo = (session) => async (dispatch) => {
     });
     showSuccessToast('Session created!');
     dispatch({
-        type: adminTypes.RESET_SESSION_INFO,
-    }); 
+      type: adminTypes.RESET_SESSION_INFO,
+    });
 
     history.push(links.MANAGE_SESSIONS);
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-}
+};
 
-export const removeSession = (id) => async (dispatch) => {
+export const removeSession = id => async () => {
   try {
     const response = await adminServices.removeSession(id);
-    console.log(response);
     if (response.data.isSuccessfully) {
-      showSuccessToast('Session deleted!'); 
-    } 
+      showSuccessToast('Session deleted!');
+    }
     history.push(links.MANAGE_SESSIONS);
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-
-}
+};
 
 export const updateSession = (id, session) => async (dispatch) => {
   try {
     const response = await adminServices.updateSession(id, session);
     if (response.data.isSuccessfully) {
-      showSuccessToast('Session updated!'); 
+      showSuccessToast('Session updated!');
     }
     dispatch({
       type: adminTypes.RESET_SESSION_INFO,
-    });  
+    });
     history.push(links.MANAGE_SESSIONS);
   } catch (err) {
-      showErrorToast(err);
+    showErrorToast(err);
   }
-
-}
-
-/* export const userActions = {
-  addFilmInfo,
-  removeItem
-}; */
+};

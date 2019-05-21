@@ -134,11 +134,11 @@ class SeatsSelectionPage extends Component {
           .then((res) => {
             if (res.data.isSuccessfully) {
               localSeats[seatInfo.row][seatInfo.column].chosen = !localSeats[seatInfo.row][seatInfo.column].chosen;
-              this.setState({
+              this.setState(state => ({
                 seats: localSeats,
-                chosenSeats: this.updateChosenSeats(seatInfo, this.state.chosenSeats),
+                chosenSeats: this.updateChosenSeats(seatInfo, state.chosenSeats),
                 isLoading: true,
-              });
+              }));
             } else {
               toastr.warning(res.data.data);
               localSeats[seatInfo.row][seatInfo.column].booked = true;
@@ -180,21 +180,21 @@ class SeatsSelectionPage extends Component {
 
   handleExtraServicesSelect = extra => (event) => {
     const count = event.target.value;
-    this.setState({
-      chosenExtraServices: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, count, true),
-    });
+    this.setState(state => ({
+      chosenExtraServices: this.updateChosenExtraServices(state.chosenExtraServices, extra, count, true),
+    }));
   };
 
   handleCheckBoxChanged = (extra, isSelect) => {
-    this.setState({
-      chosenExtraService: this.updateChosenExtraServices(this.state.chosenExtraServices, extra, 1, isSelect),
-    });
+    this.setState(state => ({
+      chosenExtraService: this.updateChosenExtraServices(state.chosenExtraServices, extra, 1, isSelect),
+    }));
   };
 
   handleConfirmReservation = () => {
     reservationServices
       .bookSessionSeats(this.props.match.params.id, this.state.chosenSeats)
-      .then((res) => {
+      .then(() => {
         this.props.addOrder(this.props.session, this.state.chosenSeats, this.state.chosenExtraServices);
         this.setState({
           isConfirmOrder: true,

@@ -106,7 +106,6 @@ class ProfilePage extends Component {
 
 const mapStateToProps = state => ({
   orders: state.order.orderList,
-  // ordersFiltredByDate: getOrdersFiltredByDate(state.order),
   userInfo: state.user.userInfo,
   currentPage: state.order.currentPage,
   nextPage: state.order.nextPage,

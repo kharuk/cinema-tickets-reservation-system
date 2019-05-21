@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
-import Header from '../components/Authentication/Header';
 import { connect } from 'react-redux';
-import '../components/Session/session.scss';
+import { Route } from 'react-router-dom';
 import AddFilmForm from '../admin/ManageFilms/CreateFilm';
 import FilmList from '../admin/ManageFilms/FilmList';
 import ShowContent from '../admin/ShowContent';
-import {
-  withRouter, Route, Switch,
-} from 'react-router-dom';
-
+import Header from '../components/Authentication/Header';
 import { fetchFilms } from '../store/actions/searchFilmAction';
-import { removeItem, updateItem, fetchFilm } from '../store/actions/adminActions'
+import { removeItem, updateItem, fetchFilm } from '../store/actions/adminActions';
 import { links } from '../config/links';
+import '../components/Session/session.scss';
 
 
 class ManageFilms extends Component {
-
   render() {
-    let {films, removeItem, updateItem, fetchFilm, fetchFilms} = this.props;
+    const {
+      films, removeItem, updateItem, fetchFilm, fetchFilms,
+    } = this.props;
     return (
       <section className="page-content">
         <div className="container">
           <Header header="Film" />
           <ShowContent>
             <Route
-              exact path={links.MANAGE_MOVIES}
+              exact
+              path={links.MANAGE_MOVIES}
               render={props => (
                 <FilmList
                   {...props}
@@ -33,24 +32,26 @@ class ManageFilms extends Component {
                   updateItem={updateItem}
                   fetchFilms={fetchFilms}
                 />
-              )}  
-            /> 
+              )}
+            />
             <Route
-              exact path={links.ADD_FILM}
+              exact
+              path={links.ADD_FILM}
               component={AddFilmForm}
-            /> 
+            />
             <Route
-              exact path={links.UPDATE_FILM}
+              exact
+              path={links.UPDATE_FILM}
               render={props => (
                 <AddFilmForm
-                {...props}
-                fetchFilm={fetchFilm}
-                updateFilm={updateItem}
-                isEditable={true}
+                  {...props}
+                  fetchFilm={fetchFilm}
+                  updateFilm={updateItem}
+                  isEditable
                 />
               )}
 
-            /> 
+            />
           </ShowContent>
         </div>
       </section>
@@ -64,9 +65,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchFilms: () => dispatch(fetchFilms()),
-  removeItem: (id) => dispatch(removeItem(id)),
+  removeItem: id => dispatch(removeItem(id)),
   updateItem: (id, data) => dispatch(updateItem(id, data)),
-  fetchFilm: (id) => dispatch(fetchFilm(id))
+  fetchFilm: id => dispatch(fetchFilm(id)),
 });
 
 

@@ -6,7 +6,7 @@ import AccountSettings from './AccountSettings' */
 
 const ShowContent = props => (
   <div>
-      {props.children}
+    {props.children}
   </div>
 );
 
