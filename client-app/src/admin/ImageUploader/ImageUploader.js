@@ -1,15 +1,19 @@
-import React, { PureComponent } from 'react';
+/* eslint-disable no-unused-expressions */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import Dropzone from 'react-dropzone';
+import defaultImage from '../../images/default-movie-poster.jpg';
+import localStorageHelper from '../../helper/LocalStorageHelpers';
 import Tool from '../../shared/Tool/Tool';
-
 import './imageUploader.scss';
 
-class ImageUploader extends PureComponent {
+class ImageUploader extends Component {
     static defaultProps = {
       className: '',
+      // imagePath: defaultImage
     };
 
     static propTypes = {
@@ -18,45 +22,69 @@ class ImageUploader extends PureComponent {
         onChange: PropTypes.func.isRequired,
       }).isRequired,
       meta: PropTypes.shape().isRequired,
+
     };
 
     state = {
-      images: [],
+      imagePath: null,
     };
+
 
     componentDidMount() {
-      /*         const {
-            input: { value }
-        } = this.props; */
-      /*         this.props.input.value && this.setState(state => ({
-            images: [
-               { src:  this.props.input.value},
-                //...this.props.input.value.map(file => Object.assign(file, { src: URL.createObjectURL(file) }) ),
-            ]
-        }))
-        this.props.input.onChange(this.state.images);  */
+      window.addEventListener('beforeunload', () => localStorageHelper.saveStateToLocalStorage(this.state));
+      this.hydrateStateWithLocalStorage();
+      if (this.props.uploadedFile) {
+        this.setState({
+          imagePath: { src: this.props.uploadedFile.photo },
+        });
+      }
     }
 
-    handleDrop = (acceptedFiles) => {
-      console.log('acceptedFiles', acceptedFiles);
-      this.setState(state => ({
-        images: [
-          ...state.images,
-          ...acceptedFiles.map(file => Object.assign(file, { src: URL.createObjectURL(file) })),
-        ],
-      }));
+    componentWillUnmount() {
+      window.removeEventListener('beforeunload', () => localStorageHelper.saveStateToLocalStorage(this.state));
+      localStorageHelper.removeStateFromLocalStorage(this.state);
+    }
 
-      this.props.input.onChange(this.state.images);
+    /*  saveStateToLocalStorage = () => {
+      for (const key in this.state) {
+        localStorage.setItem(key, JSON.stringify(this.state[key]));
+      }
     };
 
-    removeItem = removingFile => () => {
-      const newFiles = this.state.images.filter(file => file !== removingFile);
+    removeStateFromLocalStorage = () => {
+      for (const key in this.state) {
+        localStorage.removeItem(key, JSON.stringify(this.state[key]));
+      }
+    };
+ */
 
-      this.setState(() => ({
-        images: newFiles,
-      }));
+    hydrateStateWithLocalStorage = () => {
+      for (const key in this.state) {
+        if (localStorage.hasOwnProperty(key)) {
+          let value = localStorage.getItem(key);
+          try {
+            value = JSON.parse(value);
+            this.setState({ [key]: value });
+          } catch (e) {
+            this.setState({ [key]: value });
+          }
+        }
+      }
+    };
 
-      this.props.input.onChange(newFiles.length > 0 ? newFiles : null);
+    handleDrop = (acceptedFiles) => {
+      this.setState({
+        imagePath: Object.assign(acceptedFiles[0], { src: URL.createObjectURL(acceptedFiles[0]) }),
+      });
+
+      this.props.input.onChange(acceptedFiles[0]);
+    };
+
+    removeItem = () => {
+      this.setState({
+        imagePath: null,
+      });
+      this.props.input.onChange(null);
     };
 
     renderUploader = ({ getRootProps, getInputProps }) => {
@@ -77,20 +105,23 @@ class ImageUploader extends PureComponent {
         <section className={uploaderClasses}>
           <div {...getRootProps()}>
             <input {...getInputProps()} />
-            <p className={activeZoneClasses}>Drag `n` drop photos here, or click to select photos</p>
+            <p className={activeZoneClasses}>Drag `n` drop photo here, or click to select photos</p>
           </div>
-          {this.state.images.length > 0 && (
+          {this.props.input.value && (
             <aside className="uploader__aside">
-              {this.state.images.map((file, index) => (
-                <div className="uploader__aside-container" key={index}>
+              {
+                this.state.imagePath
+              && (
+                <div className="uploader__aside-container">
                   <Tool
                     src="/images/delete.png"
                     className="uploader__aside-container-delete"
-                    handleClick={this.removeItem(file)}
+                    handleClick={() => this.removeItem(this.state.imagePath)}
                   />
-                  <img className="uploader__aside-container-image" src={file.src} alt="hotel" />
+                  <img className="uploader__aside-container-image" src={this.state.imagePath.src} alt="film poster" />
                 </div>
-              ))}
+              )
+              }
             </aside>
           )}
         </section>
@@ -99,7 +130,11 @@ class ImageUploader extends PureComponent {
 
     render() {
       return (
-        <Dropzone onDrop={this.handleDrop} accept="image/*">
+        <Dropzone
+          onDrop={this.handleDrop}
+          accept="image/*"
+          multiple={false}
+        >
           {this.renderUploader}
         </Dropzone>
       );

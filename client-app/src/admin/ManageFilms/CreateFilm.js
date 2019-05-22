@@ -18,7 +18,7 @@ class FilmTab extends Component {
 
     onSubmit = (values) => {
       if (this.props.isEditable) {
-        this.props.updateFilm(this.props.match.params.id, values);
+        this.props.updateFilm(this.props.match.params.id, values, this.props.initialValues.photo);
       } else {
         this.props.addFilmInfo(values);
       }
@@ -65,23 +65,21 @@ class FilmTab extends Component {
             />
           </div>  */}
           {
-
-            isEditable
-              ? (
-                <img className="uploader__aside-container-image" alt="" src={this.props.initialValues.photo} />
-              )
-              : (
-                <label className="film-tab__form-label" htmlFor="photo">
-                  {'Choose film poster'}
-                  <Field
-                    name="photo"
-                    className="photo-form__field"
-                    component={ImageUploader}
-                    validate={[validators.isRequired]}
-                  />
-                </label>
-              )
+            ((isEditable && this.props.initialValues) || !isEditable)
+            && (
+              <label className="film-tab__form-label" htmlFor="photo">
+                {'Choose film poster'}
+                <Field
+                  name="photo"
+                  className="film-tab__form-field"
+                  component={ImageUploader}
+                  validate={[validators.isRequired]}
+                  uploadedFile={this.props.initialValues}
+                />
+              </label>
+            )
           }
+
           <div>
             <button className={`film-tab__button ${(pristine || submitting) && 'link-disabled'}`} type="submit" disabled={pristine || submitting}>Submit</button>
           </div>

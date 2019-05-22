@@ -20,6 +20,11 @@ function saveImages(formData) {
   return axios.post('http://localhost:8080/api/images', formData);
 }
 
+function removeImages(img) {
+  console.log('formData', img);
+  return axios.delete(img);
+}
+
 function removeFilm(id) {
   const options = addToken();
   // eslint-disable-next-line no-underscore-dangle
@@ -65,7 +70,7 @@ function getSession(id) {
 function getAllSessions() {
   const options = addToken();
   // eslint-disable-next-line no-underscore-dangle
-  return axios.get(`http://localhost:8080/api/sessions`, options);
+  return axios.get('http://localhost:8080/api/sessions', options);
 }
 
 export default {
@@ -78,5 +83,6 @@ export default {
   removeSession,
   updateSession,
   getSession,
-  getAllSessions
+  getAllSessions,
+  removeImages,
 };

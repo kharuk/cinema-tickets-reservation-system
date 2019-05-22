@@ -16,20 +16,33 @@ const showSuccessToast = (message) => {
   toastr.success(message);
 };
 
+function isDelete(url) {
+  return url.indexOf('https') === -1;
+}
+
+const sendPhoto = async (photo) => {
+  const image = photo;
+  const formData = new FormData();
+  formData.append('FilmPoster', image);
+  const {
+    data: { imagePath },
+  } = await adminServices.saveImages(formData);
+  return imagePath;
+};
+
+const removePhoto = async (photo) => {
+  const { data } = await adminServices.removeImages(photo);
+  return data;
+};
+
 export const addFilmInfo = film => async (dispatch) => {
   try {
-    const image = film.photo[0];
-    const formData = new FormData();
-    formData.append('FilmPoster', image);
-    const {
-      data: { imagePath },
-    } = await adminServices.saveImages(formData);
+    const imagePath = await sendPhoto(film.photo);
 
     const newFilm = {
       ...film,
       imagePath: imagePath.src,
     };
-
     const response = await adminServices.addFilm(newFilm);
 
     dispatch({
@@ -61,9 +74,17 @@ export const removeItem = id => async () => {
   }
 };
 
-export const updateItem = (id, film) => async (dispatch) => {
+export const updateItem = (id, film, previousPhoto) => async (dispatch) => {
   try {
-    film.imagePath = film.photo;
+    if (film.photo !== previousPhoto) {
+      const imagePath = await sendPhoto(film.photo);
+      if (isDelete(previousPhoto)) {
+        await removePhoto(previousPhoto);
+      }
+      film.imagePath = imagePath.src;
+    } else {
+      film.imagePath = film.photo;
+    }
     const response = await adminServices.updateFilm(id, film);
     if (response.data.isSuccessfully) {
       showSuccessToast('Film updated!');
