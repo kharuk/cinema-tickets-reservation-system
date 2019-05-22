@@ -12,7 +12,7 @@ class Tool extends PureComponent {
     };
 
     static propTypes = {
-      handleClick: PropTypes.func.isRequired,
+      // handleClick: PropTypes.func.isRequired,
       className: PropTypes.string,
       src: PropTypes.string.isRequired,
     };

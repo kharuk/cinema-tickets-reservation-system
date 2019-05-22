@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import './textInput.scss';
 
 class TextInput extends PureComponent {
@@ -58,7 +57,7 @@ class TextInput extends PureComponent {
 
       return (
         <div>
-            <div className={textInputClasses}>
+          <div className={textInputClasses}>
             {!rows ? (
               <input
                 className="text-input__input"
@@ -83,8 +82,8 @@ class TextInput extends PureComponent {
             ) }
             {icon && <span className={`text-input__icon ${icon}`} />}
           </div>
-            {(touched && error) && <span className="text-input__error">{`${essence} ${error}`}</span>}
-          </div>
+          {(touched && error) && <span className="text-input_error">{`${essence} ${error}`}</span>}
+        </div>
       );
     }
 }

@@ -66,7 +66,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchFilms: () => dispatch(fetchFilms()),
   removeItem: id => dispatch(removeItem(id)),
-  updateItem: (id, data) => dispatch(updateItem(id, data)),
+  updateItem: (id, data, previousPhoto) => dispatch(updateItem(id, data, previousPhoto)),
   fetchFilm: id => dispatch(fetchFilm(id)),
 });
 
