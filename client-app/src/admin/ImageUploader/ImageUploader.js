@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
-import defaultImage from '../../images/default-movie-poster.jpg';
+// import defaultImage from '../../images/default-movie-poster.jpg';
 import localStorageHelper from '../../helper/LocalStorageHelpers';
 import Tool from '../../shared/Tool/Tool';
 import './imageUploader.scss';
@@ -60,6 +60,7 @@ class ImageUploader extends Component {
 
     hydrateStateWithLocalStorage = () => {
       for (const key in this.state) {
+        // eslint-disable-next-line no-prototype-builtins
         if (localStorage.hasOwnProperty(key)) {
           let value = localStorage.getItem(key);
           try {

@@ -26,7 +26,7 @@ class FilmTab extends Component {
 
     render() {
       const {
-        handleSubmit, pristine, reset, submitting, isEditable,
+        handleSubmit, pristine, submitting, isEditable,
       } = this.props;
       return (
         <Form className="film-tab__form" onSubmit={handleSubmit(this.onSubmit)} noValidate>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultImage from '../../images/default-movie-poster.jpg';
 import Tool from '../../shared/Tool/Tool';
-import { links, linkGenerator } from '../../config/links';
+import { linkGenerator } from '../../config/links';
 
 import './filmTab.scss';
 
@@ -14,12 +14,12 @@ const FilmInfo = props => (
         className="uploader__aside-container-delete"
         handleClick={() => props.removeItem(props.id)}
       />
-      { <Link to={linkGenerator.getFilmLink(props.id)}>
+      <Link to={linkGenerator.getFilmLink(props.id)}>
         <Tool
           src="/images/edit.png"
           className="uploader__aside-container-update"
         />
-        </Link> }
+      </Link>
 
       <div
         className="film-info__container"

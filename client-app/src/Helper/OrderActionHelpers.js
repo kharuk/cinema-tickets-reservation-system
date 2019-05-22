@@ -24,14 +24,15 @@ class OrderAction {
   sortOrdersByDate = (orders) => {
     const currentOrders = [];
     const previousOrders = [];
-    orders
-      && orders.forEach((order) => {
+    if (orders) {
+      orders.forEach((order) => {
         if (moment(order.date) >= moment()) {
           currentOrders.push(order);
         } else {
           previousOrders.push(order);
         }
       });
+    }
     return { currentOrders, previousOrders };
   };
 }
