@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, Form } from 'redux-form';
+import PropTypes from 'prop-types';
 import TextInput from '../../shared/TextInput/TextInput';
 import ImageUploader from '../ImageUploader/ImageUploader';
 import * as validators from '../../helper/Validators';
@@ -7,6 +8,19 @@ import './filmTab.scss';
 
 
 class FilmTab extends Component {
+  static defaultProps = {
+    initialValues: null,
+  };
+
+  static propTypes = {
+    initialValues: PropTypes.shape({
+      name: PropTypes.string,
+      description: PropTypes.string,
+      photo: PropTypes.string,
+
+    }),
+  };
+
   onSubmit = (values) => {
     if (this.props.isEditable) {
       this.props.updateFilm(this.props.film._id, values, this.props.initialValues.photo);
