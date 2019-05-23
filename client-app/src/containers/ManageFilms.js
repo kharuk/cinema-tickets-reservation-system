@@ -2,19 +2,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import AddFilmForm from '../admin/ManageFilms/CreateFilm';
+import CreateFilmContainer from './CreateFilmContainer';
 import FilmList from '../admin/ManageFilms/FilmList';
 import ShowContent from '../admin/ShowContent';
 import Header from '../components/Authentication/Header';
 import { fetchFilms } from '../store/actions/searchFilmAction';
-import { removeItem, updateItem, fetchFilm } from '../store/actions/adminActions';
+import {
+  removeItem, updateItem, addFilmInfo, startEditingItem,
+} from '../store/actions/adminActions';
 import { links } from '../config/links';
 import '../components/Session/session.scss';
 
 
 const ManageFilms = (props) => {
   const {
-    films, removeItem, updateItem, fetchFilm, fetchFilms,
+    films, removeItem, updateItem, addFilmInfo, fetchFilms, startEditingItem,
   } = props;
   return (
     <section className="page-content">
@@ -29,23 +31,28 @@ const ManageFilms = (props) => {
                 {...props}
                 filmList={films}
                 removeItem={removeItem}
-                updateItem={updateItem}
                 fetchFilms={fetchFilms}
+                startEditingItem={startEditingItem}
               />
             )}
           />
           <Route
             exact
             path={links.ADD_FILM}
-            component={AddFilmForm}
+            render={props => (
+              <CreateFilmContainer
+                {...props}
+                addFilmInfo={addFilmInfo}
+              />
+            )}
+
           />
           <Route
             exact
             path={links.UPDATE_FILM}
             render={props => (
-              <AddFilmForm
+              <CreateFilmContainer
                 {...props}
-                fetchFilm={fetchFilm}
                 updateFilm={updateItem}
                 isEditable
               />
@@ -65,7 +72,8 @@ const mapDispatchToProps = dispatch => ({
   fetchFilms: () => dispatch(fetchFilms()),
   removeItem: id => dispatch(removeItem(id)),
   updateItem: (id, data, previousPhoto) => dispatch(updateItem(id, data, previousPhoto)),
-  fetchFilm: id => dispatch(fetchFilm(id)),
+  addFilmInfo: data => dispatch(addFilmInfo(data)),
+  startEditingItem: id => dispatch(startEditingItem(id)),
 });
 
 

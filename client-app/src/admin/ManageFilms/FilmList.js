@@ -26,10 +26,10 @@ class FilmInfoContainer extends Component {
                 item => (
                   <FilmItem
                     removeItem={this.props.removeItem}
-                    updateItem={this.props.updateItem}
                     film={item.film_info}
                     key={item._id}
                     id={item._id}
+                    startEditingItem={this.props.startEditingItem}
                   />
                 ),
               )}

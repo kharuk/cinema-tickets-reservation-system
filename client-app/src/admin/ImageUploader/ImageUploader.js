@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
-// import defaultImage from '../../images/default-movie-poster.jpg';
 import localStorageHelper from '../../helper/LocalStorageHelpers';
 import Tool from '../../shared/Tool/Tool';
 import './imageUploader.scss';
@@ -13,7 +12,6 @@ import './imageUploader.scss';
 class ImageUploader extends Component {
     static defaultProps = {
       className: '',
-      // imagePath: defaultImage
     };
 
     static propTypes = {
@@ -44,19 +42,6 @@ class ImageUploader extends Component {
       window.removeEventListener('beforeunload', () => localStorageHelper.saveStateToLocalStorage(this.state));
       localStorageHelper.removeStateFromLocalStorage(this.state);
     }
-
-    /*  saveStateToLocalStorage = () => {
-      for (const key in this.state) {
-        localStorage.setItem(key, JSON.stringify(this.state[key]));
-      }
-    };
-
-    removeStateFromLocalStorage = () => {
-      for (const key in this.state) {
-        localStorage.removeItem(key, JSON.stringify(this.state[key]));
-      }
-    };
- */
 
     hydrateStateWithLocalStorage = () => {
       for (const key in this.state) {

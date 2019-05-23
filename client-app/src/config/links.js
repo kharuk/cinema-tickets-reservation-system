@@ -16,7 +16,7 @@ export const links = {
   ADD_FILM: '/admin/films/create',
   UPDATE_FILM: '/admin/films/:id/update',
   ADD_SESSION: '/admin/sessions/create',
-  UPDATE_SESSION: '/admin/sessions/:id/update'
+  UPDATE_SESSION: '/admin/sessions/:id/update',
 };
 
 export const linkGenerator = {

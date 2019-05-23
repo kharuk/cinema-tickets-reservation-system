@@ -1,10 +1,11 @@
 import moment from 'moment';
 import { toastr } from 'react-redux-toastr';
 import { adminTypes } from './types';
-import { links } from '../../config/links';
+import { links, linkGenerator } from '../../config/links';
 import { history, store } from '../index';
 import adminServices from '../../services/adminServices';
 import searchFilmActionHelpers from '../../helper/SearchFilmActionHelpers';
+import adminActionHelper from '../../helper/AdminActionHelper';
 
 
 const showErrorToast = (err) => {
@@ -16,9 +17,6 @@ const showSuccessToast = (message) => {
   toastr.success(message);
 };
 
-function isDelete(url) {
-  return url.indexOf('https') === -1;
-}
 
 const sendPhoto = async (photo) => {
   const image = photo;
@@ -37,12 +35,14 @@ const removePhoto = async (photo) => {
 
 export const addFilmInfo = film => async (dispatch) => {
   try {
+    console.log(film);
     const imagePath = await sendPhoto(film.photo);
 
     const newFilm = {
       ...film,
       imagePath: imagePath.src,
     };
+    console.log(newFilm);
     const response = await adminServices.addFilm(newFilm);
 
     dispatch({
@@ -78,7 +78,7 @@ export const updateItem = (id, film, previousPhoto) => async (dispatch) => {
   try {
     if (film.photo !== previousPhoto) {
       const imagePath = await sendPhoto(film.photo);
-      if (isDelete(previousPhoto)) {
+      if (adminActionHelper.isRemovable(previousPhoto)) {
         await removePhoto(previousPhoto);
       }
       film.imagePath = imagePath.src;
@@ -113,6 +113,12 @@ export const fetchFilm = id => async (dispatch) => {
     showErrorToast(err);
   }
 };
+
+export const startEditingItem = id => (dispatch) => {
+  dispatch(fetchFilm(id));
+  history.push(linkGenerator.getFilmLink(id));
+};
+
 
 export const fetchSessions = () => async (dispatch) => {
   try {
