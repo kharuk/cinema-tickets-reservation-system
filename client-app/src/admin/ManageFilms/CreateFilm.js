@@ -86,7 +86,13 @@ class FilmTab extends Component {
         }
 
         <div>
-          <button className={`film-tab__button ${(pristine || submitting) && 'link-disabled'}`} type="submit" disabled={pristine || submitting}>Submit</button>
+          <button
+            className={`film-tab__button ${(pristine || submitting) && 'link-disabled'}`}
+            type="submit"
+            disabled={pristine || submitting}
+          >
+            Submit
+          </button>
         </div>
       </Form>
     );

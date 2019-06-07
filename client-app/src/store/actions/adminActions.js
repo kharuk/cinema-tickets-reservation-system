@@ -160,6 +160,7 @@ export const fetchSession = id => async (dispatch) => {
 
 export const addSessionInfo = session => async (dispatch) => {
   try {
+    console.log('qwerty');
     session.date = moment(moment.now()).add(1, 'day');
     session.session_info = {
       seat_type: {
@@ -174,12 +175,13 @@ export const addSessionInfo = session => async (dispatch) => {
       },
     };
     const response = await adminServices.addSession(session);
-    dispatch({
+    console.log(response);
+    /*     dispatch({
       type: adminTypes.ADD_SESSION,
       payload: {
         session: response.result,
       },
-    });
+    }); */
     showSuccessToast('Session created!');
     dispatch({
       type: adminTypes.RESET_SESSION_INFO,

@@ -41,8 +41,8 @@ const SessionInfo = (props) => {
             <span>Day: {date}</span>
           </div>
           <div className="admin-session__item_text">
-            <span>Film name: {props.session.film.film_info.filmName}</span>
-            <span>Cinema: {props.session.cinema.cinemaName}</span>
+            <span>Film name: {props.session.film && props.session.film.film_info.filmName}</span>
+            <span>Cinema: {props.session.cinema && props.session.cinema.cinemaName}</span>
           </div>
         </div>
       </div>
